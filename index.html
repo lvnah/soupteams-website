@@ -263,11 +263,11 @@
             <div>
                 <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5"
                     data-i18n="label_username">Minecraft Username</label>
-                <input type="text" id="login-username-input" placeholder="Ex: Notch"
+                <input type="text" id="login-username-input" placeholder="Ex: Notch" maxlength="16"
                     class="w-full bg-black/40 border border-white/10 rounded-xl py-3 px-3.5 text-white placeholder-gray-600 text-[16px] focus:outline-none focus:border-gold transition-colors"
                     onkeydown="if(event.key === 'Enter') submitLogin()">
-                <p id="login-error" class="text-blood text-[10px] mt-1 hidden" data-i18n="error_username">Please enter
-                    your Minecraft username.</p>
+                <p id="login-error" class="text-blood text-[10px] mt-1 hidden" data-i18n="error_username">Please enter a
+                    valid username (max 16 chars, letters, numbers, _, -).</p>
             </div>
             <button onclick="submitLogin()"
                 class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] cursor-pointer"
@@ -327,12 +327,12 @@
         </div>
     </div>
 
-    <!-- NAVBAR ÉPURÉE ET PARFAITEMENT CENTRÉE -->
+    <!-- NAVBAR ÉLARGIE ET PARFAITEMENT ÉQUILIBRÉE -->
     <nav class="fixed w-full z-50 top-3 sm:top-5 px-3 sm:px-4 flex justify-center">
         <div
-            class="bg-[#0a0a0c]/85 backdrop-blur-md border border-white/15 rounded-full px-5 sm:px-8 py-3 flex items-center justify-between gap-6 shadow-2xl w-full max-w-xl transition-all hover:border-gold/40">
+            class="bg-[#0a0a0c]/85 backdrop-blur-md border border-white/15 rounded-full px-5 sm:px-8 py-3 flex items-center justify-between gap-4 sm:gap-6 shadow-2xl w-full max-w-2xl transition-all hover:border-gold/40">
             <a href="#" onclick="switchPage('home')"
-                class="text-base sm:text-lg font-black tracking-tight text-white uppercase drop-shadow-md shrink-0 cursor-pointer flex items-center">Soup<span
+                class="text-sm sm:text-base font-black tracking-tight text-white uppercase drop-shadow-md shrink-0 cursor-pointer flex items-center">Soup<span
                     class="text-gold">Teams</span></a>
             <div
                 class="hidden md:flex items-center gap-6 text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">
@@ -343,10 +343,10 @@
                 <a href="#boutique" onclick="switchPage('home');"
                     class="text-gold hover:text-yellow-400 transition-colors" data-i18n="nav_store">Store</a>
             </div>
-            <div class="flex items-center gap-3 shrink-0">
+            <div class="flex items-center shrink-0">
                 <div id="nav-auth-container" class="flex items-center">
                     <button onclick="openLoginModal()"
-                        class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer">
+                        class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
                         <i class="fa-solid fa-right-to-bracket text-[9px]"></i> <span data-i18n="btn_login">Login</span>
                     </button>
                 </div>
@@ -712,7 +712,7 @@
                         class="fab fa-discord text-sm"></i> Discord</a>
             </div>
 
-            <!-- Sélecteur de langue déplacé ici -->
+            <!-- Sélecteur de langue -->
             <div class="flex items-center gap-2">
                 <span class="text-[10px] text-gray-500 uppercase tracking-wider" data-i18n="lang_label">Language:</span>
                 <select id="lang-switcher" onchange="changeLanguage(this.value)"
@@ -761,7 +761,7 @@
                 select_vip: "Get VIP", select_elite: "Get Elite", popular: "Popular",
                 footer_rules: "Rules", footer_support: "Support", footer_disclaimer: "Not affiliated with Mojang AB.",
                 lang_label: "Language:", btn_login: "Login", login_title: "Minecraft Login", label_username: "Minecraft Username",
-                error_username: "Please enter your Minecraft username.", btn_login_submit: "Connect",
+                error_username: "Please enter a valid username (max 16 chars, letters, numbers, _, -).", btn_login_submit: "Connect",
                 status_logged_as: "Logged in as", summary_item: "Item:", summary_price: "Price:", summary_total: "Total:",
                 btn_pay: "Proceed to Checkout", secure_tebex: "Secure payment powered by Tebex",
                 seo_block_title: "SoupTeams : The Best Minecraft Soup PvP Server (1.8.8)",
@@ -793,8 +793,8 @@
                 elite_perk_1: "Pseudo en couleur Bleu Ciel", elite_perk_3: "Multiplicateur d'Or x1.5",
                 select_vip: "Obtenir VIP", select_elite: "Obtenir Elite", popular: "Populaire",
                 footer_rules: "Règlement", footer_support: "Support", footer_disclaimer: "Non affilié à Mojang AB.",
-                lang_label: "Langue :", btn_login: "Connexion", login_title: "Connexion Minecraft", label_username: "Pseudo Minecraft",
-                error_username: "Veuillez entrer votre pseudo Minecraft.", btn_login_submit: "Se connecter",
+                lang_label: "Langue :", btn_login: "Login", login_title: "Connexion Minecraft", label_username: "Pseudo Minecraft",
+                error_username: "Entrez un pseudo valide (max 16 car., lettres, chiffres, _, -).", btn_login_submit: "Se connecter",
                 status_logged_as: "Connecté en tant que", summary_item: "Article :", summary_price: "Prix :", summary_total: "Total :",
                 btn_pay: "Procéder au paiement", secure_tebex: "Paiement sécurisé par Tebex",
                 seo_block_title: "SoupTeams : Le meilleur serveur Minecraft Soup PvP (1.8.8)",
@@ -826,8 +826,8 @@
                 elite_perk_1: "Apodo de color azul", elite_perk_3: "Multiplicador de oro x1.5",
                 select_vip: "Obtenir VIP", select_elite: "Obtenir Elite", popular: "Popular",
                 footer_rules: "Reglas", footer_support: "Soporte", footer_disclaimer: "No afiliado a Mojang AB.",
-                lang_label: "Idioma:", btn_login: "Iniciar sesión", login_title: "Conexión de Minecraft", label_username: "Nombre de usuario",
-                error_username: "Por favor, introduce tu nombre de usuario.", btn_login_submit: "Conectar",
+                lang_label: "Idioma:", btn_login: "Login", login_title: "Conexión de Minecraft", label_username: "Nombre de usuario",
+                error_username: "Nombre inválido (máx 16 car., letras, números, _, -).", btn_login_submit: "Conectar",
                 status_logged_as: "Conectado como", summary_item: "Artículo:", summary_price: "Precio:", summary_total: "Total:",
                 btn_pay: "Proceder al pago", secure_tebex: "Pago seguro por Tebex",
                 seo_block_title: "SoupTeams : El mejor servidor de Minecraft Soup PvP (1.8.8)",
@@ -888,14 +888,14 @@
             if (loggedUser) {
                 container.innerHTML = `
                     <div class="flex items-center gap-1.5 sm:gap-2 bg-white/5 border border-white/10 rounded-full pl-1.5 sm:pl-2 pr-2 sm:pr-3 py-1">
-                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/32" alt="Skin" class="w-5 h-5 sm:w-6 sm:h-6 rounded-md object-cover">
-                        <span class="text-[11px] sm:text-xs font-bold text-white max-w-[80px] sm:max-w-[100px] truncate">${loggedUser}</span>
-                        <button onclick="logoutUser()" class="text-gray-400 hover:text-red-400 text-xs ml-0.5 transition-colors cursor-pointer" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/32" alt="Skin" class="w-5 h-5 sm:w-6 sm:h-6 rounded-md object-cover shrink-0">
+                        <span class="text-[11px] sm:text-xs font-bold text-white max-w-[70px] sm:max-w-[110px] truncate">${loggedUser}</span>
+                        <button onclick="logoutUser()" class="text-gray-400 hover:text-red-400 text-xs ml-0.5 transition-colors cursor-pointer shrink-0" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                 `;
             } else {
                 container.innerHTML = `
-                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer">
+                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
                         <i class="fa-solid fa-right-to-bracket text-[9px]"></i> <span data-i18n="btn_login">${loginText}</span>
                     </button>
                 `;
@@ -918,7 +918,15 @@
             const input = document.getElementById('login-username-input');
             const error = document.getElementById('login-error');
             const username = input.value.trim();
-            if (!username) { error.classList.remove('hidden'); input.focus(); return; }
+
+            const mcUsernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
+
+            if (!mcUsernameRegex.test(username)) {
+                error.classList.remove('hidden');
+                input.focus();
+                return;
+            }
+
             error.classList.add('hidden');
             loggedUser = username;
             localStorage.setItem('soup_username', username);
