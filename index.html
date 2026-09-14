@@ -407,7 +407,7 @@
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- Features Section (Hardcore Mechanics) -->
         <section id="features" class="py-16 md:py-24 relative z-10 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
@@ -463,6 +463,137 @@
                         <p class="text-gray-400 font-normal text-xs leading-relaxed" data-i18n="feat_3_desc">Regenerate
                             3.5 hearts per soup. Use classic recipes or craft soups directly with cactus and cocoa
                             beans.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION AIDE EN JEU & COMMANDES -->
+        <section class="py-16 md:py-24 relative border-t border-white/5 bg-black/20 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
+                    <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight"><span
+                            data-i18n="guide_title">In-Game</span> <span class="text-gold"
+                            data-i18n="guide_subtitle">Help & Commands</span></h2>
+                    <div class="w-12 h-1 bg-gold mx-auto rounded-full opacity-80 shadow-[0_0_10px_rgba(255,184,0,0.6)]">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                    <!-- Carte Teams (Logo corrigé) -->
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-100" style="--card-accent: #38BDF8;">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-sky/15 border border-sky/30 flex items-center justify-center text-sky text-base">
+                                <i class="fa-solid fa-users-rectangle"></i>
+                            </div>
+                            <h3 class="text-lg font-black uppercase text-white tracking-wide"
+                                data-i18n="guide_team_title">Teams System</h3>
+                        </div>
+                        <ul class="space-y-2 text-xs font-mono text-gray-300">
+                            <li><code class="text-sky font-bold">/t info</code> - <span class="font-sans text-gray-400"
+                                    data-i18n="cmd_t_info">View team information</span></li>
+                            <li><code class="text-sky font-bold">/t create [name]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_t_create">Create a clan</span></li>
+                            <li><code class="text-sky font-bold">/t leave</code> - <span class="font-sans text-gray-400"
+                                    data-i18n="cmd_t_leave">Leave your team</span></li>
+                            <li><code class="text-sky font-bold">/t kick [player]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_t_kick">Kick a player</span></li>
+                            <li><code class="text-sky font-bold">/t join [name]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_t_join">Join via invitation</span>
+                            </li>
+                            <li><code class="text-sky font-bold">/t hq</code> - <span class="font-sans text-gray-400"
+                                    data-i18n="cmd_t_hq">Teleport to team home</span></li>
+                            <li><code class="text-sky font-bold">/t sethq</code> - <span class="font-sans text-gray-400"
+                                    data-i18n="cmd_t_sethq">Set team home</span></li>
+                            <li><code class="text-sky font-bold">/t invite [player]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_t_invite">Invite a player</span></li>
+                            <li><code class="text-sky font-bold">/t disband</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_t_disband">Disband clan (Owner
+                                    only)</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Carte Go (Personal Warps) -->
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-200" style="--card-accent: #FFB800;">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold text-base">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <h3 class="text-lg font-black uppercase text-white tracking-wide"
+                                data-i18n="guide_go_title">Personal Warps (/go)</h3>
+                        </div>
+                        <ul class="space-y-2 text-xs font-mono text-gray-300 mb-4">
+                            <li><code class="text-gold font-bold">/go [name]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_go_teleport">Teleport to your
+                                    warp</span></li>
+                            <li><code class="text-gold font-bold">/go set [name]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_go_set">Set a personal warp</span>
+                            </li>
+                            <li><code class="text-gold font-bold">/go delete [name]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_go_delete">Delete a warp</span></li>
+                            <li><code class="text-gold font-bold">/go list</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_go_list">List your warps</span></li>
+                        </ul>
+                        <div
+                            class="bg-white/5 border border-white/10 rounded-xl p-3 text-[11px] text-gray-400 space-y-1">
+                            <p class="font-bold text-white"> <span data-i18n="tp_rules_title">Teleportation
+                                    Rules:</span></p>
+                            <p data-i18n="tp_rules_desc">For <code class="text-white">/t hq</code> & <code
+                                    class="text-white">/go</code>: Takes ~5 seconds. No player within 30 blocks radius.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Carte Spawn & Protection -->
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-300" style="--card-accent: #E11D48;">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-blood/15 border border-blood/30 flex items-center justify-center text-blood text-base">
+                                <i class="fa-solid fa-chess-rook"></i>
+                            </div>
+                            <h3 class="text-lg font-black uppercase text-white tracking-wide"
+                                data-i18n="guide_spawn_title">Spawn & Protection</h3>
+                        </div>
+                        <div class="space-y-3 text-xs text-gray-300 leading-relaxed">
+                            <p><code class="text-blood font-bold">/spawn</code> : <span data-i18n="spawn_desc">Takes 15
+                                    seconds of teleportation (if not in combat and no movement) and restores spawn
+                                    protection.</span></p>
+                            <p class="bg-white/5 border border-white/10 rounded-xl p-3 text-[11px] text-gray-400"
+                                data-i18n="spawn_prot_desc">
+                                <i class="fa-solid fa-shield text-blood mr-1"></i> <strong>Spawn Protection:</strong>
+                                Active at spawn. If you leave spawn and re-enter, PvP will be enabled for you inside the
+                                spawn area!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Carte Economy (Gold - Texte modifié) -->
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-400" style="--card-accent: #22c55e;">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-base">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <h3 class="text-lg font-black uppercase text-white tracking-wide"
+                                data-i18n="guide_eco_title">Gold Economy & Market</h3>
+                        </div>
+                        <ul class="space-y-2 text-xs font-mono text-gray-300 mb-3">
+                            <li><code class="text-emerald-400 font-bold">/balance</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_eco_balance">Check your gold
+                                    balance</span></li>
+                            <li><code class="text-emerald-400 font-bold">/deposit [qty]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_eco_deposit">Deposit gold ingots to
+                                    balance</span></li>
+                            <li><code class="text-emerald-400 font-bold">/buyview</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_eco_buyview">View available
+                                    sales</span></li>
+                            <li><code class="text-emerald-400 font-bold">/sell [id] [qty] [price]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_eco_sell">Sell items</span></li>
+                            <li><code class="text-emerald-400 font-bold">/buy [id] [qty]</code> - <span
+                                    class="font-sans text-gray-400" data-i18n="cmd_eco_buy">Buy items</span></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -695,7 +826,7 @@
         </div>
     </div>
 
-    <!-- FOOTER AVEC SÉLECTEUR DE LANGUE INTÉGRÉ -->
+    <!-- FOOTER -->
     <footer class="bg-black/60 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
         <div class="max-w-4xl mx-auto flex flex-col items-center gap-5">
             <h2 class="text-lg font-black text-white uppercase opacity-20 tracking-widest">Soup<span
@@ -752,6 +883,39 @@
                 feat_1_title: "Gold Economy", feat_1_desc: "Gold is king. Eliminate enemies, farm events, and purchase powerful gear directly with gold nuggets.",
                 feat_2_title: "Teams", feat_2_desc: "Create your team, claim territory, and climb the competitive monthly leaderboard for exclusive rewards.",
                 feat_3_title: "Soup Mechanics", feat_3_desc: "Regenerate 3.5 hearts per soup. Use classic recipes or craft soups directly with cactus and cocoa beans.",
+
+                guide_title: "In-Game", guide_subtitle: "Help & Commands",
+                guide_team_title: "Teams System",
+                cmd_t_info: "View team information",
+                cmd_t_create: "Create a clan",
+                cmd_t_leave: "Leave your team",
+                cmd_t_kick: "Kick a player",
+                cmd_t_join: "Join via invitation",
+                cmd_t_hq: "Teleport to team home",
+                cmd_t_sethq: "Set team home",
+                cmd_t_invite: "Invite a player",
+                cmd_t_disband: "Disband clan (Owner only)",
+
+                guide_go_title: "Personal Warps (/go)",
+                cmd_go_teleport: "Teleport to your warp",
+                cmd_go_set: "Set a personal warp",
+                cmd_go_delete: "Delete a warp",
+                cmd_go_list: "List your warps",
+                tp_rules_title: "Teleportation Rules:",
+                tp_rules_desc: "For /t hq & /go: Takes ~5s. No player within 30 blocks radius.",
+
+                guide_spawn_title: "Spawn & Protection",
+                spawn_desc: "Takes 15 seconds of teleportation (if not in combat and no movement) and restores spawn protection.",
+                spawn_prot_desc: "Spawn Protection: Active at spawn. Leaving and re-entering enables PvP for you inside spawn!",
+
+                guide_eco_title: "Gold Economy & Market",
+                cmd_eco_balance: "Check your gold balance",
+                cmd_eco_deposit: "Deposit gold ingots to balance",
+                cmd_eco_buyview: "View available sales",
+                cmd_eco_sell: "Sell items",
+                cmd_eco_buy: "Buy items",
+                eco_note: "Juste il faut miner et le fondre pour augmenter sa balance",
+
                 store_title: "Store", store_desc: "Support the server. Unlock perks.", visit_store: "Visit store",
                 default_badge: "Free Rank", forever: "/ forever", def_perk_1: "Standard white nickname",
                 def_perk_2: "Standard queue access", def_perk_3: "Gold multiplier x1.0", current_rank: "Current Rank",
@@ -785,6 +949,39 @@
                 feat_1_title: "Économie Or", feat_1_desc: "L’or est la monnaie principale du serveur. Vous pouvez en gagner de différentes façons : en minant, en pillant des TEAMS ou en participant aux événements.",
                 feat_2_title: "Teams", feat_2_desc: "Créez votre TEAM, revendiquez votre territoire et hissez-vous au sommet du classement mensuel.",
                 feat_3_title: "Mécaniques de Soup", feat_3_desc: "Régénérez 3,5 cœurs par soupe bue. Utilisez les crafts classiques ou fabriquez vos soupes directement à l'aide de cactus et de fèves de cacao.",
+
+                guide_title: "Aide & Commandes", guide_subtitle: "Guide en Jeu",
+                guide_team_title: "Système de Teams",
+                cmd_t_info: "Voir les informations du clan",
+                cmd_t_create: "Créer un clan",
+                cmd_t_leave: "Quitter votre team",
+                cmd_t_kick: "Exclure un joueur",
+                cmd_t_join: "Rejoindre (sur invitation)",
+                cmd_t_hq: "Se téléporter au home du clan",
+                cmd_t_sethq: "Définir le home du clan",
+                cmd_t_invite: "Inviter un joueur",
+                cmd_t_disband: "Dissoudre le clan (Owner)",
+
+                guide_go_title: "Warps Personnels (/go)",
+                cmd_go_teleport: "Se téléporter à son go",
+                cmd_go_set: "Définir un go personnel",
+                cmd_go_delete: "Supprimer un go",
+                cmd_go_list: "Lister vos go",
+                tp_rules_title: "Règles de téléportation :",
+                tp_rules_desc: "Pour /t hq & /go : ~5s de délai. Aucun joueur à moins de 30 blocs.",
+
+                guide_spawn_title: "Spawn & Protection",
+                spawn_desc: "15 secondes de téléportation (si hors combat et sans bouger) et redonne la protection de spawn.",
+                spawn_prot_desc: "Protection de spawn : Active au spawn. Si vous sortez et rerentrez, le PvP sera activé pour vous à l'intérieur !",
+
+                guide_eco_title: "Économie Or & Marché",
+                cmd_eco_balance: "Voir son solde d'or",
+                cmd_eco_deposit: "Déposer des lingots en balance",
+                cmd_eco_buyview: "Voir les ventes disponibles",
+                cmd_eco_sell: "Vendre des objets",
+                cmd_eco_buy: "Acheter des objets",
+                eco_note: "Juste il faut miner et le fondre pour augmenter sa balance",
+
                 store_title: "Boutique", store_desc: "Soutenez le serveur. Obtenez des avantages.", visit_store: "Visiter le store",
                 default_badge: "Grade Gratuit", forever: "/ à vie", def_perk_1: "Pseudo standard en blanc",
                 def_perk_2: "Accès standard", def_perk_3: "Multiplicateur d'Or x1.0", current_rank: "Grade par défaut",
@@ -818,6 +1015,39 @@
                 feat_1_title: "Economía de Oro", feat_1_desc: "El oro es la moneda principal del servidor. Puedes ganarlo minando, saqueando TEAMS o participando en eventos.",
                 feat_2_title: "Teams", feat_2_desc: "Crea tu TEAM, reclama tu territorio y asciende a la cima de la clasificación mensual.",
                 feat_3_title: "Mecánicas de Sopa", feat_3_desc: "Regenera 3.5 corazones por sopa. Usa recetas clásicas o craftea sopas directamente con cactus y cacao.",
+
+                guide_title: "Ayuda y Comandos", guide_subtitle: "Guía del Servidor",
+                guide_team_title: "Sistema de Teams",
+                cmd_t_info: "Ver info del clan",
+                cmd_t_create: "Crear un clan",
+                cmd_t_leave: "Dejar tu equipo",
+                cmd_t_kick: "Expulsar a un jugador",
+                cmd_t_join: "Unirse (por invitación)",
+                cmd_t_hq: "Teletransporte al home del clan",
+                cmd_t_sethq: "Establecer home del clan",
+                cmd_t_invite: "Invitar a un jugador",
+                cmd_t_disband: "Disolver clan (Solo Owner)",
+
+                guide_go_title: "Warps Personales (/go)",
+                cmd_go_teleport: "Teletransportarse a tu warp",
+                cmd_go_set: "Establecer warp personal",
+                cmd_go_delete: "Eliminar warp",
+                cmd_go_list: "Listar tus warps",
+                tp_rules_title: "Reglas de teletransporte:",
+                tp_rules_desc: "Para /t hq y /go: ~5s. Sin jugadores a 30 bloques a la redonda.",
+
+                guide_spawn_title: "Spawn y Protección",
+                spawn_desc: "15 segundos de teletransporte (sin combate ni movimiento) y restaura la protección de spawn.",
+                spawn_prot_desc: "Protección: Activa en spawn. Si sales y vuelves a entrar, ¡el PvP se activará para ti dentro!",
+
+                guide_eco_title: "Economía de Oro y Mercado",
+                cmd_eco_balance: "Ver tu balance de oro",
+                cmd_eco_deposit: "Depositar lingotes al balance",
+                cmd_eco_buyview: "Ver ventas disponibles",
+                cmd_eco_sell: "Vender objetos",
+                cmd_eco_buy: "Comprar objetos",
+                eco_note: "Juste il faut miner et le fondre pour augmenter sa balance",
+
                 store_title: "Tienda", store_desc: "Apoya al servidor. Desbloquea ventajas.", visit_store: "Visitar tienda",
                 default_badge: "Rango Gratis", forever: "/ para siempre", def_perk_1: "Apodo estándar en blanco",
                 def_perk_2: "Acceso estándar", def_perk_3: "Multiplicador de oro x1.0", current_rank: "Rango por defecto",
@@ -832,7 +1062,7 @@
                 btn_pay: "Proceder al pago", secure_tebex: "Pago seguro por Tebex",
                 seo_block_title: "SoupTeams : El mejor servidor de Minecraft Soup PvP (1.8.8)",
                 seo_block_p1: "Bienvenido a <strong>SoupTeams</strong>, la plataforma definitiva diseñada para fans del clásico <strong>PvP Soup</strong> y mecánicas hardcore de Minecraft. Creado explícitamente para la versión <strong>1.8.8</strong>, nuestro servidor ofrece un combate fluido y competitivo.",
-                seo_block_p2: "Ya sea que busques kits personalizados, una economía de oro competitiva o reclamar territorios, SoupTeams te ofrece un entorno inigualable. ¡Únete hoy en <code>MC.SOUPTEAMS.EU</code>!",
+                seo_block_p2: "Ya sea que busques kits personalizados, una economía de oro competitiva o reclamar territorios, SoupTeams tu ofrece un entorno inigualable. ¡Únete hoy en <code>MC.SOUPTEAMS.EU</code>!",
                 rules_h1: "Reglas del Servidor", rules_subtitle: "Sigue estas pautas para garantizar una comunidad justa para todos.",
                 rule_1_title: "1. No trampas ni modificaciones", rule_1_desc: "Cualquier modificación de cliente, hacks, X-Ray o macros resultará en un baneo permanente e inapelable.",
                 rule_2_title: "2. Respeto y chat", rule_2_desc: "El acoso, discursos de odio, racismo o toxicidad excesiva está estrictamente prohibido.",
@@ -895,7 +1125,7 @@
                 `;
             } else {
                 container.innerHTML = `
-                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
+                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
                         <i class="fa-solid fa-right-to-bracket text-[9px]"></i> <span data-i18n="btn_login">${loginText}</span>
                     </button>
                 `;
