@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoupTeams</title>
+
+    <!-- Google Fonts: Montserrat -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: '#FFB800',
+                        sky: '#38BDF8',
+                        blood: '#E11D48',
+                        darkBg: '#09090b',
+                    },
+                    animation: {
+                        'blob': 'blob 12s infinite',
+                        'zoom-in': 'zoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(20px, -25px) scale(1.1)' },
+                            '66%': { transform: 'translate(-15px, 15px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        zoomIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.96) translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050507;
+            color: #e4e4e7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .ambient-glows {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            background-image:
+                linear-gradient(to bottom, rgba(5, 5, 7, 0.6) 0%, rgba(5, 5, 7, 0.85) 75%, rgba(5, 5, 7, 1) 100%),
+                url('https://minecraft.fr/wp-content/uploads/2026/06/fonds-sous-marins-spring-shaders-shader-minecraft.webp');
+            background-size: cover;
+            background-position: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-bg {
+                background-attachment: fixed;
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 9vw, 7rem);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Style de base pour les cartes */
+        .mj-card {
+            background: rgba(15, 15, 18, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.6);
+        }
+
+        .mj-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--card-accent, rgba(255, 255, 255, 0.4)), transparent);
+            opacity: 0.3;
+        }
+
+        .btn-skew {
+            transform: skewX(-6deg);
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-skew-content {
+            transform: skewX(6deg);
+            display: inline-block;
+        }
+
+        .btn-skew:active {
+            transform: skewX(-6deg) scale(0.97);
+        }
+
+        /* Styles modales et tiroirs */
+        #login-modal,
+        #checkout-drawer {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #checkout-drawer {
+            transform: translateX(100%);
+        }
+
+        #checkout-drawer.open {
+            transform: translateX(0);
+        }
+
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050507;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFB800;
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans selection:bg-gold selection:text-black relative">
+
+    <!-- ARRIÈRE-PLAN GLOBAL -->
+    <div class="bg-grid-pattern"></div>
+    <div class="ambient-glows">
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blood/10 rounded-full blur-[100px] md:blur-[140px] animate-blob">
+        </div>
+        <div class="absolute top-[35%] right-[-10%] w-[280px] md:w-[500px] h-[280px] md:h-[500px] bg-sky/5 rounded-full blur-[100px] md:blur-[140px] animate-blob"
+            style="animation-delay: 4s;">
+        </div>
+        <div class="absolute bottom-[-20%] left-[10%] w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-gold/5 rounded-full blur-[120px] md:blur-[160px] animate-blob"
+            style="animation-delay: 8s;">
+        </div>
+    </div>
+
+    <!-- MODALE DE LOGIN PAR PSEUDO -->
+    <div id="login-modal-overlay"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[110] opacity-0 pointer-events-none transition-opacity duration-300"
+        onclick="closeLoginModal()"></div>
+
+    <div id="login-modal"
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-sm bg-[#0c0c0e] border border-white/15 rounded-2xl z-[120] p-5 sm:p-6 shadow-2xl opacity-0 pointer-events-none scale-95">
+        <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+            <h3 class="text-base sm:text-lg font-black text-white uppercase" data-i18n="login_title">Minecraft Login
+            </h3>
+            <button onclick="closeLoginModal()"
+                class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white cursor-pointer">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+        <div class="space-y-3">
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5"
+                    data-i18n="label_username">Minecraft Username</label>
+                <input type="text" id="login-username-input" placeholder="Ex: Notch"
+                    class="w-full bg-black/40 border border-white/10 rounded-xl py-3 px-3.5 text-white placeholder-gray-600 text-xs sm:text-sm focus:outline-none focus:border-gold transition-colors"
+                    onkeydown="if(event.key === 'Enter') submitLogin()">
+                <p id="login-error" class="text-blood text-[10px] mt-1 hidden" data-i18n="error_username">Please enter
+                    your Minecraft username.</p>
+            </div>
+            <button onclick="submitLogin()"
+                class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] cursor-pointer"
+                data-i18n="btn_login_submit">
+                Connect
+            </button>
+        </div>
+    </div>
+
+    <!-- MODALE / TIROIR DE PAIEMENT LATÉRAL -->
+    <div id="drawer-overlay"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[99] opacity-0 pointer-events-none transition-opacity duration-300"
+        onclick="closeCheckout()"></div>
+
+    <div id="checkout-drawer"
+        class="fixed top-0 right-0 h-full w-full sm:w-[380px] bg-[#0c0c0e] border-l border-white/10 z-[100] shadow-2xl flex flex-col justify-between p-5 sm:p-6">
+        <div>
+            <!-- Header du tiroir -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+                <div>
+                    <span id="drawer-badge"
+                        class="text-[9px] font-bold uppercase tracking-[0.2em] px-2 py-0.5 rounded-full bg-grey/10 text-grey border border-grey/25">RANK</span>
+                    <h3 id="drawer-title" class="text-xl font-black text-white uppercase mt-1">VIP Rank</h3>
+                </div>
+                <button onclick="closeCheckout()"
+                    class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Corps du récapitulatif -->
+            <div class="space-y-4">
+                <div
+                    class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3.5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <img id="drawer-user-avatar" src="" alt="Avatar"
+                            class="w-9 h-9 rounded-lg bg-black/40 border border-emerald-500/40 object-cover shadow-inner">
+                        <div>
+                            <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-wider"
+                                data-i18n="status_logged_as">Logged in as</div>
+                            <div id="drawer-display-username" class="text-xs sm:text-sm font-black text-white"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Récapitulatif -->
+                <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 space-y-2.5 text-xs">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400" data-i18n="summary_item">Item :</span>
+                        <span id="summary-rank-name" class="font-bold text-white">VIP (1 Month)</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400" data-i18n="summary_price">Price :</span>
+                        <span id="summary-price" class="font-bold text-gold">2.99€</span>
+                    </div>
+                    <div class="border-t border-white/5 pt-2 flex justify-between text-sm font-bold">
+                        <span class="text-white" data-i18n="summary_total">Total :</span>
+                        <span id="summary-total" class="text-white">2.99€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton de Paiement -->
+        <div>
+            <button onclick="proceedToTebex()"
+                class="w-full py-3.5 bg-gradient-to-r from-gold to-amber-500 hover:from-amber-400 hover:to-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] flex items-center justify-center gap-2 cursor-pointer">
+                <span data-i18n="btn_pay">Proceed to Checkout</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+            <p class="text-[10px] text-gray-500 text-center mt-3 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-lock text-gold"></i> <span data-i18n="secure_tebex">Secure payment powered by
+                    Tebex</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Navbar Responsive Optimisée -->
+    <nav class="fixed w-full z-50 top-3 sm:top-5 px-3 sm:px-4 flex justify-center">
+        <div
+            class="bg-[#0a0a0c]/85 backdrop-blur-md border border-white/15 rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-3 sm:gap-6 shadow-2xl w-full max-w-3xl transition-all hover:border-gold/40">
+
+            <!-- Logo -->
+            <a href="#" onclick="switchPage('home')"
+                class="text-base sm:text-lg font-black tracking-tight text-white uppercase drop-shadow-md shrink-0 cursor-pointer">
+                Soup<span class="text-gold">Teams</span>
+            </a>
+
+            <!-- Liens Centrés -->
+            <div
+                class="hidden md:flex items-center gap-6 text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                <a href="#" onclick="switchPage('home'); return false;" class="hover:text-white transition-colors"
+                    data-i18n="nav_home">Home</a>
+                <a href="#features" onclick="switchPage('home');" class="hover:text-white transition-colors"
+                    data-i18n="nav_server">Server</a>
+                <a href="#boutique" onclick="switchPage('home');"
+                    class="text-gold hover:text-yellow-400 transition-colors" data-i18n="nav_store">Store</a>
+            </div>
+
+            <!-- Contrôles Droite -->
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <!-- Sélecteur de Langue -->
+                <select id="lang-switcher" onchange="changeLanguage(this.value)"
+                    class="bg-white/5 border border-white/15 text-white text-[11px] sm:text-xs rounded-full px-2 py-1 focus:outline-none cursor-pointer transition-all hover:border-gold/60">
+                    <option value="en" class="bg-[#0a0a0c] text-white">EN</option>
+                    <option value="fr" class="bg-[#0a0a0c] text-white">FR</option>
+                    <option value="es" class="bg-[#0a0a0c] text-white">ES</option>
+                </select>
+
+                <!-- Discord -->
+                <a href="https://discord.gg/soupteams" target="_blank"
+                    class="text-gray-400 hover:text-[#5865F2] transition-all text-base px-0.5">
+                    <i class="fab fa-discord"></i>
+                </a>
+
+                <!-- Espace Login / Compte -->
+                <div id="nav-auth-container">
+                    <button onclick="openLoginModal()"
+                        class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-right-to-bracket text-[9px]"></i> <span data-i18n="btn_login">Login</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE ACCUEIL / BOUTIQUE ================= -->
+    <div id="page-home" class="page-view active">
+        <!-- Hero Section -->
+        <section id="accueil"
+            class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-20 pb-10 px-4 border-b border-white/5">
+            <div class="z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center animate-zoom-in">
+
+                <div
+                    class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-3.5 py-1.5 backdrop-blur-md shadow-lg animate-float">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                        <span
+                            class="relative inline-flex rounded-full h-2 w-2 bg-green-500 shadow-[0_0_8px_#22c55e]"></span>
+                    </span>
+                    <span class="text-[10px] sm:text-xs font-bold text-gray-300 uppercase tracking-[0.15em]">
+                        <span id="player-count" class="text-white">...</span> <span data-i18n="players_online">Players
+                            Online</span>
+                    </span>
+                </div>
+
+                <h1
+                    class="hero-title font-black italic uppercase tracking-normal text-white mb-3 leading-none drop-shadow-xl w-full">
+                    SOUP<span class="text-gold animate-pulse"
+                        style="text-shadow: 0 0 30px rgba(255, 184, 0, 0.4);">TEAMS</span>
+                </h1>
+
+                <p
+                    class="text-xs sm:text-lg text-gray-300 font-medium mb-8 max-w-md sm:max-w-xl mx-auto uppercase tracking-widest drop-shadow px-2">
+                    <span data-i18n="hero_subtitle">The ultimate</span> <span class="text-white font-bold">Team Soup
+                        1.8.8</span> <span data-i18n="hero_experience">experience</span>.
+                </p>
+
+                <div class="w-full max-w-xs sm:max-w-none flex justify-center">
+                    <button onclick="copyIP()"
+                        class="group relative btn-skew bg-white/20 p-[1px] cursor-pointer hover:bg-gradient-to-r hover:from-gold hover:to-orange-500 transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto">
+                        <div
+                            class="bg-[#0a0a0c]/90 backdrop-blur-sm px-5 sm:px-8 py-3.5 sm:py-4 transition-all duration-300 group-hover:bg-transparent">
+                            <div class="btn-skew-content flex items-center justify-center gap-3.5 sm:gap-4">
+                                <i
+                                    class="fa-solid fa-gamepad text-gray-400 group-hover:text-black text-base sm:text-lg transition-colors"></i>
+                                <div class="text-left">
+                                    <div class="text-[8px] font-bold text-gray-400 group-hover:text-black/90 uppercase tracking-[0.2em] mb-0.5 transition-colors"
+                                        data-i18n="join_server">Join the server</div>
+                                    <div id="ip-text"
+                                        class="text-sm sm:text-lg font-black text-white group-hover:text-black tracking-[0.08em] transition-colors">
+                                        MC.SOUPTEAMS.EU</div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-16 md:py-24 relative z-10 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
+                    <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight"><span
+                            data-i18n="features_title">Hardcore</span> <span class="text-blood"
+                            data-i18n="features_subtitle">Mechanics</span></h2>
+                    <div
+                        class="w-12 h-1 bg-blood mx-auto rounded-full opacity-80 shadow-[0_0_10px_rgba(225,29,72,0.6)]">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                    <!-- Card 1 -->
+                    <div class="mj-card rounded-2xl p-5 sm:p-6 reveal-on-scroll delay-100"
+                        style="--card-accent: #E11D48;">
+                        <div class="flex flex-col items-start">
+                            <div
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-blood/15 text-blood text-base mb-4 border border-blood/30">
+                                <i class="fa-solid fa-skull"></i>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Combat
+                                Tag
+                                45s
+                            </h3>
+                        </div>
+                        <p class="text-gray-400 font-normal text-xs leading-relaxed" data-i18n="feat_1_desc">
+                            Disconnecting during combat results in immediate death and loss of all gear. Fight or die.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="mj-card rounded-2xl p-5 sm:p-6 reveal-on-scroll delay-200"
+                        style="--card-accent: #FFB800;">
+                        <div class="flex flex-col items-start">
+                            <div
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gold/15 text-gold text-base mb-4 border border-gold/30">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide"
+                                data-i18n="feat_2_title">Gold Economy</h3>
+                        </div>
+                        <p class="text-gray-400 font-normal text-xs leading-relaxed" data-i18n="feat_2_desc">
+                            Gold is king. Eliminate enemies, farm events, and purchase powerful gear directly with gold
+                            nuggets.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="mj-card rounded-2xl p-5 sm:p-6 reveal-on-scroll delay-300"
+                        style="--card-accent: #38BDF8;">
+                        <div class="flex flex-col items-start">
+                            <div
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-sky/15 text-sky text-base mb-4 border border-sky/30">
+                                <i class="fa-solid fa-users-rays"></i>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Soup
+                                Teams
+                            </h3>
+                        </div>
+                        <p class="text-gray-400 font-normal text-xs leading-relaxed" data-i18n="feat_3_desc">
+                            Create your team, claim territory, and climb the competitive monthly leaderboard for
+                            exclusive rewards.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Boutique Section -->
+        <section id="boutique" class="py-16 md:py-24 relative border-t border-white/5 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div
+                    class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 md:mb-14 reveal-on-scroll gap-3">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-2"><span
+                                data-i18n="store_title">Store</span></h2>
+                        <p class="text-gray-400 font-medium uppercase tracking-widest text-[11px]"
+                            data-i18n="store_desc">
+                            Support the server. Unlock perks.</p>
+                    </div>
+                    <a href="https://soupteams.tebex.io" target="_blank"
+                        class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white font-bold uppercase tracking-widest text-[11px] rounded transition-all duration-300 border border-white/10 backdrop-blur-sm hover:border-gold/50">
+                        <span data-i18n="visit_store">Visit store</span> <i
+                            class="fa-solid fa-arrow-right ml-1.5 text-gold text-[10px]"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
+
+                    <!-- DEFAULT -->
+                    <div
+                        class="mj-card rounded-2xl p-5 sm:p-6 border-white/15 relative overflow-hidden reveal-on-scroll delay-100">
+                        <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
+                                data-i18n="default_badge">Free Rank</div>
+                            <h3 class="text-xl sm:text-2xl font-black text-white uppercase mb-2">
+                                DEFAULT</h3>
+                            <div class="text-xl sm:text-2xl font-bold text-white mb-5">0.00€ <span
+                                    class="text-[11px] font-medium text-gray-500" data-i18n="forever">/ forever</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-2.5 mb-6 text-xs font-medium text-white/70 relative z-10">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-400 mr-2.5 text-xs"></i>
+                                <span data-i18n="def_perk_1">Standard white nickname</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-400 mr-2.5 text-xs"></i>
+                                <span data-i18n="def_perk_2">Standard queue access</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-400 mr-2.5 text-xs"></i>
+                                <span data-i18n="def_perk_3">Gold multiplier x1.0</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-400 mr-2.5 text-xs"></i>
+                                1 /GO</li>
+                        </ul>
+                        <button
+                            class="relative z-10 w-full py-3 bg-white/10 text-white/50 font-black uppercase tracking-widest text-xs rounded cursor-not-allowed"
+                            data-i18n="current_rank">Current Rank</button>
+                    </div>
+
+                    <!-- VIP -->
+                    <div
+                        class="mj-card rounded-2xl p-5 sm:p-6 border-gold/30 relative overflow-hidden reveal-on-scroll delay-200">
+                        <div class="absolute inset-0 bg-gradient-to-b from-gold/10 to-transparent pointer-events-none">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
+                                data-i18n="vip_badge">VIP Rank</div>
+                            <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">
+                                VIP</h3>
+                            <div class="text-xl sm:text-2xl font-bold text-white mb-5">2.99€ <span
+                                    class="text-[11px] font-medium text-gray-400" data-i18n="per_month">/ month</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-2.5 mb-6 text-xs font-medium text-white/80 relative z-10">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                <span data-i18n="vip_perk_1">Gold colored nickname</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                <span data-i18n="vip_perk_2">Priority queue access</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                <span data-i18n="vip_perk_3">Gold multiplier x1.2</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i> 2
+                                /GO</li>
+                        </ul>
+                        <button onclick="openCheckout('VIP', '2.99€', 'https://soupteams.tebex.io/package/vip')"
+                            class="relative z-10 w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded transition-all duration-300 hover:scale-[1.02] shadow-[0_0_15px_rgba(255,184,0,0.3)] cursor-pointer"
+                            data-i18n="select_vip">Get VIP</button>
+                    </div>
+
+                    <!-- ELITE -->
+                    <div
+                        class="mj-card rounded-2xl p-5 sm:p-6 border-sky/30 relative overflow-hidden reveal-on-scroll delay-300">
+                        <div class="absolute inset-0 bg-gradient-to-b from-sky/10 to-transparent pointer-events-none">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div class="absolute top-0 right-0 bg-sky/20 text-sky font-bold uppercase text-[9px] tracking-wider px-2.5 py-0.5 rounded border border-sky/40 backdrop-blur-md animate-pulse"
+                                data-i18n="popular">
+                                Popular</div>
+                            <div class="text-sky text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
+                                data-i18n="elite_badge">ELITE Rank</div>
+                            <h3 class="text-xl sm:text-2xl font-black text-sky uppercase mb-2">
+                                ELITE</h3>
+                            <div class="text-xl sm:text-2xl font-bold text-white mb-5">5.99€ <span
+                                    class="text-[11px] font-medium text-gray-400" data-i18n="per_month">/ month</span>
+                            </div>
+                        </div>
+
+                        <ul class="space-y-2.5 mb-6 text-xs font-medium text-white/80 relative z-10">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
+                                <span data-i18n="elite_perk_1">Blue colored nickname</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
+                                <span data-i18n="vip_perk_2">Priority queue access</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
+                                <span data-i18n="elite_perk_3">Gold multiplier x1.5</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i> 3
+                                /GO</li>
+                        </ul>
+                        <button onclick="openCheckout('ELITE', '5.99€', 'https://soupteams.tebex.io/package/elite')"
+                            class="relative z-10 w-full py-3 bg-sky hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded transition-all duration-300 hover:scale-[1.02] shadow-[0_0_15px_rgba(56,189,248,0.3)] cursor-pointer"
+                            data-i18n="select_elite">Get Elite</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================= PAGE RULES (RÈGLEMENT) ================= -->
+    <div id="page-rules" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
+        <div class="text-center mb-10">
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3" data-i18n="rules_h1">Server Rules</h1>
+            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wider" data-i18n="rules_subtitle">Please
+                follow these guidelines to ensure a fair community for everyone.</p>
+            <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
+        </div>
+
+        <div class="space-y-4">
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-gold/30">
+                <h3 class="text-sm sm:text-base font-bold text-gold uppercase mb-2 flex items-center gap-2.5">
+                    <i class="fa-solid fa-shield-halved"></i> <span data-i18n="rule_1_title">1. No Cheating or Unfair
+                        Modifications</span>
+                </h3>
+                <p class="text-gray-300 text-xs leading-relaxed" data-i18n="rule_1_desc">Any client modifications,
+                    hacks, X-Ray texture packs, macros, or automated scripts giving an unfair advantage over other
+                    players will result in a permanent, unappealable ban from SoupTeams.</p>
+            </div>
+
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
+                <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5">
+                    <i class="fa-solid fa-comments text-sky"></i> <span data-i18n="rule_2_title">2. Respect and Chat
+                        Etiquette</span>
+                </h3>
+                <p class="text-gray-300 text-xs leading-relaxed" data-i18n="rule_2_desc">Harassment, hate speech,
+                    racism, excessive toxicity, advertising other servers, or leaking personal information (doxxing) in
+                    public chat is strictly prohibited.</p>
+            </div>
+
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
+                <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5">
+                    <i class="fa-solid fa-bug text-blood"></i> <span data-i18n="rule_3_title">3. Bug Exploitation</span>
+                </h3>
+                <p class="text-gray-300 text-xs leading-relaxed" data-i18n="rule_3_desc">If you discover a glitch,
+                    duplication method, or map exploit, you must report it immediately to staff on Discord. Using
+                    exploits for personal gain or team advantage will lead to rollbacks and bans.</p>
+            </div>
+
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
+                <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5">
+                    <i class="fa-solid fa-users text-gold"></i> <span data-i18n="rule_4_title">4. Team
+                        Regulations</span>
+                </h3>
+                <p class="text-gray-300 text-xs leading-relaxed" data-i18n="rule_4_desc">Team betrayals (traitoring)
+                    inside claimed territory or allied agreements are managed in-game, but intentional griefing of core
+                    team infrastructure via alt accounts is strictly forbidden.</p>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center">
+            <button onclick="switchPage('home')"
+                class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"
+                data-i18n="back_home">
+                <i class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= PAGE SUPPORT ================= -->
+    <div id="page-support" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
+        <div class="text-center mb-10">
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3" data-i18n="support_h1">Support Center
+            </h1>
+            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wider" data-i18n="support_subtitle">Need help
+                with a purchase, bug report, or ban appeal? We are here for you.</p>
+            <div class="w-12 h-1 bg-sky mx-auto rounded-full mt-3"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+            <!-- Discord Support Card -->
+            <div class="mj-card rounded-2xl p-6 border-sky/30 flex flex-col justify-between">
+                <div>
+                    <div
+                        class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#5865F2]/20 text-[#5865F2] text-base mb-4 border border-[#5865F2]/40">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2" data-i18n="supp_discord_title">
+                        Discord Community</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-5" data-i18n="supp_discord_desc">Join our
+                        official Discord server to open a ticket, chat with players, and get instant assistance from our
+                        staff team.</p>
+                </div>
+                <a href="https://discord.gg/soupteams" target="_blank"
+                    class="w-full py-2.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-black uppercase tracking-widest text-[11px] rounded-xl text-center transition-all shadow-[0_0_15px_rgba(88,101,242,0.4)] block">
+                    <span data-i18n="supp_btn_discord">Open Discord Ticket</span>
+                </a>
+            </div>
+
+            <!-- Store Support Card -->
+            <div class="mj-card rounded-2xl p-6 border-gold/30 flex flex-col justify-between">
+                <div>
+                    <div
+                        class="w-10 h-10 flex items-center justify-center rounded-xl bg-gold/20 text-gold text-base mb-4 border border-gold/40">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2" data-i18n="supp_store_title">
+                        Store & Payments</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed mb-5" data-i18n="supp_store_desc">Did you purchase a
+                        rank or package and haven't received it within 15 minutes? Contact us via Discord with your
+                        transaction ID.</p>
+                </div>
+                <a href="https://soupteams.tebex.io" target="_blank"
+                    class="w-full py-2.5 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-[11px] rounded-xl text-center transition-all shadow-[0_0_15px_rgba(255,184,0,0.3)] block">
+                    <span data-i18n="supp_btn_store">Visit Store Support</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10 text-center">
+            <h4 class="text-xs sm:text-sm font-bold text-white uppercase mb-1.5" data-i18n="faq_title">Frequently Asked
+                Questions</h4>
+            <p class="text-gray-400 text-[11px] sm:text-xs mb-4" data-i18n="faq_desc">Make sure to check our FAQ channel
+                on Discord before opening a ticket to get faster answers regarding ranks transfer or unban requests.</p>
+            <button onclick="switchPage('home')"
+                class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"
+                data-i18n="back_home">
+                <i class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black/60 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-lg font-black text-white uppercase opacity-20 mb-4 tracking-widest">Soup<span
+                    class="text-gold">Teams</span></h2>
+
+            <div
+                class="flex flex-wrap justify-center items-center gap-4 sm:gap-8 mb-6 text-gray-400 font-semibold uppercase text-[10px] tracking-[0.2em]">
+                <a href="#" onclick="switchPage('rules'); return false;" class="hover:text-white transition-colors"
+                    data-i18n="footer_rules">Rules</a>
+                <a href="#" onclick="switchPage('support'); return false;" class="hover:text-white transition-colors"
+                    data-i18n="footer_support">Support</a>
+                <a href="https://discord.gg/soupteams" target="_blank"
+                    class="hover:text-[#5865F2] transition-colors flex items-center gap-1.5">
+                    <i class="fab fa-discord text-sm"></i> Discord
+                </a>
+            </div>
+
+            <p class="text-gray-600 text-[9px] sm:text-[10px] font-medium tracking-widest uppercase">
+                &copy; 2026 SoupTeams. <br>
+                <span class="opacity-30 mt-0.5 inline-block" data-i18n="footer_disclaimer">Not affiliated with Mojang
+                    AB.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        let loggedUser = localStorage.getItem('soup_username') || "";
+        let selectedTebexUrl = "https://soupteams.tebex.io";
+        let selectedRankName = "";
+        let selectedPrice = "";
+
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_server: "Server",
+                nav_store: "Store",
+                players_online: "Players Online",
+                hero_subtitle: "The ultimate",
+                hero_experience: "experience.",
+                join_server: "Join the server",
+                features_title: "Hardcore",
+                features_subtitle: "Mechanics",
+                feat_1_desc: "Disconnecting during combat results in immediate death and loss of all gear. Fight or die.",
+                feat_2_title: "Gold Economy",
+                feat_2_desc: "Gold is the main currency of the server. You can earn it in various ways: by mining, raiding TEAMS, or participating in server events.",
+                feat_3_desc: "Create your TEAM, claim your headquarters, and climb to the top of the monthly competitive leaderboard.",
+                store_title: "Store",
+                store_desc: "Support the server. Unlock perks.",
+                visit_store: "Visit store",
+                default_badge: "Free Rank",
+                forever: "/ forever",
+                def_perk_1: "Standard white nickname",
+                def_perk_2: "Standard queue access",
+                def_perk_3: "Gold multiplier x1.0",
+                current_rank: "Current Rank",
+                vip_badge: "VIP Rank",
+                elite_badge: "ELITE Rank",
+                per_month: "/ month",
+                vip_perk_1: "Gold colored nickname",
+                vip_perk_2: "Priority queue access",
+                vip_perk_3: "Gold multiplier x1.2",
+                elite_perk_1: "Blue colored nickname",
+                elite_perk_3: "Gold multiplier x1.5",
+                select_vip: "Get VIP",
+                select_elite: "Get Elite",
+                popular: "Popular",
+                footer_rules: "Rules",
+                footer_store: "Store",
+                footer_support: "Support",
+                footer_disclaimer: "Not affiliated with Mojang AB.",
+                btn_login: "Login",
+                login_title: "Minecraft Login",
+                label_username: "Minecraft Username",
+                error_username: "Please enter your Minecraft username.",
+                btn_login_submit: "Connect",
+                status_logged_as: "Logged in as",
+                summary_item: "Item:",
+                summary_price: "Price:",
+                summary_total: "Total:",
+                btn_pay: "Proceed to Checkout",
+                secure_tebex: "Secure payment powered by Tebex",
+                rules_h1: "Server Rules",
+                rules_subtitle: "Please follow these guidelines to ensure a fair community for everyone.",
+                rule_1_title: "1. No Cheating or Unfair Modifications",
+                rule_1_desc: "Any client modifications, hacks, X-Ray texture packs, macros, or automated scripts giving an unfair advantage over other players will result in a permanent, unappealable ban from SoupTeams.",
+                rule_2_title: "2. Respect and Chat Etiquette",
+                rule_2_desc: "Harassment, hate speech, racism, excessive toxicity, advertising other servers, or leaking personal information (doxxing) in public chat is strictly prohibited.",
+                rule_3_title: "3. Bug Exploitation",
+                rule_3_desc: "If you discover a glitch, duplication method, or map exploit, you must report it immediately to staff on Discord. Using exploits for personal gain or team advantage will lead to rollbacks and bans.",
+                rule_4_title: "4. Team Regulations",
+                rule_4_desc: "Team betrayals (traitoring) inside claimed territory or allied agreements are managed in-game, but intentional griefing of core team infrastructure via alt accounts is strictly forbidden.",
+                back_home: "Back to Home",
+                support_h1: "Support Center",
+                support_subtitle: "Need help with a purchase, bug report, or ban appeal? We are here for you.",
+                supp_discord_title: "Discord Community",
+                supp_discord_desc: "Join our official Discord server to open a ticket, chat with players, and get instant assistance from our staff team.",
+                supp_btn_discord: "Open Discord Ticket",
+                supp_store_title: "Store & Payments",
+                supp_store_desc: "Did you purchase a rank or package and haven't received it within 15 minutes? Contact us via Discord with your transaction ID.",
+                supp_btn_store: "Visit Store Support",
+                faq_title: "Frequently Asked Questions",
+                faq_desc: "Make sure to check our FAQ channel on Discord before opening a ticket to get faster answers regarding ranks transfer or unban requests."
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_server: "Serveur",
+                nav_store: "Boutique",
+                players_online: "Joueurs en ligne",
+                hero_subtitle: "L'expérience",
+                hero_experience: "ultime.",
+                join_server: "Rejoindre le serveur",
+                features_title: "Mécaniques",
+                features_subtitle: "Hardcore",
+                feat_1_desc: "La déconnexion en plein combat entraîne une mort immédiate et la perte de tout votre équipement. Le seul moyen de s'en sortir est de vaincre.",
+                feat_2_title: "Économie Or",
+                feat_2_desc: "L’or est la monnaie principale du serveur. Vous pouvez en gagner de différentes façons : en minant, en pillant des TEAMS ou encore en participant aux différents événements du serveur.",
+                feat_3_desc: "Créez votre TEAM, revendiquez votre quartier général et hissez-vous au sommet du classement compétitif mensuel.",
+                store_title: "Boutique",
+                store_desc: "Soutenez le serveur. Obtenez des avantages.",
+                visit_store: "Visiter le store",
+                default_badge: "Grade Gratuit",
+                forever: "/ à vie",
+                def_perk_1: "Pseudo standard en blanc",
+                def_perk_2: "Accès standard",
+                def_perk_3: "Multiplicateur d'Or x1.0",
+                current_rank: "Grade par défaut",
+                vip_badge: "Grade VIP",
+                elite_badge: "Grade ELITE",
+                per_month: "/ mois",
+                vip_perk_1: "Pseudo en couleur Or",
+                vip_perk_2: "Accès prioritaire",
+                vip_perk_3: "Multiplicateur d'Or x1.2",
+                elite_perk_1: "Pseudo en couleur Bleu Ciel",
+                elite_perk_3: "Multiplicateur d'Or x1.5",
+                select_vip: "Obtenir VIP",
+                select_elite: "Obtenir Elite",
+                popular: "Populaire",
+                footer_rules: "Règlement",
+                footer_store: "Boutique",
+                footer_support: "Support",
+                footer_disclaimer: "Non affilié à Mojang AB.",
+                btn_login: "Connexion",
+                login_title: "Connexion Minecraft",
+                label_username: "Pseudo Minecraft",
+                error_username: "Veuillez entrer votre pseudo Minecraft.",
+                btn_login_submit: "Se connecter",
+                status_logged_as: "Connecté en tant que",
+                summary_item: "Article :",
+                summary_price: "Prix :",
+                summary_total: "Total :",
+                btn_pay: "Procéder au paiement",
+                secure_tebex: "Paiement sécurisé par Tebex",
+                rules_h1: "Règlement du Serveur",
+                rules_subtitle: "Veuillez suivre ces règles pour garantir une communauté saine et équitable pour tous.",
+                rule_1_title: "1. Interdiction des triches et mods illégaux",
+                rule_1_desc: "Toute modification de client, cheat, texture pack X-Ray, macro ou script automatisé donnant un avantage injuste entraînera un bannissement permanent et sans appel de SoupTeams.",
+                rule_2_title: "2. Respect et courtoisie dans le chat",
+                rule_2_desc: "Le harcèlement, les propos haineux, le racisme, la toxicité excessive, la publicité pour d'autres serveurs ou le partage d'informations personnelles (doxxing) sont strictement interdits.",
+                rule_3_title: "3. Exploitation de bugs",
+                rule_3_desc: "Si vous découvrez un bug, une méthode de duplication ou une faille de map, vous devez le signaler immédiatement au staff sur Discord. L'utilisation de failles sera sanctionnée.",
+                rule_4_title: "4. Gestion des Teams",
+                rule_4_desc: "Les trahisons à l'intérieur d'un territoire réclamé se gèrent en jeu, mais le grief volontaire des infrastructures principales d'une team via des comptes secondaires est interdit.",
+                back_home: "Retour à l'accueil",
+                support_h1: "Centre de Support",
+                support_subtitle: "Besoin d'aide pour un achat, un bug ou une réclamation de ban ? Nous sommes là.",
+                supp_discord_title: "Communauté Discord",
+                supp_discord_desc: "Rejoignez notre serveur Discord officiel pour ouvrir un ticket, discuter avec les joueurs et obtenir de l'aide de notre équipe.",
+                supp_btn_discord: "Ouvrir un ticket Discord",
+                supp_store_title: "Boutique & Paiements",
+                supp_store_desc: "Vous avez acheté un grade et ne l'avez pas reçu sous 15 minutes ? Contactez-nous sur Discord avec votre identifiant de transaction.",
+                supp_btn_store: "Support Boutique",
+                faq_title: "Foire Aux Questions (FAQ)",
+                faq_desc: "Pensez à consulter notre salon FAQ sur Discord avant d'ouvrir un ticket pour obtenir des réponses rapides concernant les transferts de grades ou unbans."
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_server: "Servidor",
+                nav_store: "Tienda",
+                players_online: "Jugadores en línea",
+                hero_subtitle: "La experiencia",
+                hero_experience: "definitiva.",
+                join_server: "Unirse al servidor",
+                features_title: "Mecánicas",
+                features_subtitle: "Hardcore",
+                feat_1_desc: "Desconectarse en combate resulta en muerte inmediata y pérdida de equipo. Lucha o muere.",
+                feat_2_title: "Economía de Oro",
+                feat_2_desc: "El oro es la moneda principal del servidor. Puedes ganarlo de varias formas: minando, saqueando TEAMS o participando en eventos del servidor.",
+                feat_3_desc: "Crea tu TEAM, reclama tu cuartel general y asciende a la cima de la clasificación competitiva mensual.",
+                store_title: "Tienda",
+                store_desc: "Apoya al servidor. Desbloquea ventajas.",
+                visit_store: "Visitar tienda",
+                default_badge: "Rango Gratis",
+                forever: "/ para siempre",
+                def_perk_1: "Apodo estándar en blanco",
+                def_perk_2: "Acceso estándar",
+                def_perk_3: "Multiplicador de oro x1.0",
+                current_rank: "Rango por defecto",
+                vip_badge: "Rango VIP",
+                elite_badge: "Rango ELITE",
+                per_month: "/ mes",
+                vip_perk_1: "Apodo de color dorado",
+                vip_perk_2: "Acceso prioritario",
+                vip_perk_3: "Multiplicador de oro x1.2",
+                elite_perk_1: "Apodo de color azul",
+                elite_perk_3: "Multiplicador de oro x1.5",
+                select_vip: "Obtenir VIP",
+                select_elite: "Obtenir Elite",
+                popular: "Popular",
+                footer_rules: "Reglas",
+                footer_store: "Tienda",
+                footer_support: "Soporte",
+                footer_disclaimer: "No afiliado a Mojang AB.",
+                btn_login: "Iniciar sesión",
+                login_title: "Conexión de Minecraft",
+                label_username: "Nombre de usuario de Minecraft",
+                error_username: "Por favor, introduce tu nombre de usuario.",
+                btn_login_submit: "Conectar",
+                status_logged_as: "Conectado como",
+                summary_item: "Artículo:",
+                summary_price: "Precio:",
+                summary_total: "Total:",
+                btn_pay: "Proceder al pago",
+                secure_tebex: "Pago seguro por Tebex",
+                rules_h1: "Reglas del Servidor",
+                rules_subtitle: "Sigue estas pautas para garantizar una comunidad justa para todos.",
+                rule_1_title: "1. No hacer trampas ni usar modificaciones ilegales",
+                rule_1_desc: "Cualquier modificación de cliente, hacks, X-Ray, macros o scripts automatizados resultará en un baneo permanente e inapelable.",
+                rule_2_title: "2. Respeto y etiqueta en el chat",
+                rule_2_desc: "El acoso, discursos de odio, racismo, toxicidad excesiva o hacer publicidad de otros servidores está estrictamente prohibido.",
+                rule_3_title: "3. Explotación de bugs",
+                rule_3_desc: "Si descubres un error o duplicación, repórtalo inmediatamente al staff en Discord. El uso de exploits conllevará baneos.",
+                rule_4_title: "4. Regulaciones de Teams",
+                rule_4_desc: "Las traiciones dentro de un territorio reclamado se gestionan dentro del juego, pero el griefing intencional mediante cuentas secundarias está prohibido.",
+                back_home: "Volver al inicio",
+                support_h1: "Centro de Soporte",
+                support_subtitle: "¿Necesitas ayuda con una compra, reporte de errores o apelación? Estamos aquí.",
+                supp_discord_title: "Comunidad de Discord",
+                supp_discord_desc: "Únete a nuestro servidor oficial de Discord para abrir un ticket y obtener asistencia instantánea de nuestro staff.",
+                supp_btn_discord: "Abrir ticket de Discord",
+                supp_store_title: "Tienda y Pagos",
+                supp_store_desc: "¿Compraste un rango y no lo recibiste en 15 minutos? Contáctanos en Discord con tu ID de transacción.",
+                supp_btn_store: "Soporte de Tienda",
+                faq_title: "Preguntas Frecuentes",
+                faq_desc: "Consulta nuestro canal de FAQ en Discord antes de abrir un ticket para obtener respuestas rápidas sobre rangos."
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+
+            const savedLang = localStorage.getItem('selectedLang') || 'en';
+            document.getElementById('lang-switcher').value = savedLang;
+            applyTranslations(savedLang);
+            updateAuthUI();
+
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -20px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observerInstance.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(element => {
+                observer.observe(element);
+            });
+        });
+
+        function changeLanguage(lang) {
+            localStorage.setItem('selectedLang', lang);
+            document.documentElement.lang = lang;
+            applyTranslations(lang);
+        }
+
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        function updateAuthUI() {
+            const container = document.getElementById('nav-auth-container');
+            const currentLang = localStorage.getItem('selectedLang') || 'en';
+            const loginText = translations[currentLang]?.btn_login || "Login";
+
+            if (loggedUser) {
+                container.innerHTML = `
+                    <div class="flex items-center gap-1.5 sm:gap-2 bg-white/5 border border-white/10 rounded-full pl-1.5 sm:pl-2 pr-2 sm:pr-3 py-1">
+                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/32" alt="Skin" class="w-5 h-5 sm:w-6 sm:h-6 rounded-md object-cover">
+                        <span class="text-[11px] sm:text-xs font-bold text-white max-w-[80px] sm:max-w-[100px] truncate">${loggedUser}</span>
+                        <button onclick="logoutUser()" class="text-gray-400 hover:text-red-400 text-xs ml-0.5 transition-colors cursor-pointer" title="Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-right-to-bracket text-[9px]"></i> <span data-i18n="btn_login">${loginText}</span>
+                    </button>
+                `;
+            }
+        }
+
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+            document.getElementById('login-modal-overlay').classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                document.getElementById('login-username-input').focus();
+            }, 100);
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            document.getElementById('login-modal-overlay').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        function submitLogin() {
+            const input = document.getElementById('login-username-input');
+            const error = document.getElementById('login-error');
+            const username = input.value.trim();
+
+            if (!username) {
+                error.classList.remove('hidden');
+                input.focus();
+                return;
+            }
+
+            error.classList.add('hidden');
+            loggedUser = username;
+            localStorage.setItem('soup_username', username);
+            input.value = "";
+            closeLoginModal();
+            updateAuthUI();
+        }
+
+        function logoutUser() {
+            loggedUser = "";
+            localStorage.removeItem('soup_username');
+            updateAuthUI();
+        }
+
+        function openCheckout(rankName, price, tebexUrl) {
+            if (!loggedUser) {
+                openLoginModal();
+                return;
+            }
+
+            selectedRankName = rankName;
+            selectedPrice = price;
+            selectedTebexUrl = tebexUrl;
+
+            document.getElementById('drawer-title').innerText = rankName + " Rank";
+            document.getElementById('drawer-display-username').innerText = loggedUser;
+            document.getElementById('drawer-user-avatar').src = `https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/64`;
+            document.getElementById('summary-rank-name').innerText = rankName + " (1 Month)";
+            document.getElementById('summary-price').innerText = price;
+            document.getElementById('summary-total').innerText = price;
+
+            document.getElementById('checkout-drawer').classList.add('open');
+            document.getElementById('drawer-overlay').classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-drawer').classList.remove('open');
+            document.getElementById('drawer-overlay').classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function proceedToTebex() {
+            if (!loggedUser) return;
+            const finalUrl = `${selectedTebexUrl}?username=${encodeURIComponent(loggedUser)}`;
+            window.open(finalUrl, '_blank');
+            closeCheckout();
+        }
+
+        function copyIP() {
+            const ip = "mc.soupteams.eu";
+            const textElement = document.getElementById("ip-text");
+            const originalText = textElement.innerHTML;
+
+            navigator.clipboard.writeText(ip).then(() => {
+                textElement.innerHTML = "IP COPIED!";
+                setTimeout(() => {
+                    textElement.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => console.error('Erreur', err));
+        }
+
+        const serverIp = "mc.soupteams.eu";
+        async function updatePlayerCount() {
+            try {
+                let response = await fetch(`https://api.mcsrvstat.us/2/${serverIp}`);
+                let data = await response.json();
+                const playerCountElement = document.getElementById("player-count");
+
+                if (data.online) {
+                    playerCountElement.innerHTML = data.players.online;
+                } else {
+                    playerCountElement.innerHTML = "0";
+                }
+            } catch (error) {
+                console.error("Erreur lors de la récupération des joueurs:", error);
+            }
+        }
+
+        updatePlayerCount();
+        setInterval(updatePlayerCount, 15000);
+    </script>
+</body>
+
+</html>
