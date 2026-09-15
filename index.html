@@ -177,10 +177,15 @@
 
         .page-view {
             display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .page-view.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         #toast-notification {
@@ -270,7 +275,7 @@
         </div>
     </div>
 
-    <!-- TIROIR DE PAIEMENT & APERÇU 3D STYLE NAMETAG MINECRAFT (SANS AUCUNE BORDURE DE BLOC) -->
+    <!-- TIROIR DE PAIEMENT & APERÇU 3D -->
     <div id="drawer-overlay"
         class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[99] opacity-0 pointer-events-none transition-opacity duration-300"
         onclick="closeCheckout()"></div>
@@ -289,38 +294,31 @@
             </div>
 
             <div class="space-y-4">
-                <!-- COMPTE CONNECTÉ & SKIN AVEC NAMETAG PUR FLOTTANT SANS BOITE -->
                 <div
                     class="bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-2xl p-4 text-center relative overflow-hidden">
-                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Aperçu Visuel In-Game
+                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1"
+                        data-i18n="preview_title">In-Game Visual Preview
                     </div>
 
-                    <!-- Conteneur global du skin avec le nametag flottant brut -->
                     <div class="relative h-44 flex flex-col items-center justify-center my-1">
-                        <!-- Nametag Minecraft flottant brut (sans bordure ni cadre rectangulaire) -->
                         <div class="absolute top-1 z-10">
                             <span id="drawer-nametag-username"
                                 class="text-xs font-bold tracking-tight px-1.5 py-0.5 rounded shadow-lg"></span>
                         </div>
-
-                        <!-- Skin 3D entier (fixe, sans mouvement) -->
                         <img id="drawer-skin-3d" src="" alt="Skin 3D"
                             class="h-36 object-contain mt-5 drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
                     </div>
                 </div>
 
-                <!-- APERÇU DU CHAT EN JEU -->
                 <div class="bg-[#05070e] border border-white/10 rounded-xl p-3.5 space-y-2">
                     <div class="text-[9px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fa-solid fa-comments text-sky"></i> Chat
                     </div>
                     <div id="chat-preview-box"
                         class="font-mono text-[11px] bg-black/60 p-2.5 rounded-lg border border-white/5 text-gray-300">
-                        <!-- Généré en JS -->
                     </div>
                 </div>
 
-                <!-- RÉSUMÉ COMMANDE -->
                 <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 space-y-2.5 text-xs">
                     <div class="flex justify-between"><span class="text-gray-400" data-i18n="summary_item">Item
                             :</span><span id="summary-rank-name" class="font-bold text-white">VIP (1 Month)</span></div>
@@ -359,6 +357,8 @@
                     data-i18n="nav_server">Information</a>
                 <a href="#boutique" onclick="switchPage('home');"
                     class="text-gold hover:text-yellow-400 transition-colors" data-i18n="nav_store">Store</a>
+                <a href="#" onclick="switchPage('staff'); return false;" class="hover:text-white transition-colors"
+                    data-i18n="nav_staff">Staff</a>
             </div>
             <div class="flex items-center shrink-0">
                 <div id="nav-auth-container" class="flex items-center">
@@ -612,8 +612,8 @@
                             <li><code class="text-emerald-400 font-bold">/buy [id] [qty]</code> - <span
                                     class="font-sans text-gray-400" data-i18n="cmd_eco_buy">Buy items</span></li>
                         </ul>
-                        <p class="text-[11px] text-gray-400 italic" data-i18n="eco_note">Juste il faut miner et le
-                            fondre pour augmenter sa balance</p>
+                        <p class="text-[11px] text-gray-400 italic" data-i18n="eco_note">You must mine and smelt gold to
+                            increase your balance.</p>
                     </div>
                 </div>
             </div>
@@ -743,6 +743,257 @@
         </section>
     </div>
 
+    <!-- PAGE STAFF (ÉCHELLE DES RANGS) -->
+    <div id="page-staff" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3" data-i18n="staff_h1">Server Staff</h1>
+            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wider" data-i18n="staff_subtitle">Meet the
+                team dedicated to keeping SoupTeams safe and fair.</p>
+            <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
+        </div>
+
+        <div class="space-y-12">
+            <!-- 1. NIVEAU 1 : OWNER -->
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-px bg-white/10 flex-1"></div>
+                    <span
+                        class="text-xs font-black uppercase tracking-[0.2em] text-red-500 bg-red-950/40 border border-red-800/40 px-4 py-1 rounded-full"
+                        data-i18n="role_owner">Owner</span>
+                    <div class="h-px bg-white/10 flex-1"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-1 max-w-xs mx-auto">
+                    <div
+                        class="mj-card rounded-2xl p-6 border-red-800/40 text-center relative overflow-hidden reveal-on-scroll">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-red-900/20 text-red-500 text-[10px] font-black uppercase tracking-widest border border-red-800/40 mb-4 shadow-sm"
+                                data-i18n="role_owner">
+                                Owner
+                            </span>
+                            <div class="h-40 flex items-center justify-center my-2">
+                                <img src="https://mc-heads.net/body/lvnah" alt="lvnah"
+                                    class="h-36 object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
+                            </div>
+                            <h3 class="text-lg font-black mt-3 tracking-wide" style="color: #AA0000;">lvnah</h3>
+                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider font-bold"
+                                data-i18n="owner_desc">Founder & Lead Dev</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. NIVEAU 2 : MODERATOR (3 Cartes) -->
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-px bg-white/10 flex-1"></div>
+                    <span
+                        class="text-xs font-black uppercase tracking-[0.2em] text-pink-400 bg-pink-950/40 border border-pink-800/40 px-4 py-1 rounded-full"
+                        data-i18n="role_mod">Moderator</span>
+                    <div class="h-px bg-white/10 flex-1"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-100 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm"
+                                data-i18n="role_mod">Moderator</span>
+                            <div class="h-40 flex items-center justify-center my-2">
+                                <div
+                                    class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-150 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm"
+                                data-i18n="role_mod">Moderator</span>
+                            <div class="h-40 flex items-center justify-center my-2">
+                                <div
+                                    class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-200 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm"
+                                data-i18n="role_mod">Moderator</span>
+                            <div class="h-40 flex items-center justify-center my-2">
+                                <div
+                                    class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. NIVEAU 3 : HELPER (5 Cartes) -->
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-px bg-white/10 flex-1"></div>
+                    <span
+                        class="text-xs font-black uppercase tracking-[0.2em] text-yellow-400 bg-yellow-950/40 border border-yellow-800/40 px-4 py-1 rounded-full"
+                        data-i18n="role_helper">Helper</span>
+                    <div class="h-px bg-white/10 flex-1"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                    <div
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-250 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
+                                data-i18n="role_helper">Helper</span>
+                            <div class="h-32 flex items-center justify-center my-2">
+                                <div
+                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-300 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
+                                data-i18n="role_helper">Helper</span>
+                            <div class="h-32 flex items-center justify-center my-2">
+                                <div
+                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-350 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
+                                data-i18n="role_helper">Helper</span>
+                            <div class="h-32 flex items-center justify-center my-2">
+                                <div
+                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-400 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
+                                data-i18n="role_helper">Helper</span>
+                            <div class="h-32 flex items-center justify-center my-2">
+                                <div
+                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-450 flex flex-col justify-between">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
+                        </div>
+                        <div class="relative z-10">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
+                                data-i18n="role_helper">Helper</span>
+                            <div class="h-32 flex items-center justify-center my-2">
+                                <div
+                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;"
+                                data-i18n="recruiting_title">Recruitment Open</h3>
+                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider"
+                                data-i18n="recruiting_desc">Apply on Discord</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center">
+            <button onclick="switchPage('home')"
+                class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"
+                data-i18n="back_home"><i class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home</button>
+        </div>
+    </div>
+
     <!-- PAGE RULES -->
     <div id="page-rules" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
         <div class="text-center mb-10">
@@ -854,6 +1105,8 @@
 
             <div
                 class="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-400 font-semibold uppercase text-[10px] tracking-[0.2em]">
+                <a href="#" onclick="switchPage('staff'); return false;" class="hover:text-white transition-colors"
+                    data-i18n="footer_staff">Staff</a>
                 <a href="#" onclick="switchPage('rules'); return false;" class="hover:text-white transition-colors"
                     data-i18n="footer_rules">Rules</a>
                 <a href="#" onclick="switchPage('support'); return false;" class="hover:text-white transition-colors"
@@ -890,14 +1143,43 @@
         let selectedPrice = "";
 
         function switchPage(pageId) {
-            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
-            document.getElementById('page-' + pageId).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const currentActive = document.querySelector('.page-view.active');
+            const targetPage = document.getElementById('page-id-' + pageId) || document.getElementById('page-' + pageId);
+
+            if (currentActive === targetPage) return;
+
+            if (currentActive) {
+                currentActive.style.opacity = '0';
+                currentActive.style.transform = 'translateY(-15px)';
+                setTimeout(() => {
+                    currentActive.classList.remove('active');
+                    currentActive.style.opacity = '';
+                    currentActive.style.transform = '';
+                }, 300);
+            }
+
+            setTimeout(() => {
+                targetPage.style.opacity = '0';
+                targetPage.style.transform = 'translateY(15px)';
+                targetPage.classList.add('active');
+
+                void targetPage.offsetWidth;
+
+                targetPage.style.opacity = '1';
+                targetPage.style.transform = 'translateY(0)';
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                setTimeout(() => {
+                    targetPage.style.opacity = '';
+                    targetPage.style.transform = '';
+                }, 300);
+            }, currentActive ? 300 : 0);
         }
 
         const translations = {
             en: {
-                nav_home: "Home", nav_server: "Information", nav_store: "Store",
+                nav_home: "Home", nav_staff: "Staff", nav_server: "Information", nav_store: "Store",
                 players_online: "Players Online", hero_subtitle: "The ultimate", hero_experience: "experience.",
                 join_server: "Join the server", features_title: "Hardcore", features_subtitle: "Mechanics",
                 feat_1_title: "Gold Economy", feat_1_desc: "Gold is king. Eliminate enemies, farm events, and purchase powerful gear directly with gold nuggets.",
@@ -934,7 +1216,7 @@
                 cmd_eco_buyview: "View available sales",
                 cmd_eco_sell: "Sell items",
                 cmd_eco_buy: "Buy items",
-                eco_note: "Juste il faut miner et le fondre pour augmenter sa balance",
+                eco_note: "You must mine and smelt gold to increase your balance.",
 
                 store_title: "Store", store_desc: "Support the server. Unlock perks.", visit_store: "Visit store",
                 default_badge: "Free Rank", forever: "/ forever", def_perk_1: "Standard white nickname",
@@ -943,11 +1225,16 @@
                 vip_perk_1: "Gold colored nickname", vip_perk_2: "Priority queue access", vip_perk_3: "Gold multiplier x1.2",
                 elite_perk_1: "Blue colored nickname", elite_perk_3: "Gold multiplier x1.5",
                 select_vip: "Get VIP", select_elite: "Get Elite", popular: "Popular",
-                footer_rules: "Rules", footer_support: "Support", footer_disclaimer: "Not affiliated with Mojang AB.",
+                footer_staff: "Staff", footer_rules: "Rules", footer_support: "Support", footer_disclaimer: "Not affiliated with Mojang AB.",
                 lang_label: "Language:", btn_login: "Login", login_title: "Minecraft Login", label_username: "Minecraft Username",
                 error_username: "Please enter a valid username (max 16 chars).", btn_login_submit: "Connect",
-                status_logged_as: "Logged in as", summary_item: "Item:", summary_price: "Price:", summary_total: "Total:",
+                summary_item: "Item:", summary_price: "Price:", summary_total: "Total:",
                 btn_pay: "Proceed to Checkout", secure_tebex: "Secure payment powered by Tebex",
+                staff_h1: "Server Staff", staff_subtitle: "Meet the team dedicated to keeping SoupTeams safe and fair.",
+                role_owner: "Owner", owner_desc: "Founder & Lead Dev",
+                role_mod: "Moderator", role_helper: "Helper",
+                recruiting_title: "Recruitment Open", recruiting_desc: "Apply on Discord",
+                preview_title: "In-Game Visual Preview",
                 seo_block_title: "SoupTeams : The Best Minecraft Soup PvP Server (1.8.8)",
                 seo_block_p1: "Welcome to <strong>SoupTeams</strong>, the ultimate platform designed for fans of classic <strong>PvP Soup</strong> and hardcore Minecraft mechanics. Built explicitly for version <strong>1.8.8</strong>, our server delivers clean knockback, fast-paced combat, and intense team-based competition.",
                 seo_block_p2: "Whether you are looking for custom kits, a competitive gold economy, or dynamic territory claims, SoupTeams offers an uncompromised competitive environment. Join our community today at <code>MC.SOUPTEAMS.EU</code> and prove your skills in the arena!",
@@ -963,135 +1250,145 @@
                 toast_subtitle: "Successfully Logged In"
             },
             fr: {
-                nav_home: "Accueil", nav_server: "Information", nav_store: "Boutique",
+                nav_home: "Accueil", nav_staff: "Staff", nav_server: "Informations", nav_store: "Boutique",
                 players_online: "Joueurs en ligne", hero_subtitle: "L'expérience", hero_experience: "ultime.",
                 join_server: "Rejoindre le serveur", features_title: "Mécaniques", features_subtitle: "Hardcore",
-                feat_1_title: "Économie Or", feat_1_desc: "L’or est la monnaie principale du serveur. Vous pouvez en gagner de différentes façons : en minant, en pillant des TEAMS ou en participant aux événements.",
-                feat_2_title: "Teams", feat_2_desc: "Créez votre TEAM, revendiquez votre territoire et hissez-vous au sommet du classement mensuel.",
-                feat_3_title: "Mécaniques de Soup", feat_3_desc: "Régénérez 3,5 cœurs par soupe bue. Utilisez les crafts classiques ou fabriquez vos soupes directement à l'aide de cactus et de fèves de cacao.",
+                feat_1_title: "Économie en Or", feat_1_desc: "L'or est roi. Éliminez vos ennemis, participez aux événements et achetez de l'équipement puissant directement avec des pépites d'or.",
+                feat_2_title: "Teams", feat_2_desc: "Créez votre équipe, revendiquez un territoire et gravissez le classement mensuel compétitif pour remporter des récompenses exclusives.",
+                feat_3_title: "Mécaniques de Soupe", feat_3_desc: "Régénérez 3,5 cœurs par soupe. Utilisez des recettes classiques ou fabriquez vos soupes directement avec des cactus et des fèves de cacao.",
 
                 guide_title: "Aide & Commandes", guide_subtitle: "Guide en Jeu",
                 guide_team_title: "Système de Teams",
                 cmd_t_info: "Voir les informations du clan",
                 cmd_t_create: "Créer un clan",
-                cmd_t_leave: "Quitter votre team",
+                cmd_t_leave: "Quitter votre équipe",
                 cmd_t_kick: "Exclure un joueur",
-                cmd_t_join: "Rejoindre (sur invitation)",
-                cmd_t_hq: "Se téléporter au home du clan",
-                cmd_t_sethq: "Définir le home du clan",
+                cmd_t_join: "Rejoindre sur invitation",
+                cmd_t_hq: "Se téléporter au QG de l'équipe",
+                cmd_t_sethq: "Définir le QG de l'équipe",
                 cmd_t_invite: "Inviter un joueur",
-                cmd_t_disband: "Dissoudre le clan (Owner)",
+                cmd_t_disband: "Dissoudre le clan (Propriétaire uniquement)",
 
                 guide_go_title: "Warps Personnels (/go)",
-                cmd_go_teleport: "Se téléporter à son go",
-                cmd_go_set: "Définir un go personnel",
-                cmd_go_delete: "Supprimer un go",
-                cmd_go_list: "Lister vos go",
+                cmd_go_teleport: "Se téléporter à votre warp",
+                cmd_go_set: "Définir un warp personnel",
+                cmd_go_delete: "Supprimer un warp",
+                cmd_go_list: "Lister vos warps",
                 tp_rules_title: "Règles de téléportation :",
-                tp_rules_desc: "Pour /t hq & /go : ~5 secondes de délai. Aucun joueur à moins de 30 blocs.",
+                tp_rules_desc: "Pour /t hq & /go : Prend environ 5 secondes. Aucun joueur dans un rayon de 30 blocs.",
 
                 guide_spawn_title: "Spawn & Protection",
-                spawn_desc: "15 secondes de téléportation (si hors combat et sans bouger) et redonne la protection de spawn.",
-                spawn_prot_desc: "Protection de spawn : Active au spawn. Si vous sortez et rerentrez, le PvP sera activé pour vous à l'intérieur !",
+                spawn_desc: "Prend 15 secondes de téléportation (si hors combat et sans mouvement) et rétablit la protection de spawn.",
+                spawn_prot_desc: "Protection de spawn : Active au spawn. Si vous quittez le spawn et y retournez, le PvP sera activé pour vous dans la zone !",
 
-                guide_eco_title: "Économie Or & Marché",
-                cmd_eco_balance: "Voir son solde d'or",
-                cmd_eco_deposit: "Déposer des lingots en balance",
+                guide_eco_title: "Économie d'Or & Marché",
+                cmd_eco_balance: "Vérifier votre solde d'or",
+                cmd_eco_deposit: "Déposer des lingots d'or dans le solde",
                 cmd_eco_buyview: "Voir les ventes disponibles",
                 cmd_eco_sell: "Vendre des objets",
                 cmd_eco_buy: "Acheter des objets",
-                eco_note: "Juste il faut miner et le fondre pour augmenter sa balance",
+                eco_note: "Vous devez miner et fondre l'or pour augmenter votre solde.",
 
-                store_title: "Boutique", store_desc: "Soutenez le serveur. Obtenez des avantages.", visit_store: "Visiter le store",
+                store_title: "Boutique", store_desc: "Soutenez le serveur. Débloquez des avantages.", visit_store: "Visiter la boutique",
                 default_badge: "Grade Gratuit", forever: "/ à vie", def_perk_1: "Pseudo standard en blanc",
-                def_perk_2: "Accès standard", def_perk_3: "Multiplicateur d'Or x1.0", current_rank: "Grade par défaut",
+                def_perk_2: "Accès standard à la file d'attente", def_perk_3: "Multiplicateur d'or x1.0", current_rank: "Grade actuel",
                 vip_badge: "Grade VIP", elite_badge: "Grade ELITE", per_month: "/ mois",
-                vip_perk_1: "Pseudo en couleur Or", vip_perk_2: "Accès prioritaire", vip_perk_3: "Multiplicateur d'Or x1.2",
-                elite_perk_1: "Pseudo en couleur Bleu Ciel", elite_perk_3: "Multiplicateur d'Or x1.5",
+                vip_perk_1: "Pseudo de couleur dorée", vip_perk_2: "Accès prioritaire à la file", vip_perk_3: "Multiplicateur d'or x1.2",
+                elite_perk_1: "Pseudo de couleur bleue", elite_perk_3: "Multiplicateur d'or x1.5",
                 select_vip: "Obtenir VIP", select_elite: "Obtenir Elite", popular: "Populaire",
-                footer_rules: "Règlement", footer_support: "Support", footer_disclaimer: "Non affilié à Mojang AB.",
-                lang_label: "Langue :", btn_login: "Login", login_title: "Connexion Minecraft", label_username: "Pseudo Minecraft",
-                error_username: "Entrez un pseudo valide (max 16 car., lettres, chiffres, _, -).", btn_login_submit: "Se connecter",
-                status_logged_as: "Connecté en tant que", summary_item: "Article :", summary_price: "Prix :", summary_total: "Total :",
-                btn_pay: "Procéder au paiement", secure_tebex: "Paiement sécurisé par Tebex",
+                footer_staff: "Staff", footer_rules: "Règlement", footer_support: "Support", footer_disclaimer: "Non affilié à Mojang AB.",
+                lang_label: "Langue :", btn_login: "Connexion", login_title: "Connexion Minecraft", label_username: "Nom d'utilisateur Minecraft",
+                error_username: "Veuillez entrer un pseudo valide (max 16 car.).", btn_login_submit: "Se connecter",
+                summary_item: "Article :", summary_price: "Prix :", summary_total: "Total :",
+                btn_pay: "Procéder au paiement", secure_tebex: "Paiement sécurisé propulsé par Tebex",
+                staff_h1: "Équipe du Serveur", staff_subtitle: "Découvrez l'équipe dédiée à la sécurité et à l'équité de SoupTeams.",
+                role_owner: "Propriétaire", owner_desc: "Fondateur & Développeur Lead",
+                role_mod: "Modérateur", role_helper: "Helper",
+                recruiting_title: "Recrutement ouvert", recruiting_desc: "Postulez sur Discord",
+                preview_title: "Aperçu Visuel In-Game",
                 seo_block_title: "SoupTeams : Le meilleur serveur Minecraft Soup PvP (1.8.8)",
-                seo_block_p1: "Bienvenue sur <strong>SoupTeams</strong>, la plateforme ultime conçue pour les fans de <strong>PvP Soup</strong> classique et de mécaniques Minecraft hardcore. Optimisé pour la version <strong>1.8.8</strong>, notre serveur offre un knockback fluide, des combats rythmés et une compétition intense.",
-                seo_block_p2: "Que vous cherchiez des kits personnalisés, une économie d'or compétitive ou des revendications de territoires, SoupTeams vous garantit une expérience de jeu haut niveau. Rejoignez notre communauté dès maintenant sur <code>MC.SOUPTEAMS.EU</code> !",
-                rules_h1: "Règlement du Serveur", rules_subtitle: "Veuillez suivre ces règles pour garantir une communauté saine et équitable pour tous.",
-                rule_1_title: "1. Interdiction des triches et mods illégaux", rule_1_desc: "Toute modification de client, cheat, texture pack X-Ray, macro ou script automatisé donnant un avantage injuste entraînera un bannissement permanent de SoupTeams.",
-                rule_2_title: "2. Respect et courtoisie dans le chat", rule_2_desc: "Le harcèlement, les propos haineux, le racisme, la toxicité excessive ou la publicité pour d'autres serveurs sont strictement interdits.",
-                rule_3_title: "3. Exploitation de bugs", rule_3_desc: "Si vous découvrez un bug ou une faille de map, signalez-le immédiatement au staff sur Discord. L'utilisation de failles sera sanctionnée.",
-                rule_4_title: "4. Gestion des Teams", rule_4_desc: "Les trahisons à l'intérieur d'un territoire réclamé se gèrent en jeu, mais le grief volontaire des infrastructures principales via des comptes secondaires est interdit.",
-                back_home: "Retour à l'accueil", support_h1: "Centre de Support", support_subtitle: "Besoin d'aide pour un achat, un bug ou une réclamation de ban ? Nous sommes là.",
-                supp_discord_title: "Communauté Discord", supp_discord_desc: "Rejoignez notre serveur Discord officiel pour ouvrir un ticket, discuter avec les joueurs et obtenir de l'aide de notre équipe.",
-                supp_btn_discord: "Ouvrir un ticket Discord", supp_store_title: "Boutique & Paiements", supp_store_desc: "Vous avez acheté un grade et ne l'avez pas reçu sous 15 minutes ? Contactez-nous sur Discord avec votre identifiant de transaction.",
-                supp_btn_store: "Support Boutique", faq_title: "Foire Aux Questions (FAQ)", faq_desc: "Pensez à consulter notre salon FAQ sur Discord avant d'ouvrir un ticket pour obtenir des réponses rapides.",
+                seo_block_p1: "Bienvenue sur <strong>SoupTeams</strong>, la plateforme ultime conçue pour les fans de <strong>PvP Soup</strong> classique et de mécaniques hardcore de Minecraft. Créé explicitement pour la version <strong>1.8.8</strong>, notre serveur offre un knockback propre, des combats dynamiques et une compétition intense.",
+                seo_block_p2: "Que vous recherchiez des kits personnalisés, une économie d'or compétitive ou des revendications de territoires, SoupTeams offre un environnement compétitif sans compromis. Rejoignez notre communauté dès aujourd'hui sur <code>MC.SOUPTEAMS.EU</code> !",
+                rules_h1: "Règlement du Serveur", rules_subtitle: "Veuillez suivre ces directives pour garantir une communauté saine et juste pour tous.",
+                rule_1_title: "1. Pas de triche ni de modifications injustes", rule_1_desc: "Toute modification de client, hack, pack de texture X-Ray, macro ou script automatisé donnant un avantage injuste entraînera un bannissement permanent et sans appel de SoupTeams.",
+                rule_2_title: "2. Respect et courtoisie dans le chat", rule_2_desc: "Le harcèlement, les discours haineux, le racisme, la toxicité excessive, la publicité pour d'autres serveurs ou la divulgation d'informations personnelles (doxxing) dans le chat public sont strictement interdits.",
+                rule_3_title: "3. Exploitation de bugs", rule_3_desc: "Si vous découvrez un bug, une méthode de duplication ou une faille de carte, vous devez le signaler immédiatement au staff sur Discord. L'utilisation d'exploits entraînera des retours en arrière et des bannissements.",
+                rule_4_title: "4. Réglementation des équipes", rule_4_desc: "Les trahisons d'équipe au sein d'un territoire revendiqué ou d'accords alliés sont gérées en jeu, mais le sabotage intentionnel de l'infrastructure principale via des comptes secondaires est strictement interdit.",
+                back_home: "Retour à l'accueil", support_h1: "Centre de Support", support_subtitle: "Besoin d'aide pour un achat, un rapport de bug ou une réclamation de bannissement ? Nous sommes là pour vous.",
+                supp_discord_title: "Communauté Discord", supp_discord_desc: "Rejoignez notre serveur Discord officiel pour ouvrir un ticket, discuter avec les joueurs et obtenir une assistance instantanée de notre équipe.",
+                supp_btn_discord: "Ouvrir un ticket Discord", supp_store_title: "Boutique & Paiements", supp_store_desc: "Avez-vous acheté un grade ou un pack sans le recevoir dans les 15 minutes ? Contactez-nous via Discord avec votre ID de transaction.",
+                supp_btn_store: "Support de la Boutique", faq_title: "Foire Aux Questions", faq_desc: "Assurez-vous de consulter notre salon FAQ sur Discord avant d'ouvrir un ticket pour obtenir des réponses plus rapides concernant les transferts de grades ou les demandes de débannissement.",
                 toast_subtitle: "Connexion réussie"
             },
             es: {
-                nav_home: "Inicio", nav_server: "Información", nav_store: "Tienda",
+                nav_home: "Inicio", nav_staff: "Staff", nav_server: "Información", nav_store: "Tienda",
                 players_online: "Jugadores en línea", hero_subtitle: "La experiencia", hero_experience: "definitiva.",
                 join_server: "Unirse al servidor", features_title: "Mecánicas", features_subtitle: "Hardcore",
-                feat_1_title: "Economía de Oro", feat_1_desc: "El oro es la moneda principal del servidor. Puedes ganarlo minando, saqueando TEAMS o participando en eventos.",
-                feat_2_title: "Teams", feat_2_desc: "Crea tu TEAM, reclama tu territorio y asciende a la cima de la clasificación mensual.",
-                feat_3_title: "Mecánicas de Sopa", feat_3_desc: "Regenera 3.5 corazones por sopa. Usa recetas clásicas o craftea sopas directamente con cactus y cacao.",
+                feat_1_title: "Economía de Oro", feat_1_desc: "El oro es el rey. Elimina enemigos, participa en eventos y compra equipamiento potente directamente con pepitas de oro.",
+                feat_2_title: "Teams", feat_2_desc: "Crea tu equipo, reclama territorio y asciende en la clasificación mensual competitiva para obtener recompensas exclusivas.",
+                feat_3_title: "Mecánicas de Sopa", feat_3_desc: "Regenera 3.5 corazones por sopa. Usa recetas clásicas o craftea sopas directamente con cactus y granos de cacao.",
 
                 guide_title: "Ayuda y Comandos", guide_subtitle: "Guía del Servidor",
-                guide_team_title: "Sistema de Teams",
-                cmd_t_info: "Ver info del clan",
+                guide_team_title: "Sistema de Equipos",
+                cmd_t_info: "Ver información del clan",
                 cmd_t_create: "Crear un clan",
                 cmd_t_leave: "Dejar tu equipo",
                 cmd_t_kick: "Expulsar a un jugador",
-                cmd_t_join: "Unirse (por invitación)",
-                cmd_t_hq: "Teletransporte al home del clan",
-                cmd_t_sethq: "Establecer home del clan",
+                cmd_t_join: "Unirse mediante invitación",
+                cmd_t_hq: "Teletransportarse al hogar del equipo",
+                cmd_t_sethq: "Establecer el hogar del equipo",
                 cmd_t_invite: "Invitar a un jugador",
-                cmd_t_disband: "Disolver clan (Solo Owner)",
+                cmd_t_disband: "Disolver clan (Solo propietario)",
 
                 guide_go_title: "Warps Personales (/go)",
                 cmd_go_teleport: "Teletransportarse a tu warp",
-                cmd_go_set: "Establecer warp personal",
-                cmd_go_delete: "Eliminar warp",
+                cmd_go_set: "Establecer un warp personal",
+                cmd_go_delete: "Eliminar un warp",
                 cmd_go_list: "Listar tus warps",
                 tp_rules_title: "Reglas de teletransporte:",
-                tp_rules_desc: "Para /t hq y /go: ~5 segundos. Sin jugadores a 30 bloques a la redonda.",
+                tp_rules_desc: "Para /t hq & /go: Toma ~5 segundos. Sin jugadores en un radio de 30 bloques.",
 
                 guide_spawn_title: "Spawn y Protección",
-                spawn_desc: "15 segundos de teletransporte (sin combate ni movimiento) y restaura la protección de spawn.",
-                spawn_prot_desc: "Protección: Activa en spawn. Si sales y vuelves a entrar, ¡el PvP se activará para ti dentro!",
+                spawn_desc: "Toma 15 segundos de teletransporte (si no estás en combate y sin movimiento) y restaura la protección de spawn.",
+                spawn_prot_desc: "Protección de spawn: Activa en el spawn. Si sales y vuelves a entrar, ¡el PvP se activará para ti dentro del área!",
 
                 guide_eco_title: "Economía de Oro y Mercado",
                 cmd_eco_balance: "Ver tu balance de oro",
-                cmd_eco_deposit: "Depositar lingotes al balance",
+                cmd_eco_deposit: "Depositar lingotes de oro al balance",
                 cmd_eco_buyview: "Ver ventas disponibles",
                 cmd_eco_sell: "Vender objetos",
                 cmd_eco_buy: "Comprar objetos",
-                eco_note: "Juste il faut miner et le fondre pour augmenter sa balance",
+                eco_note: "Debes minar y fundir oro para aumentar tu balance.",
 
                 store_title: "Tienda", store_desc: "Apoya al servidor. Desbloquea ventajas.", visit_store: "Visitar tienda",
                 default_badge: "Rango Gratis", forever: "/ para siempre", def_perk_1: "Apodo estándar en blanco",
-                def_perk_2: "Acceso estándar", def_perk_3: "Multiplicador de oro x1.0", current_rank: "Rango por defecto",
+                def_perk_2: "Acceso estándar a la cola", def_perk_3: "Multiplicador de oro x1.0", current_rank: "Rango actual",
                 vip_badge: "Rango VIP", elite_badge: "Rango ELITE", per_month: "/ mes",
-                vip_perk_1: "Apodo de color dorado", vip_perk_2: "Acceso prioritario", vip_perk_3: "Multiplicador de oro x1.2",
+                vip_perk_1: "Apodo de color dorado", vip_perk_2: "Acceso prioritario a la cola", vip_perk_3: "Multiplicador de oro x1.2",
                 elite_perk_1: "Apodo de color azul", elite_perk_3: "Multiplicador de oro x1.5",
-                select_vip: "Obtenir VIP", select_elite: "Obtenir Elite", popular: "Popular",
-                footer_rules: "Reglas", footer_support: "Soporte", footer_disclaimer: "No afiliado a Mojang AB.",
-                lang_label: "Idioma:", btn_login: "Login", login_title: "Conexión de Minecraft", label_username: "Nombre de usuario",
-                error_username: "Nombre inválido (máx 16 car., letras, números, _, -).", btn_login_submit: "Conectar",
-                status_logged_as: "Conectado como", summary_item: "Artículo:", summary_price: "Precio:", summary_total: "Total:",
-                btn_pay: "Proceder al pago", secure_tebex: "Pago seguro por Tebex",
+                select_vip: "Obtener VIP", select_elite: "Obtener Elite", popular: "Popular",
+                footer_staff: "Staff", footer_rules: "Reglas", footer_support: "Soporte", footer_disclaimer: "No afiliado con Mojang AB.",
+                lang_label: "Idioma:", btn_login: "Iniciar sesión", login_title: "Conexión de Minecraft", label_username: "Nombre de usuario",
+                error_username: "Introduce un nombre válido (máx 16 car.).", btn_login_submit: "Conectar",
+                summary_item: "Artículo:", summary_price: "Precio:", summary_total: "Total:",
+                btn_pay: "Proceder al pago", secure_tebex: "Pago seguro con la tecnología de Tebex",
+                staff_h1: "Staff del Servidor", staff_subtitle: "Conoce al equipo dedicado a mantener SoupTeams seguro y justo.",
+                role_owner: "Propietario", owner_desc: "Fundador y Desarrollador Lead",
+                role_mod: "Moderador", role_helper: "Helper",
+                recruiting_title: "Reclutamiento Abierto", recruiting_desc: "Postúlate en Discord",
+                preview_title: "Vista Previa Visual In-Game",
                 seo_block_title: "SoupTeams : El mejor servidor de Minecraft Soup PvP (1.8.8)",
-                seo_block_p1: "Bienvenido a <strong>SoupTeams</strong>, la plataforma definitiva diseñada para fans del clásico <strong>PvP Soup</strong> y mecánicas hardcore de Minecraft. Creado explícitamente para la versión <strong>1.8.8</strong>, nuestro servidor ofrece un combate fluido y competitivo.",
-                seo_block_p2: "Ya sea que busques kits personalizados, una economía de oro competitiva o reclamar territorios, SoupTeams tu ofrece un entorno inigualable. ¡Únete hoy en <code>MC.SOUPTEAMS.EU</code>!",
-                rules_h1: "Reglas del Servidor", rules_subtitle: "Sigue estas pautas para garantizar una comunidad justa para todos.",
-                rule_1_title: "1. No trampas ni modificaciones", rule_1_desc: "Cualquier modificación de cliente, hacks, X-Ray o macros resultará en un baneo permanente e inapelable.",
-                rule_2_title: "2. Respeto y chat", rule_2_desc: "El acoso, discursos de odio, racismo o toxicidad excesiva está estrictamente prohibido.",
-                rule_3_title: "3. Explotación de bugs", rule_3_desc: "Si descubres un error o duplicación, repórtalo inmediatamente al staff en Discord.",
-                rule_4_title: "4. Regulaciones de Teams", rule_4_desc: "Las traiciones dentro de un territorio se gestionan en el juego, pero el griefing intencional está prohibido.",
-                back_home: "Volver al inicio", support_h1: "Centro de Soporte", support_subtitle: "¿Necesitas ayuda con una compra, reporte o apelación? Estamos aquí.",
-                supp_discord_title: "Comunidad de Discord", supp_discord_desc: "Únete a nuestro servidor oficial de Discord para abrir un ticket y obtener asistencia instantánea.",
-                supp_btn_discord: "Abrir ticket de Discord", supp_store_title: "Tienda y Pagos", supp_store_desc: "¿Compraste un rango y no lo recibiste? Contáctanos en Discord con tu ID.",
-                supp_btn_store: "Soporte de Tienda", faq_title: "Preguntas Frecuentes", faq_desc: "Consulta nuestro canal de FAQ en Discord antes de abrir un ticket.",
+                seo_block_p1: "Bienvenido a <strong>SoupTeams</strong>, la plataforma definitiva diseñada para los fanáticos del clásico <strong>PvP Soup</strong> y las mecánicas hardcore de Minecraft. Creado explícitamente para la versión <strong>1.8.8</strong>, nuestro servidor ofrece un knockback limpio, combates dinámicos y una intensa competencia por equipos.",
+                seo_block_p2: "Ya sea que busques kits personalizados, una economía de oro competitiva o reclamaciones de territorio dinámicas, SoupTeams ofrece un entorno competitivo sin compromisos. ¡Únete a nuestra comunidad hoy en <code>MC.SOUPTEAMS.EU</code> y demuestra tus habilidades en la arena!",
+                rules_h1: "Reglas del Servidor", rules_subtitle: "Por favor sigue estas pautas para garantizar una comunidad justa para todos.",
+                rule_1_title: "1. Sin trampas ni modificaciones injustas", rule_1_desc: "Cualquier modificación de cliente, hacks, paquetes de texturas X-Ray, macros o scripts automatizados que otorguen una ventaja injusta resultará en un baneo permanente e inapelable de SoupTeams.",
+                rule_2_title: "2. Respeto y etiqueta en el chat", rule_2_desc: "El acoso, discurso de odio, racismo, toxicidad excesiva, publicidad de otros servidores o filtración de información personal (doxxing) en el chat público está estrictamente prohibido.",
+                rule_3_title: "3. Explotación de errores", rule_3_desc: "Si descubres un fallo, método de duplicación o error de mapa, debes reportarlo inmediatamente al staff en Discord. El uso de exploits conllevará reinicios y baneos.",
+                rule_4_title: "4. Regulaciones de equipos", rule_4_desc: "Las traiciones dentro del territorio reclamado o acuerdos aliados se gestionan dentro del juego, pero el sabotage intencional de la infraestructura principal mediante cuentas secundarias está estrictamente prohibido.",
+                back_home: "Volver al inicio", support_h1: "Centro de Soporte", support_subtitle: "¿Necesitas ayuda con una compra, reporte de error o apelación de baneo? Estamos aquí para ti.",
+                supp_discord_title: "Comunidad de Discord", supp_discord_desc: "Únete a nuestro servidor oficial de Discord para abrir un ticket, chatear con jugadores y obtener asistencia instantánea de nuestro equipo.",
+                supp_btn_discord: "Abrir ticket en Discord", supp_store_title: "Tienda y Pagos", supp_store_desc: "¿Compraste un rango o paquete y no lo has recibido en 15 minutos? Contáctanos a través de Discord con tu ID de transacción.",
+                supp_btn_store: "Soporte de la Tienda", faq_title: "Preguntas Frecuentes", faq_desc: "Asegúrate de revisar nuestro canal de FAQ en Discord antes de abrir un ticket para obtener respuestas más rápidas sobre transferencias de rangos o solicitudes de desbaneo.",
                 toast_subtitle: "Conectado con éxito"
             }
         };
@@ -1229,21 +1526,18 @@
             selectedTebexUrl = tebexUrl;
 
             document.getElementById('drawer-title').innerText = rankName + " Rank";
-
-            // Image 3D entière du skin (fixe, sans mouvement)
             document.getElementById('drawer-skin-3d').src = `https://mc-heads.net/body/${encodeURIComponent(loggedUser)}`;
 
-            // Nametag pur style Minecraft (sans bordure rectangulaire) + couleur du pseudo
             const nametagEl = document.getElementById('drawer-nametag-username');
             const chatBox = document.getElementById('chat-preview-box');
 
             nametagEl.innerText = loggedUser;
 
             if (rankName === 'VIP') {
-                nametagEl.style.color = "#FFB800"; // Couleur Or pure pour le pseudo
+                nametagEl.style.color = "#FFB800";
                 chatBox.innerHTML = `<span style="color: #FFB800;">${loggedUser}</span>: <span class="text-white">Hi !</span>`;
             } else {
-                nametagEl.style.color = "#38BDF8"; // Couleur Bleu Ciel pure pour le pseudo
+                nametagEl.style.color = "#38BDF8";
                 chatBox.innerHTML = `<span style="color: #38BDF8;">${loggedUser}</span>: <span class="text-white">Hi !</span>`;
             }
 
