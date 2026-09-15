@@ -199,6 +199,64 @@
             opacity: 1;
         }
 
+        /* Styles spécifiques au Chatbot Premium */
+        #chatbot-window {
+            transform: scale(0.90) translateY(15px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #chatbot-window.open {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .chat-pulse-ring {
+            box-shadow: 0 0 0 0 rgba(255, 184, 0, 0.5);
+            animation: pulse-ring 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 184, 0, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 184, 0, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 184, 0, 0);
+            }
+        }
+
+        .typing-dot {
+            animation: typingAnimation 1.4s infinite ease-in-out both;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes typingAnimation {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1.0);
+            }
+        }
+
         ::-webkit-scrollbar {
             width: 5px;
         }
@@ -342,30 +400,59 @@
         </div>
     </div>
 
-    <!-- NAVBAR -->
-    <nav class="fixed w-full z-50 top-3 sm:top-5 px-3 sm:px-4 flex justify-center">
-        <div
-            class="bg-[#0b101c]/85 backdrop-blur-md border border-sky-500/20 rounded-full px-5 sm:px-8 py-3 flex items-center justify-between gap-4 sm:gap-6 shadow-2xl w-full max-w-2xl transition-all hover:border-gold/40">
-            <a href="#" onclick="switchPage('home')"
-                class="text-sm sm:text-base font-black tracking-tight text-white uppercase drop-shadow-md shrink-0 cursor-pointer flex items-center">Soup<span
-                    class="text-gold">Teams</span></a>
-            <div
-                class="hidden md:flex items-center gap-6 text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400">
-                <a href="#" onclick="switchPage('home'); return false;" class="hover:text-white transition-colors"
+    <!-- NAVBAR PLEINE LARGEUR (GLASSMORPHISM) -->
+    <nav
+        class="fixed top-0 left-0 w-full z-50 bg-[#060810]/80 backdrop-blur-md border-b border-white/10 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" onclick="switchPage('home'); return false;"
+                class="text-lg sm:text-xl font-black tracking-tight text-white uppercase flex items-center gap-2 cursor-pointer">
+                Soup<span class="text-gold">Teams</span>
+            </a>
+
+            <!-- Liens Desktop -->
+            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-[0.15em] text-gray-300">
+                <a href="#" onclick="switchPage('home'); return false;" class="hover:text-gold transition-colors"
                     data-i18n="nav_home">Home</a>
-                <a href="#features" onclick="switchPage('home');" class="hover:text-white transition-colors"
+                <a href="#features" onclick="switchPage('home');" class="hover:text-gold transition-colors"
                     data-i18n="nav_server">Information</a>
                 <a href="#boutique" onclick="switchPage('home');"
                     class="text-gold hover:text-yellow-400 transition-colors" data-i18n="nav_store">Store</a>
-                <a href="#" onclick="switchPage('staff'); return false;" class="hover:text-white transition-colors"
+                <a href="#" onclick="switchPage('staff'); return false;" class="hover:text-gold transition-colors"
                     data-i18n="nav_staff">Staff</a>
             </div>
-            <div class="flex items-center shrink-0">
-                <div id="nav-auth-container" class="flex items-center">
-                    <button onclick="openLoginModal()"
-                        class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
-                        <i class="fa-solid fa-right-to-bracket text-[9px]"></i> <span data-i18n="btn_login">Login</span>
-                    </button>
+
+            <!-- Bouton Authentification Desktop & Mobile Toggle -->
+            <div class="flex items-center gap-3">
+                <div id="nav-auth-container" class="hidden sm:flex items-center">
+                    <!-- Injecté par JS -->
+                </div>
+
+                <!-- Bouton Menu Mobile (Hamburger) -->
+                <button onclick="toggleMobileMenu()"
+                    class="md:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white cursor-pointer transition-colors">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars text-base"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Déroulant Mobile -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-[#0a0e1a] border-b border-white/10 px-6 py-6 space-y-4 shadow-2xl transition-all">
+            <div class="flex flex-col space-y-3 text-xs font-bold uppercase tracking-wider text-gray-300">
+                <a href="#" onclick="switchPage('home'); toggleMobileMenu(); return false;"
+                    class="hover:text-gold transition-colors py-1" data-i18n="nav_home">Home</a>
+                <a href="#features" onclick="switchPage('home'); toggleMobileMenu();"
+                    class="hover:text-gold transition-colors py-1" data-i18n="nav_server">Information</a>
+                <a href="#boutique" onclick="switchPage('home'); toggleMobileMenu();"
+                    class="text-gold hover:text-yellow-400 transition-colors py-1" data-i18n="nav_store">Store</a>
+                <a href="#" onclick="switchPage('staff'); toggleMobileMenu(); return false;"
+                    class="hover:text-gold transition-colors py-1" data-i18n="nav_staff">Staff</a>
+            </div>
+            <div class="pt-4 border-t border-white/10 flex justify-between items-center sm:hidden">
+                <span class="text-[10px] text-gray-400 uppercase tracking-widest">Account</span>
+                <div id="nav-auth-container-mobile">
+                    <!-- Injecté par JS pour mobile -->
                 </div>
             </div>
         </div>
@@ -374,7 +461,7 @@
     <!-- PAGE ACCUEIL / BOUTIQUE -->
     <div id="page-home" class="page-view active">
         <section id="accueil"
-            class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-20 pb-10 px-4 border-b border-white/5">
+            class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-24 pb-10 px-4 border-b border-white/5">
             <div class="z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center animate-zoom-in">
                 <div
                     class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-sky-500/30 rounded-full px-3.5 py-1.5 backdrop-blur-md shadow-lg">
@@ -743,7 +830,7 @@
         </section>
     </div>
 
-    <!-- PAGE STAFF (ÉCHELLE DES RANGS) -->
+    <!-- PAGE STAFF (ÉCHELLE DES RANGS FIXÉE MOBILE) -->
     <div id="page-staff" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-5xl mx-auto">
         <div class="text-center mb-12">
             <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3" data-i18n="staff_h1">Server Staff</h1>
@@ -762,21 +849,21 @@
                         data-i18n="role_owner">Owner</span>
                     <div class="h-px bg-white/10 flex-1"></div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-1 max-w-xs mx-auto">
+                <div class="grid grid-cols-1 max-w-xs mx-auto">
                     <div
-                        class="mj-card rounded-2xl p-6 border-red-800/40 text-center relative overflow-hidden reveal-on-scroll">
+                        class="mj-card rounded-2xl p-6 border-red-800/40 text-center relative overflow-hidden reveal-on-scroll flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-red-900/20 text-red-500 text-[10px] font-black uppercase tracking-widest border border-red-800/40 mb-4 shadow-sm"
                                 data-i18n="role_owner">
                                 Owner
                             </span>
-                            <div class="h-40 flex items-center justify-center my-2">
+                            <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <img src="https://mc-heads.net/body/lvnah" alt="lvnah"
-                                    class="h-36 object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
+                                    class="h-32 sm:h-36 object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
                             </div>
                             <h3 class="text-lg font-black mt-3 tracking-wide" style="color: #AA0000;">lvnah</h3>
                             <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider font-bold"
@@ -786,7 +873,7 @@
                 </div>
             </div>
 
-            <!-- 2. NIVEAU 2 : MODERATOR (3 Cartes) -->
+            <!-- 2. NIVEAU 2 : MODERATOR -->
             <div>
                 <div class="flex items-center gap-3 mb-6">
                     <div class="h-px bg-white/10 flex-1"></div>
@@ -797,15 +884,15 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     <div
-                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-100 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-100 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm"
                                 data-i18n="role_mod">Moderator</span>
-                            <div class="h-40 flex items-center justify-center my-2">
+                            <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -819,15 +906,15 @@
                     </div>
 
                     <div
-                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-150 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-150 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm"
                                 data-i18n="role_mod">Moderator</span>
-                            <div class="h-40 flex items-center justify-center my-2">
+                            <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -841,15 +928,15 @@
                     </div>
 
                     <div
-                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-200 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-200 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm"
                                 data-i18n="role_mod">Moderator</span>
-                            <div class="h-40 flex items-center justify-center my-2">
+                            <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -864,7 +951,7 @@
                 </div>
             </div>
 
-            <!-- 3. NIVEAU 3 : HELPER (5 Cartes) -->
+            <!-- 3. NIVEAU 3 : HELPER -->
             <div>
                 <div class="flex items-center gap-3 mb-6">
                     <div class="h-px bg-white/10 flex-1"></div>
@@ -875,15 +962,15 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
                     <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-250 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-250 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
                                 data-i18n="role_helper">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2">
+                            <div class="h-32 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -897,15 +984,15 @@
                     </div>
 
                     <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-300 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-300 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
                                 data-i18n="role_helper">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2">
+                            <div class="h-32 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -919,15 +1006,15 @@
                     </div>
 
                     <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-350 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-350 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
                                 data-i18n="role_helper">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2">
+                            <div class="h-32 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -941,15 +1028,15 @@
                     </div>
 
                     <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-400 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-400 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
                                 data-i18n="role_helper">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2">
+                            <div class="h-32 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -963,15 +1050,15 @@
                     </div>
 
                     <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-450 flex flex-col justify-between">
+                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-450 flex flex-col justify-between h-full">
                         <div
                             class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
                         </div>
-                        <div class="relative z-10">
+                        <div class="relative z-10 flex flex-col items-center">
                             <span
                                 class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm"
                                 data-i18n="role_helper">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2">
+                            <div class="h-32 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
                                     <i class="fa-solid fa-user-plus"></i>
@@ -1097,6 +1184,84 @@
         </div>
     </div>
 
+    <!-- CHATBOT FLOTTANT PREMIUM -->
+    <div class="fixed bottom-6 right-6 z-[140]">
+        <!-- Bouton Bulle de Chat Flottant avec effet de pulsation -->
+        <button onclick="toggleChatbot()" id="chatbot-toggle-btn"
+            class="chat-pulse-ring w-14 h-14 rounded-full bg-gradient-to-tr from-gold to-yellow-300 hover:from-yellow-400 hover:to-yellow-200 text-black shadow-[0_0_30px_rgba(255,184,0,0.5)] flex items-center justify-center text-xl cursor-pointer transition-transform hover:scale-110 active:scale-95 border border-white/30">
+            <i class="fa-solid fa-comments"></i>
+        </button>
+
+        <!-- Fenêtre du Chatbot -->
+        <div id="chatbot-window"
+            class="absolute bottom-20 right-0 w-[92vw] sm:w-[380px] h-[500px] bg-[#090d19]/95 backdrop-blur-2xl border border-gold/30 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden">
+            <!-- En-tête du Chatbot -->
+            <div
+                class="bg-gradient-to-r from-[#0d1220] to-[#12192d] border-b border-white/10 px-4 py-3.5 flex items-center justify-between shadow-md">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <div
+                            class="w-9 h-9 rounded-2xl bg-gradient-to-br from-gold to-amber-600 border border-gold/50 flex items-center justify-center text-black text-sm font-black shadow-inner">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <span
+                            class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-500 border-2 border-[#090d19] animate-pulse"></span>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-1.5">
+                            SoupBot <span
+                                class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-gold/10 text-gold border border-gold/30">AI</span>
+                        </h4>
+                        <p class="text-[10px] text-gray-400 font-medium">Ready to help you</p>
+                    </div>
+                </div>
+                <button onclick="toggleChatbot()"
+                    class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white cursor-pointer transition-colors">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Corps de la conversation -->
+            <div id="chatbot-messages" class="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs text-gray-200">
+                <div class="flex gap-2.5 items-start">
+                    <div
+                        class="w-7 h-7 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xs shrink-0 mt-0.5 shadow-sm">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div
+                        class="bg-[#121829] border border-white/10 p-3.5 rounded-2xl rounded-tl-none max-w-[82%] leading-relaxed shadow-lg">
+                        Hey there! 👋 Welcome to <strong class="text-gold">SoupTeams</strong>. How can I help you today?
+                        Ask me about the server IP, versions, or shop!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggestions rapides -->
+            <div class="px-3.5 py-2.5 bg-black/30 border-t border-white/5 flex gap-1.5 overflow-x-auto scrollbar-none">
+                <button onclick="sendQuickReply('Server IP?')"
+                    class="text-[10px] font-bold bg-white/5 hover:bg-gold hover:text-black text-gray-300 px-3 py-1.5 rounded-xl whitespace-nowrap border border-white/10 transition-all cursor-pointer">🌐
+                    Server IP</button>
+                <button onclick="sendQuickReply('How to get a rank?')"
+                    class="text-[10px] font-bold bg-white/5 hover:bg-gold hover:text-black text-gray-300 px-3 py-1.5 rounded-xl whitespace-nowrap border border-white/10 transition-all cursor-pointer">🛒
+                    Ranks & Store</button>
+                <button onclick="sendQuickReply('What version is it?')"
+                    class="text-[10px] font-bold bg-white/5 hover:bg-gold hover:text-black text-gray-300 px-3 py-1.5 rounded-xl whitespace-nowrap border border-white/10 transition-all cursor-pointer">🎮
+                    Version 1.8.8</button>
+            </div>
+
+            <!-- Barre de saisie -->
+            <div class="p-3 bg-[#080b14] border-t border-white/10 flex gap-2 items-center">
+                <input type="text" id="chatbot-input" placeholder="Type a message..."
+                    class="flex-1 bg-black/60 border border-white/10 rounded-xl px-3.5 py-2.5 text-white text-xs placeholder-gray-500 focus:outline-none focus:border-gold transition-colors"
+                    onkeydown="if(event.key === 'Enter') handleChatSubmit()">
+                <button onclick="handleChatSubmit()"
+                    class="w-10 h-10 rounded-xl bg-gold hover:bg-yellow-400 text-black flex items-center justify-center text-xs cursor-pointer transition-all shadow-[0_0_15px_rgba(255,184,0,0.3)] shrink-0">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="bg-[#05070e]/80 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
         <div class="max-w-4xl mx-auto flex flex-col items-center gap-5">
@@ -1175,6 +1340,123 @@
                     targetPage.style.transform = '';
                 }, 300);
             }, currentActive ? 300 : 0);
+        }
+
+        // Gestion du menu mobile
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = "fa-solid fa-bars text-base";
+            } else {
+                icon.className = "fa-solid fa-xmark text-base";
+            }
+        }
+
+        // Gestion du Chatbot Premium
+        function toggleChatbot() {
+            const win = document.getElementById('chatbot-window');
+            win.classList.toggle('open');
+            if (win.classList.contains('open')) {
+                document.getElementById('chatbot-input').focus();
+            }
+        }
+
+        function sendQuickReply(text) {
+            document.getElementById('chatbot-input').value = text;
+            handleChatSubmit();
+        }
+
+        function handleChatSubmit() {
+            const input = document.getElementById('chatbot-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendUserMessage(text);
+            input.value = "";
+
+            // Afficher l'indicateur de frappe
+            showTypingIndicator();
+
+            setTimeout(() => {
+                removeTypingIndicator();
+                generateBotResponse(text);
+            }, 800);
+        }
+
+        function appendUserMessage(text) {
+            const container = document.getElementById('chatbot-messages');
+            container.innerHTML += `
+                <div class="flex gap-2 items-start justify-end">
+                    <div class="bg-gradient-to-r from-gold to-amber-500 text-black p-3.5 rounded-2xl rounded-tr-none max-w-[82%] leading-relaxed font-semibold shadow-md">
+                        ${escapeHtml(text)}
+                    </div>
+                </div>
+            `;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendBotMessage(text) {
+            const container = document.getElementById('chatbot-messages');
+            container.innerHTML += `
+                <div class="flex gap-2.5 items-start">
+                    <div class="w-7 h-7 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xs shrink-0 mt-0.5 shadow-sm">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-[#121829] border border-white/10 p-3.5 rounded-2xl rounded-tl-none max-w-[82%] leading-relaxed shadow-lg">
+                        ${text}
+                    </div>
+                </div>
+            `;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const container = document.getElementById('chatbot-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = 'flex gap-2.5 items-start';
+            typingDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold text-xs shrink-0 mt-0.5 shadow-sm">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="bg-[#121829] border border-white/10 p-3 rounded-2xl rounded-tl-none flex items-center gap-1.5 shadow-lg">
+                    <div class="w-2 h-2 rounded-full bg-gold typing-dot"></div>
+                    <div class="w-2 h-2 rounded-full bg-gold typing-dot"></div>
+                    <div class="w-2 h-2 rounded-full bg-gold typing-dot"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        function generateBotResponse(userMsg) {
+            const lower = userMsg.toLowerCase();
+            let reply = "I'm not entirely sure about that! Feel free to open a ticket on our official Discord for direct support.";
+
+            if (lower.includes('ip') || lower.includes('address') || lower.includes('server')) {
+                reply = "The official server IP is <code class='text-gold font-bold bg-black/40 px-1.5 py-0.5 rounded'>MC.SOUPTEAMS.EU</code>. Join us now in version 1.8.8!";
+            } else if (lower.includes('rank') || lower.includes('store') || lower.includes('buy') || lower.includes('vip') || lower.includes('elite')) {
+                reply = "You can unlock amazing perks and ranks like VIP or Elite directly on our store: <a href='https://soupteams.tebex.io' target='_blank' class='text-gold font-bold underline hover:text-yellow-300'>soupteams.tebex.io</a> ✨";
+            } else if (lower.includes('version') || lower.includes('client')) {
+                reply = "SoupTeams is built exclusively for Minecraft version <b>1.8.8</b> to guarantee smooth, competitive PvP mechanics and knockback!";
+            } else if (lower.includes('discord') || lower.includes('support') || lower.includes('ticket')) {
+                reply = "Need help from the team? Join our community Discord server here: <a href='https://discord.gg/soupteams' target='_blank' class='text-sky font-bold underline hover:text-sky-300'>discord.gg/soupteams</a> 🚀";
+            } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
+                reply = "Hey there! How can I assist your gaming experience on SoupTeams today?";
+            }
+
+            appendBotMessage(reply);
+        }
+
+        function escapeHtml(string) {
+            return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
         const translations = {
@@ -1374,7 +1656,7 @@
                 btn_pay: "Proceder al pago", secure_tebex: "Pago seguro con la tecnología de Tebex",
                 staff_h1: "Staff del Servidor", staff_subtitle: "Conoce al equipo dedicado a mantener SoupTeams seguro y justo.",
                 role_owner: "Propietario", owner_desc: "Fundador y Desarrollador Lead",
-                role_mod: "Moderador", role_helper: "Helper",
+                role_mod: "Moderator", role_helper: "Helper",
                 recruiting_title: "Reclutamiento Abierto", recruiting_desc: "Postúlate en Discord",
                 preview_title: "Vista Previa Visual In-Game",
                 seo_block_title: "SoupTeams : El mejor servidor de Minecraft Soup PvP (1.8.8)",
@@ -1429,24 +1711,33 @@
 
         function updateAuthUI() {
             const container = document.getElementById('nav-auth-container');
+            const mobileContainer = document.getElementById('nav-auth-container-mobile');
             const currentLang = localStorage.getItem('selectedLang') || 'en';
             const loginText = translations[currentLang]?.btn_login || "Login";
 
+            let htmlContent = "";
+            let mobileHtmlContent = "";
+
             if (loggedUser) {
-                container.innerHTML = `
-                    <div class="flex items-center gap-1.5 sm:gap-2 bg-white/5 border border-white/10 rounded-full pl-1.5 sm:pl-2 pr-2 sm:pr-3 py-1">
-                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/32" alt="Skin" class="w-5 h-5 sm:w-6 sm:h-6 rounded-md object-cover shrink-0">
-                        <span class="text-[11px] sm:text-xs font-bold text-white max-w-[70px] sm:max-w-[110px] truncate">${loggedUser}</span>
-                        <button onclick="logoutUser()" class="text-gray-400 hover:text-red-400 text-xs ml-0.5 transition-colors cursor-pointer shrink-0" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                htmlContent = `
+                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full pl-2 pr-3 py-1">
+                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/32" alt="Skin" class="w-6 h-6 rounded-md object-cover shrink-0">
+                        <span class="text-xs font-bold text-white max-w-[110px] truncate">${loggedUser}</span>
+                        <button onclick="logoutUser()" class="text-gray-400 hover:text-red-400 text-xs ml-1 transition-colors cursor-pointer shrink-0" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                 `;
+                mobileHtmlContent = htmlContent;
             } else {
-                container.innerHTML = `
-                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-[11px] font-bold uppercase tracking-wider px-3 sm:px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer shrink-0">
-                        <i class="fa-solid fa-right-to-bracket text-[9px]"></i> <span data-i18n="btn_login">${loginText}</span>
+                htmlContent = `
+                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl transition-all flex items-center gap-2 cursor-pointer shrink-0">
+                        <i class="fa-solid fa-right-to-bracket text-[10px]"></i> <span data-i18n="btn_login">${loginText}</span>
                     </button>
                 `;
+                mobileHtmlContent = htmlContent;
             }
+
+            container.innerHTML = htmlContent;
+            if (mobileContainer) mobileContainer.innerHTML = mobileHtmlContent;
         }
 
         function openLoginModal() {
