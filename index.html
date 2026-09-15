@@ -44,27 +44,22 @@
                         gold: '#FFB800',
                         sky: '#38BDF8',
                         blood: '#E11D48',
-                        darkBg: '#09090b',
+                        darkBg: '#060810',
                     },
                     animation: {
                         'blob': 'blob 12s infinite',
                         'zoom-in': 'zoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
                         blob: {
                             '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(20px, -25px) scale(1.1)' },
-                            '66%': { transform: 'translate(-15px, 15px) scale(0.9)' },
+                            '33%': { transform: 'translate(25px, -30px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
                             '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         },
                         zoomIn: {
                             '0%': { opacity: '0', transform: 'scale(0.96) translateY(10px)' },
                             '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-5px)' },
                         }
                     }
                 }
@@ -74,7 +69,7 @@
 
     <style>
         body {
-            background-color: #050507;
+            background-color: #060810;
             color: #e4e4e7;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -86,8 +81,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background-image: radial-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+            background-size: 36px 36px;
             z-index: -2;
             pointer-events: none;
         }
@@ -105,7 +100,7 @@
 
         .hero-bg {
             background-image:
-                linear-gradient(to bottom, rgba(5, 5, 7, 0.6) 0%, rgba(5, 5, 7, 0.85) 75%, rgba(5, 5, 7, 1) 100%),
+                linear-gradient(to bottom, rgba(6, 8, 16, 0.5) 0%, rgba(6, 8, 16, 0.8) 75%, rgba(6, 8, 16, 1) 100%),
                 url('https://minecraft.fr/wp-content/uploads/2026/06/fonds-sous-marins-spring-shaders-shader-minecraft.webp');
             background-size: cover;
             background-position: center;
@@ -134,11 +129,11 @@
         }
 
         .mj-card {
-            background: rgba(15, 15, 18, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(135deg, rgba(13, 18, 32, 0.8) 0%, rgba(10, 14, 25, 0.6) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
         }
 
         .mj-card::before {
@@ -148,8 +143,8 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--card-accent, rgba(255, 255, 255, 0.4)), transparent);
-            opacity: 0.3;
+            background: linear-gradient(90deg, transparent, var(--card-accent, rgba(56, 189, 248, 0.5)), transparent);
+            opacity: 0.5;
         }
 
         .btn-skew {
@@ -204,11 +199,11 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #050507;
+            background: #060810;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #27272a;
+            background: #1e293b;
             border-radius: 10px;
         }
 
@@ -222,7 +217,7 @@
 
     <!-- NOTIFICATION TOAST DE CONNEXION -->
     <div id="toast-notification"
-        class="fixed bottom-6 right-6 z-[150] bg-[#0c0c0e]/95 border border-emerald-500/40 backdrop-blur-md rounded-2xl p-4 shadow-2xl flex items-center gap-3.5 max-w-xs pointer-events-none">
+        class="fixed bottom-6 right-6 z-[150] bg-[#0d1220]/95 border border-emerald-500/40 backdrop-blur-md rounded-2xl p-4 shadow-2xl flex items-center gap-3.5 max-w-xs pointer-events-none">
         <div
             class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-base shrink-0 shadow-inner">
             <i class="fa-solid fa-circle-check"></i>
@@ -234,15 +229,15 @@
         </div>
     </div>
 
-    <!-- ARRIÈRE-PLAN GLOBAL -->
+    <!-- ARRIÈRE-PLAN GLOBAL & LUMIÈRES AMBIANTES -->
     <div class="bg-grid-pattern"></div>
     <div class="ambient-glows">
         <div
-            class="absolute top-[-10%] left-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blood/10 rounded-full blur-[100px] md:blur-[140px] animate-blob">
+            class="absolute top-[-10%] left-[-10%] w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-sky/10 rounded-full blur-[130px] md:blur-[170px] animate-blob">
         </div>
-        <div class="absolute top-[35%] right-[-10%] w-[280px] md:w-[500px] h-[280px] md:h-[500px] bg-sky/5 rounded-full blur-[100px] md:blur-[140px] animate-blob"
+        <div class="absolute top-[30%] right-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blood/10 rounded-full blur-[120px] md:blur-[160px] animate-blob"
             style="animation-delay: 4s;"></div>
-        <div class="absolute bottom-[-20%] left-[10%] w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-gold/5 rounded-full blur-[120px] md:blur-[160px] animate-blob"
+        <div class="absolute bottom-[-10%] left-[20%] w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-gold/5 rounded-full blur-[140px] md:blur-[180px] animate-blob"
             style="animation-delay: 8s;"></div>
     </div>
 
@@ -251,7 +246,7 @@
         class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[110] opacity-0 pointer-events-none transition-opacity duration-300"
         onclick="closeLoginModal()"></div>
     <div id="login-modal"
-        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-sm bg-[#0c0c0e] border border-white/15 rounded-2xl z-[120] p-5 sm:p-6 shadow-2xl opacity-0 pointer-events-none scale-95">
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-sm bg-[#0d1220] border border-sky-500/20 rounded-2xl z-[120] p-5 sm:p-6 shadow-2xl opacity-0 pointer-events-none scale-95">
         <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
             <h3 class="text-base sm:text-lg font-black text-white uppercase" data-i18n="login_title">Minecraft Login
             </h3>
@@ -264,10 +259,10 @@
                 <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5"
                     data-i18n="label_username">Minecraft Username</label>
                 <input type="text" id="login-username-input" placeholder="Ex: Notch" maxlength="16"
-                    class="w-full bg-black/40 border border-white/10 rounded-xl py-3 px-3.5 text-white placeholder-gray-600 text-[16px] focus:outline-none focus:border-gold transition-colors"
+                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white placeholder-gray-600 text-[16px] focus:outline-none focus:border-gold transition-colors"
                     onkeydown="if(event.key === 'Enter') submitLogin()">
                 <p id="login-error" class="text-blood text-[10px] mt-1 hidden" data-i18n="error_username">Please enter a
-                    valid username (max 16 chars, letters, numbers, _, -).</p>
+                    valid username (max 16 chars).</p>
             </div>
             <button onclick="submitLogin()"
                 class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] cursor-pointer"
@@ -275,12 +270,12 @@
         </div>
     </div>
 
-    <!-- TIROIR DE PAIEMENT -->
+    <!-- TIROIR DE PAIEMENT & APERÇU 3D STYLE NAMETAG MINECRAFT (SANS AUCUNE BORDURE DE BLOC) -->
     <div id="drawer-overlay"
         class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[99] opacity-0 pointer-events-none transition-opacity duration-300"
         onclick="closeCheckout()"></div>
     <div id="checkout-drawer"
-        class="fixed top-0 right-0 h-full w-full sm:w-[380px] bg-[#0c0c0e] border-l border-white/10 z-[100] shadow-2xl flex flex-col justify-between p-5 sm:p-6">
+        class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-[#0d1220] border-l border-white/10 z-[100] shadow-2xl flex flex-col justify-between p-5 sm:p-6 overflow-y-auto">
         <div>
             <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
                 <div>
@@ -292,19 +287,40 @@
                     class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors cursor-pointer"><i
                         class="fa-solid fa-xmark text-sm"></i></button>
             </div>
+
             <div class="space-y-4">
+                <!-- COMPTE CONNECTÉ & SKIN AVEC NAMETAG PUR FLOTTANT SANS BOITE -->
                 <div
-                    class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3.5 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <img id="drawer-user-avatar" src="" alt="Avatar"
-                            class="w-9 h-9 rounded-lg bg-black/40 border border-emerald-500/40 object-cover shadow-inner">
-                        <div>
-                            <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-wider"
-                                data-i18n="status_logged_as">Logged in as</div>
-                            <div id="drawer-display-username" class="text-xs sm:text-sm font-black text-white"></div>
+                    class="bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-2xl p-4 text-center relative overflow-hidden">
+                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">Aperçu Visuel In-Game
+                    </div>
+
+                    <!-- Conteneur global du skin avec le nametag flottant brut -->
+                    <div class="relative h-44 flex flex-col items-center justify-center my-1">
+                        <!-- Nametag Minecraft flottant brut (sans bordure ni cadre rectangulaire) -->
+                        <div class="absolute top-1 z-10">
+                            <span id="drawer-nametag-username"
+                                class="text-xs font-bold tracking-tight px-1.5 py-0.5 rounded shadow-lg"></span>
                         </div>
+
+                        <!-- Skin 3D entier (fixe, sans mouvement) -->
+                        <img id="drawer-skin-3d" src="" alt="Skin 3D"
+                            class="h-36 object-contain mt-5 drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
                     </div>
                 </div>
+
+                <!-- APERÇU DU CHAT EN JEU -->
+                <div class="bg-[#05070e] border border-white/10 rounded-xl p-3.5 space-y-2">
+                    <div class="text-[9px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-comments text-sky"></i> Chat
+                    </div>
+                    <div id="chat-preview-box"
+                        class="font-mono text-[11px] bg-black/60 p-2.5 rounded-lg border border-white/5 text-gray-300">
+                        <!-- Généré en JS -->
+                    </div>
+                </div>
+
+                <!-- RÉSUMÉ COMMANDE -->
                 <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 space-y-2.5 text-xs">
                     <div class="flex justify-between"><span class="text-gray-400" data-i18n="summary_item">Item
                             :</span><span id="summary-rank-name" class="font-bold text-white">VIP (1 Month)</span></div>
@@ -316,7 +332,8 @@
                 </div>
             </div>
         </div>
-        <div>
+
+        <div class="mt-5">
             <button onclick="proceedToTebex()"
                 class="w-full py-3.5 bg-gradient-to-r from-gold to-amber-500 hover:from-amber-400 hover:to-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] flex items-center justify-center gap-2 cursor-pointer">
                 <span data-i18n="btn_pay">Proceed to Checkout</span><i class="fa-solid fa-arrow-right text-[10px]"></i>
@@ -327,10 +344,10 @@
         </div>
     </div>
 
-    <!-- NAVBAR ÉLARGIE ET PARFAITEMENT ÉQUILIBRÉE -->
+    <!-- NAVBAR -->
     <nav class="fixed w-full z-50 top-3 sm:top-5 px-3 sm:px-4 flex justify-center">
         <div
-            class="bg-[#0a0a0c]/85 backdrop-blur-md border border-white/15 rounded-full px-5 sm:px-8 py-3 flex items-center justify-between gap-4 sm:gap-6 shadow-2xl w-full max-w-2xl transition-all hover:border-gold/40">
+            class="bg-[#0b101c]/85 backdrop-blur-md border border-sky-500/20 rounded-full px-5 sm:px-8 py-3 flex items-center justify-between gap-4 sm:gap-6 shadow-2xl w-full max-w-2xl transition-all hover:border-gold/40">
             <a href="#" onclick="switchPage('home')"
                 class="text-sm sm:text-base font-black tracking-tight text-white uppercase drop-shadow-md shrink-0 cursor-pointer flex items-center">Soup<span
                     class="text-gold">Teams</span></a>
@@ -360,7 +377,7 @@
             class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-20 pb-10 px-4 border-b border-white/5">
             <div class="z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center animate-zoom-in">
                 <div
-                    class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-3.5 py-1.5 backdrop-blur-md shadow-lg animate-float">
+                    class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-sky-500/30 rounded-full px-3.5 py-1.5 backdrop-blur-md shadow-lg">
                     <span class="relative flex h-2 w-2">
                         <span
                             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
@@ -389,7 +406,7 @@
                     <button onclick="copyIP()"
                         class="group relative btn-skew bg-white/20 p-[1px] cursor-pointer hover:bg-gradient-to-r hover:from-gold hover:to-orange-500 transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto">
                         <div
-                            class="bg-[#0a0a0c]/90 backdrop-blur-sm px-5 sm:px-8 py-3.5 sm:py-4 transition-all duration-300 group-hover:bg-transparent">
+                            class="bg-[#0b101c]/90 backdrop-blur-sm px-5 sm:px-8 py-3.5 sm:py-4 transition-all duration-300 group-hover:bg-transparent">
                             <div class="btn-skew-content flex items-center justify-center gap-3.5 sm:gap-4">
                                 <i
                                     class="fa-solid fa-gamepad text-gray-400 group-hover:text-black text-base sm:text-lg transition-colors"></i>
@@ -407,7 +424,7 @@
             </div>
         </section>
 
-        <!-- Features Section (Hardcore Mechanics) -->
+        <!-- Features Section -->
         <section id="features" class="py-16 md:py-24 relative z-10 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
@@ -469,7 +486,7 @@
         </section>
 
         <!-- SECTION AIDE EN JEU & COMMANDES -->
-        <section class="py-16 md:py-24 relative border-t border-white/5 bg-black/20 px-4">
+        <section class="py-16 md:py-24 relative border-t border-white/5 bg-[#080b14]/50 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
                     <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight"><span
@@ -480,7 +497,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                    <!-- Carte Teams (Logo corrigé) -->
+                    <!-- Carte Teams -->
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-100" style="--card-accent: #38BDF8;">
                         <div class="flex items-center gap-3 mb-4">
                             <div
@@ -514,7 +531,7 @@
                         </ul>
                     </div>
 
-                    <!-- Carte Go (Personal Warps) -->
+                    <!-- Carte Go -->
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-200" style="--card-accent: #FFB800;">
                         <div class="flex items-center gap-3 mb-4">
                             <div
@@ -538,15 +555,16 @@
                         </ul>
                         <div
                             class="bg-white/5 border border-white/10 rounded-xl p-3 text-[11px] text-gray-400 space-y-1">
-                            <p class="font-bold text-white"> <span data-i18n="tp_rules_title">Teleportation
-                                    Rules:</span></p>
+                            <p class="font-bold text-white"><i
+                                    class="fa-solid fa-triangle-exclamation text-gold mr-1"></i> <span
+                                    data-i18n="tp_rules_title">Teleportation Rules:</span></p>
                             <p data-i18n="tp_rules_desc">For <code class="text-white">/t hq</code> & <code
                                     class="text-white">/go</code>: Takes ~5 seconds. No player within 30 blocks radius.
                             </p>
                         </div>
                     </div>
 
-                    <!-- Carte Spawn & Protection -->
+                    <!-- Carte Spawn -->
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-300" style="--card-accent: #E11D48;">
                         <div class="flex items-center gap-3 mb-4">
                             <div
@@ -569,7 +587,7 @@
                         </div>
                     </div>
 
-                    <!-- Carte Economy (Gold - Texte modifié) -->
+                    <!-- Carte Economy -->
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-400" style="--card-accent: #22c55e;">
                         <div class="flex items-center gap-3 mb-4">
                             <div
@@ -594,6 +612,8 @@
                             <li><code class="text-emerald-400 font-bold">/buy [id] [qty]</code> - <span
                                     class="font-sans text-gray-400" data-i18n="cmd_eco_buy">Buy items</span></li>
                         </ul>
+                        <p class="text-[11px] text-gray-400 italic" data-i18n="eco_note">Juste il faut miner et le
+                            fondre pour augmenter sa balance</p>
                     </div>
                 </div>
             </div>
@@ -708,7 +728,7 @@
         </section>
 
         <!-- SECTION SEO MULTILINGUE -->
-        <section class="py-12 px-4 border-t border-white/5 bg-black/40">
+        <section class="py-12 px-4 border-t border-white/5 bg-[#080b14]/30">
             <div class="max-w-4xl mx-auto text-gray-400 text-xs leading-relaxed space-y-4">
                 <h3 class="text-white font-bold text-sm uppercase tracking-wider" data-i18n="seo_block_title">SoupTeams
                     : The Best Minecraft Soup PvP Server (1.8.8)</h3>
@@ -827,7 +847,7 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-black/60 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
+    <footer class="bg-[#05070e]/80 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
         <div class="max-w-4xl mx-auto flex flex-col items-center gap-5">
             <h2 class="text-lg font-black text-white uppercase opacity-20 tracking-widest">Soup<span
                     class="text-gold">Teams</span></h2>
@@ -848,9 +868,9 @@
                 <span class="text-[10px] text-gray-500 uppercase tracking-wider" data-i18n="lang_label">Language:</span>
                 <select id="lang-switcher" onchange="changeLanguage(this.value)"
                     class="bg-white/5 border border-white/15 text-white text-[11px] rounded-full px-3 py-1 focus:outline-none cursor-pointer transition-all hover:border-gold/60">
-                    <option value="en" class="bg-[#0a0a0c] text-white">English (EN)</option>
-                    <option value="fr" class="bg-[#0a0a0c] text-white">Français (FR)</option>
-                    <option value="es" class="bg-[#0a0a0c] text-white">Español (ES)</option>
+                    <option value="en" class="bg-[#0b101c] text-white">English (EN)</option>
+                    <option value="fr" class="bg-[#0b101c] text-white">Français (FR)</option>
+                    <option value="es" class="bg-[#0b101c] text-white">Español (ES)</option>
                 </select>
             </div>
 
@@ -902,11 +922,11 @@
                 cmd_go_delete: "Delete a warp",
                 cmd_go_list: "List your warps",
                 tp_rules_title: "Teleportation Rules:",
-                tp_rules_desc: "For /t hq & /go: Takes ~5s. No player within 30 blocks radius.",
+                tp_rules_desc: "For /t hq & /go: Takes ~5 seconds. No player within 30 blocks radius.",
 
                 guide_spawn_title: "Spawn & Protection",
                 spawn_desc: "Takes 15 seconds of teleportation (if not in combat and no movement) and restores spawn protection.",
-                spawn_prot_desc: "Spawn Protection: Active at spawn. Leaving and re-entering enables PvP for you inside spawn!",
+                spawn_prot_desc: "Spawn Protection: Active at spawn. If you leave spawn and re-enter, PvP will be enabled for you inside the spawn area!",
 
                 guide_eco_title: "Gold Economy & Market",
                 cmd_eco_balance: "Check your gold balance",
@@ -925,7 +945,7 @@
                 select_vip: "Get VIP", select_elite: "Get Elite", popular: "Popular",
                 footer_rules: "Rules", footer_support: "Support", footer_disclaimer: "Not affiliated with Mojang AB.",
                 lang_label: "Language:", btn_login: "Login", login_title: "Minecraft Login", label_username: "Minecraft Username",
-                error_username: "Please enter a valid username (max 16 chars, letters, numbers, _, -).", btn_login_submit: "Connect",
+                error_username: "Please enter a valid username (max 16 chars).", btn_login_submit: "Connect",
                 status_logged_as: "Logged in as", summary_item: "Item:", summary_price: "Price:", summary_total: "Total:",
                 btn_pay: "Proceed to Checkout", secure_tebex: "Secure payment powered by Tebex",
                 seo_block_title: "SoupTeams : The Best Minecraft Soup PvP Server (1.8.8)",
@@ -968,7 +988,7 @@
                 cmd_go_delete: "Supprimer un go",
                 cmd_go_list: "Lister vos go",
                 tp_rules_title: "Règles de téléportation :",
-                tp_rules_desc: "Pour /t hq & /go : ~5s de délai. Aucun joueur à moins de 30 blocs.",
+                tp_rules_desc: "Pour /t hq & /go : ~5 secondes de délai. Aucun joueur à moins de 30 blocs.",
 
                 guide_spawn_title: "Spawn & Protection",
                 spawn_desc: "15 secondes de téléportation (si hors combat et sans bouger) et redonne la protection de spawn.",
@@ -1034,7 +1054,7 @@
                 cmd_go_delete: "Eliminar warp",
                 cmd_go_list: "Listar tus warps",
                 tp_rules_title: "Reglas de teletransporte:",
-                tp_rules_desc: "Para /t hq y /go: ~5s. Sin jugadores a 30 bloques a la redonda.",
+                tp_rules_desc: "Para /t hq y /go: ~5 segundos. Sin jugadores a 30 bloques a la redonda.",
 
                 guide_spawn_title: "Spawn y Protección",
                 spawn_desc: "15 segundos de teletransporte (sin combate ni movimiento) y restaura la protección de spawn.",
@@ -1144,26 +1164,47 @@
             document.getElementById('login-error').classList.add('hidden');
         }
 
-        function submitLogin() {
+        async function submitLogin() {
             const input = document.getElementById('login-username-input');
             const error = document.getElementById('login-error');
             const username = input.value.trim();
-
             const mcUsernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
 
             if (!mcUsernameRegex.test(username)) {
+                error.innerText = "Please enter a valid username (max 16 chars).";
                 error.classList.remove('hidden');
                 input.focus();
                 return;
             }
 
             error.classList.add('hidden');
-            loggedUser = username;
-            localStorage.setItem('soup_username', username);
-            input.value = "";
-            closeLoginModal();
-            updateAuthUI();
-            showToast(username);
+
+            try {
+                let response = await fetch(`https://playerdb.co/api/player/minecraft/${encodeURIComponent(username)}`);
+                let data = await response.json();
+
+                if (data.success) {
+                    const exactUsername = data.data.player.username;
+                    loggedUser = exactUsername;
+                    localStorage.setItem('soup_username', exactUsername);
+                    input.value = "";
+                    closeLoginModal();
+                    updateAuthUI();
+                    showToast(exactUsername);
+                } else {
+                    error.innerText = "This Minecraft account does not exist!";
+                    error.classList.add('hidden');
+                    input.focus();
+                }
+            } catch (err) {
+                console.error("Erreur de vérification API:", err);
+                loggedUser = username;
+                localStorage.setItem('soup_username', username);
+                input.value = "";
+                closeLoginModal();
+                updateAuthUI();
+                showToast(username);
+            }
         }
 
         function showToast(username) {
@@ -1186,9 +1227,26 @@
             selectedRankName = rankName;
             selectedPrice = price;
             selectedTebexUrl = tebexUrl;
+
             document.getElementById('drawer-title').innerText = rankName + " Rank";
-            document.getElementById('drawer-display-username').innerText = loggedUser;
-            document.getElementById('drawer-user-avatar').src = `https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/64`;
+
+            // Image 3D entière du skin (fixe, sans mouvement)
+            document.getElementById('drawer-skin-3d').src = `https://mc-heads.net/body/${encodeURIComponent(loggedUser)}`;
+
+            // Nametag pur style Minecraft (sans bordure rectangulaire) + couleur du pseudo
+            const nametagEl = document.getElementById('drawer-nametag-username');
+            const chatBox = document.getElementById('chat-preview-box');
+
+            nametagEl.innerText = loggedUser;
+
+            if (rankName === 'VIP') {
+                nametagEl.style.color = "#FFB800"; // Couleur Or pure pour le pseudo
+                chatBox.innerHTML = `<span style="color: #FFB800;">${loggedUser}</span>: <span class="text-white">Hi !</span>`;
+            } else {
+                nametagEl.style.color = "#38BDF8"; // Couleur Bleu Ciel pure pour le pseudo
+                chatBox.innerHTML = `<span style="color: #38BDF8;">${loggedUser}</span>: <span class="text-white">Hi !</span>`;
+            }
+
             document.getElementById('summary-rank-name').innerText = rankName + " (1 Month)";
             document.getElementById('summary-price').innerText = price;
             document.getElementById('summary-total').innerText = price;
