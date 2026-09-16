@@ -44,21 +44,14 @@
                         gold: '#FFB800',
                         sky: '#38BDF8',
                         blood: '#E11D48',
-                        darkBg: '#060810',
+                        darkBg: '#080a10',
                     },
                     animation: {
-                        'blob': 'blob 12s infinite',
-                        'zoom-in': 'zoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'zoom-in': 'zoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                     },
                     keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(25px, -30px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
                         zoomIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.96) translateY(10px)' },
+                            '0%': { opacity: '0', transform: 'scale(0.98) translateY(8px)' },
                             '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
                         }
                     }
@@ -69,38 +62,15 @@
 
     <style>
         body {
-            background-color: #060810;
-            color: #e4e4e7;
+            background-color: #080a10;
+            color: #d4d4d8;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        .bg-grid-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-image: radial-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px);
-            background-size: 36px 36px;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        .ambient-glows {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
         .hero-bg {
             background-image:
-                linear-gradient(to bottom, rgba(6, 8, 16, 0.5) 0%, rgba(6, 8, 16, 0.8) 75%, rgba(6, 8, 16, 1) 100%),
+                linear-gradient(to bottom, rgba(8, 10, 16, 0.6) 0%, rgba(8, 10, 16, 0.85) 75%, rgba(8, 10, 16, 1) 100%),
                 url('https://minecraft.fr/wp-content/uploads/2026/06/fonds-sous-marins-spring-shaders-shader-minecraft.webp');
             background-size: cover;
             background-position: center;
@@ -118,8 +88,8 @@
 
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
             will-change: opacity, transform;
         }
 
@@ -129,42 +99,28 @@
         }
 
         .mj-card {
-            background: linear-gradient(135deg, rgba(13, 18, 32, 0.8) 0%, rgba(10, 14, 25, 0.6) 100%);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(56, 189, 248, 0.1);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
-        }
-
-        .mj-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--card-accent, rgba(56, 189, 248, 0.5)), transparent);
-            opacity: 0.5;
+            background-color: #0d111a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .btn-skew {
-            transform: skewX(-6deg);
+            transform: skewX(-4deg);
             display: inline-block;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
         }
 
         .btn-skew-content {
-            transform: skewX(6deg);
+            transform: skewX(4deg);
             display: inline-block;
         }
 
         .btn-skew:active {
-            transform: skewX(-6deg) scale(0.97);
+            transform: skewX(-4deg) scale(0.98);
         }
 
         #login-modal,
         #checkout-drawer {
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
         }
 
         #checkout-drawer {
@@ -178,8 +134,8 @@
         .page-view {
             display: none;
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .page-view.active {
@@ -190,9 +146,9 @@
 
         #toast-notification,
         #success-toast {
-            transform: translateY(100px);
+            transform: translateY(50px);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
         }
 
         #toast-notification.show,
@@ -202,10 +158,10 @@
         }
 
         #simple-chat-window {
-            transform: scale(0.95) translateY(10px);
+            transform: scale(0.98) translateY(8px);
             opacity: 0;
             pointer-events: none;
-            transition: all 0.25s ease-in-out;
+            transition: all 0.2s ease;
         }
 
         #simple-chat-window.open {
@@ -219,12 +175,12 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #060810;
+            background: #080a10;
         }
 
         ::-webkit-scrollbar-thumb {
             background: #1e293b;
-            border-radius: 10px;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -237,47 +193,47 @@
 
     <!-- MODALE AVERTISSEMENT CONNEXION REQUISE -->
     <div id="custom-warning-overlay"
-        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[200] opacity-0 pointer-events-none transition-opacity duration-300">
+        class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[200] opacity-0 pointer-events-none transition-opacity duration-200">
     </div>
     <div id="custom-warning-modal"
-        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#0d1220] border border-gold/30 rounded-2xl z-[210] p-6 shadow-2xl opacity-0 pointer-events-none scale-95 transition-all duration-300">
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#0d111a] border border-white/10 rounded-xl z-[210] p-6 shadow-xl opacity-0 pointer-events-none scale-95 transition-all duration-200">
         <div class="flex flex-col items-center text-center">
             <div
-                class="w-14 h-14 rounded-2xl bg-gold/25 border border-gold/40 flex items-center justify-center text-gold text-2xl mb-4 shadow-[0_0_20px_rgba(255,184,0,0.3)]">
+                class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-lg font-black text-white uppercase tracking-wider mb-2">Authentication Required</h3>
-            <p class="text-xs text-gray-300 leading-relaxed mb-6">Please log in with your Minecraft username before
-                submitting a request!</p>
+            <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Authentication Required</h3>
+            <p class="text-xs text-gray-200 font-medium leading-relaxed mb-6">Please log in with your Minecraft username
+                before submitting a request!</p>
             <div class="flex gap-3 w-full">
                 <button onclick="closeCustomWarning()"
-                    class="w-1/2 py-3 bg-white/10 hover:bg-white/20 text-white font-bold uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer">
+                    class="w-1/2 py-2.5 bg-white/5 hover:bg-white/10 text-white font-semibold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">
                     Cancel
                 </button>
                 <button onclick="openLoginModalFromWarning()"
-                    class="w-1/2 py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] cursor-pointer">
+                    class="w-1/2 py-2.5 bg-gold hover:bg-yellow-400 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">
                     Login Now
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- MODALE ERREUR MESSAGE TROP COURT -->
+    <!-- MODALE ERREUR MESSAGE TROP COURT OU BOT -->
     <div id="custom-error-overlay"
-        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[200] opacity-0 pointer-events-none transition-opacity duration-300">
+        class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[200] opacity-0 pointer-events-none transition-opacity duration-200">
     </div>
     <div id="custom-error-modal"
-        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#0d1220] border border-blood/30 rounded-2xl z-[210] p-6 shadow-2xl opacity-0 pointer-events-none scale-95 transition-all duration-300">
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#0d111a] border border-white/10 rounded-xl z-[210] p-6 shadow-xl opacity-0 pointer-events-none scale-95 transition-all duration-200">
         <div class="flex flex-col items-center text-center">
             <div
-                class="w-14 h-14 rounded-2xl bg-blood/25 border border-blood/40 flex items-center justify-center text-blood text-2xl mb-4 shadow-[0_0_20px_rgba(225,29,72,0.3)]">
+                class="w-12 h-12 rounded-xl bg-blood/10 border border-blood/20 flex items-center justify-center text-blood text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-lg font-black text-white uppercase tracking-wider mb-2">Message Too Short</h3>
-            <p id="error-modal-text" class="text-xs text-gray-300 leading-relaxed mb-6">Your message must contain at
-                least 50 characters!</p>
+            <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Submission Error</h3>
+            <p id="error-modal-text" class="text-xs text-gray-200 font-medium leading-relaxed mb-6">Please fix the form
+                errors before submitting.</p>
             <button onclick="closeCustomError()"
-                class="w-full py-3 bg-blood hover:bg-rose-600 text-white font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(225,29,72,0.3)] cursor-pointer">
+                class="w-full py-2.5 bg-blood hover:bg-rose-600 text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">
                 Understood
             </button>
         </div>
@@ -285,141 +241,120 @@
 
     <!-- NOTIFICATION TOAST DE CONNEXION -->
     <div id="toast-notification"
-        class="fixed bottom-6 right-6 z-[150] bg-[#0d1220]/95 border border-emerald-500/40 backdrop-blur-md rounded-2xl p-4 shadow-2xl flex items-center gap-3.5 max-w-xs pointer-events-none">
+        class="fixed bottom-6 right-6 z-[150] bg-[#0d111a] border border-white/10 rounded-xl p-3.5 shadow-xl flex items-center gap-3 max-w-xs pointer-events-none">
         <div
-            class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-base shrink-0 shadow-inner">
+            class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm shrink-0">
             <i class="fa-solid fa-circle-check"></i>
         </div>
         <div>
-            <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">
-                Successfully Logged In</div>
-            <div id="toast-message" class="text-xs font-black text-white truncate max-w-[200px]"></div>
+            <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-wider">Successfully Logged In</div>
+            <div id="toast-message" class="text-xs font-bold text-white truncate max-w-[180px]"></div>
         </div>
     </div>
 
-    <!-- NOTIFICATION TOAST DE SUCCÈS (REQUÊTE ENVOYÉE) -->
+    <!-- NOTIFICATION TOAST DE SUCCÈS -->
     <div id="success-toast"
-        class="fixed bottom-6 right-6 z-[150] bg-[#0d1220]/95 border border-sky-500/40 backdrop-blur-md rounded-2xl p-4 shadow-2xl flex items-center gap-3.5 max-w-xs pointer-events-none">
+        class="fixed bottom-6 right-6 z-[150] bg-[#0d111a] border border-white/10 rounded-xl p-3.5 shadow-xl flex items-center gap-3 max-w-xs pointer-events-none">
         <div
-            class="w-10 h-10 rounded-xl bg-sky/20 border border-sky-500/40 flex items-center justify-center text-sky text-base shrink-0 shadow-inner">
+            class="w-8 h-8 rounded-lg bg-sky/10 border border-sky/20 flex items-center justify-center text-sky text-sm shrink-0">
             <i class="fa-solid fa-circle-check"></i>
         </div>
         <div>
-            <div class="text-[10px] font-bold text-sky uppercase tracking-widest">
-                Request Sent!</div>
-            <div class="text-xs font-black text-white truncate max-w-[200px]">Successfully submitted.</div>
+            <div class="text-[9px] font-bold text-sky uppercase tracking-wider">Request Sent!</div>
+            <div class="text-xs font-bold text-white truncate max-w-[180px]">Successfully submitted.</div>
         </div>
-    </div>
-
-    <!-- ARRIÈRE-PLAN GLOBAL & LUMIÈRES AMBIANTES -->
-    <div class="bg-grid-pattern"></div>
-    <div class="ambient-glows">
-        <div
-            class="absolute top-[-10%] left-[-10%] w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-sky/10 rounded-full blur-[130px] md:blur-[170px] animate-blob">
-        </div>
-        <div class="absolute top-[30%] right-[-10%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blood/10 rounded-full blur-[120px] md:blur-[160px] animate-blob"
-            style="animation-delay: 4s;"></div>
-        <div class="absolute bottom-[-10%] left-[20%] w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-gold/5 rounded-full blur-[140px] md:blur-[180px] animate-blob"
-            style="animation-delay: 8s;"></div>
     </div>
 
     <!-- MODALE LOGIN -->
     <div id="login-modal-overlay"
-        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[110] opacity-0 pointer-events-none transition-opacity duration-300"
+        class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[110] opacity-0 pointer-events-none transition-opacity duration-200"
         onclick="closeLoginModal()"></div>
     <div id="login-modal"
-        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-sm bg-[#0d1220] border border-sky-500/20 rounded-2xl z-[120] p-5 sm:p-6 shadow-2xl opacity-0 pointer-events-none scale-95">
-        <div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-            <h3 class="text-base sm:text-lg font-black text-white uppercase">Minecraft Login
-            </h3>
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-sm bg-[#0d111a] border border-white/10 rounded-xl z-[120] p-5 shadow-xl opacity-0 pointer-events-none scale-95">
+        <div class="flex items-center justify-between pb-3 border-b border-white/5 mb-4">
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Minecraft Login</h3>
             <button onclick="closeLoginModal()"
-                class="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white cursor-pointer"><i
-                    class="fa-solid fa-xmark text-sm"></i></button>
+                class="w-6 h-6 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-300 hover:text-white cursor-pointer"><i
+                    class="fa-solid fa-xmark text-xs"></i></button>
         </div>
         <div class="space-y-3">
             <div>
-                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Minecraft
+                <label class="block text-[10px] font-semibold uppercase tracking-wider text-gray-200 mb-1.5">Minecraft
                     Username</label>
                 <input type="text" id="login-username-input" placeholder="Ex: Notch" maxlength="16"
-                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white placeholder-gray-600 text-[16px] focus:outline-none focus:border-gold transition-colors"
+                    class="w-full bg-[#080a10] border border-white/15 rounded-lg py-2.5 px-3 text-white placeholder-gray-500 text-xs font-medium focus:outline-none focus:border-gold transition-colors"
                     onkeydown="if(event.key === 'Enter') submitLogin()">
-                <p id="login-error" class="text-blood text-[10px] mt-1 hidden">Please enter a
-                    valid username (max 16 chars).</p>
+                <p id="login-error" class="text-blood text-[10px] mt-1 hidden">Please enter a valid username (max 16
+                    chars).</p>
             </div>
             <button onclick="submitLogin()"
-                class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] cursor-pointer">Connect</button>
+                class="w-full py-2.5 bg-gold hover:bg-yellow-400 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">Connect</button>
         </div>
     </div>
 
     <!-- TIROIR DE PAIEMENT & APERÇU 3D -->
     <div id="drawer-overlay"
-        class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[99] opacity-0 pointer-events-none transition-opacity duration-300"
+        class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[99] opacity-0 pointer-events-none transition-opacity duration-200"
         onclick="closeCheckout()"></div>
     <div id="checkout-drawer"
-        class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-[#0d1220] border-l border-white/10 z-[100] shadow-2xl flex flex-col justify-between p-5 sm:p-6 overflow-y-auto">
+        class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-[#0d111a] border-l border-white/10 z-[100] shadow-2xl flex flex-col justify-between p-5 overflow-y-auto">
         <div>
-            <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+            <div class="flex items-center justify-between pb-4 border-b border-white/5 mb-5">
                 <div>
                     <span id="drawer-badge"
-                        class="text-[9px] font-bold uppercase tracking-[0.2em] px-2 py-0.5 rounded-full bg-grey/10 text-grey border border-grey/25">RANK</span>
-                    <h3 id="drawer-title" class="text-xl font-black text-white uppercase mt-1">VIP Rank</h3>
+                        class="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 text-gray-200 border border-white/5">RANK</span>
+                    <h3 id="drawer-title" class="text-base font-bold text-white uppercase mt-1">VIP Rank</h3>
                 </div>
                 <button onclick="closeCheckout()"
-                    class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors cursor-pointer"><i
-                        class="fa-solid fa-xmark text-sm"></i></button>
+                    class="w-7 h-7 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-300 hover:text-white transition-colors cursor-pointer"><i
+                        class="fa-solid fa-xmark text-xs"></i></button>
             </div>
 
             <div class="space-y-4">
-                <div
-                    class="bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-white/10 rounded-2xl p-4 text-center relative overflow-hidden">
-                    <div class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">In-Game Visual
-                        Preview
-                    </div>
-
-                    <div class="relative h-44 flex flex-col items-center justify-center my-1">
+                <div class="bg-[#080a10] border border-white/5 rounded-xl p-4 text-center relative overflow-hidden">
+                    <div class="text-[9px] font-semibold text-gray-200 uppercase tracking-widest mb-1">In-Game Visual
+                        Preview</div>
+                    <div class="relative h-40 flex flex-col items-center justify-center my-1">
                         <div class="absolute top-1 z-10">
                             <span id="drawer-nametag-username"
-                                class="text-xs font-bold tracking-tight px-1.5 py-0.5 rounded shadow-lg"></span>
+                                class="text-xs font-bold tracking-tight px-1.5 py-0.5 rounded bg-black/40 border border-white/5"></span>
                         </div>
-                        <img id="drawer-skin-3d" src="" alt="Skin 3D"
-                            class="h-36 object-contain mt-5 drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
+                        <img id="drawer-skin-3d" src="" alt="Skin 3D" class="h-32 object-contain mt-4">
                     </div>
                 </div>
 
-                <div class="bg-[#05070e] border border-white/10 rounded-xl p-3.5 space-y-2">
-                    <div class="text-[9px] font-bold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
+                <div class="bg-[#080a10] border border-white/5 rounded-xl p-3 space-y-1.5">
+                    <div class="text-[9px] font-semibold text-sky uppercase tracking-wider flex items-center gap-1.5">
                         <i class="fa-solid fa-comments text-sky"></i> Chat
                     </div>
                     <div id="chat-preview-box"
-                        class="font-mono text-[11px] bg-black/60 p-2.5 rounded-lg border border-white/5 text-gray-300">
-                    </div>
+                        class="font-mono text-[11px] bg-black/40 p-2 rounded border border-white/5 text-gray-200"></div>
                 </div>
 
-                <div class="bg-white/[0.02] border border-white/5 rounded-xl p-3.5 space-y-2.5 text-xs">
-                    <div class="flex justify-between"><span class="text-gray-400">Item :</span><span
+                <div class="bg-[#080a10] border border-white/5 rounded-xl p-3 space-y-2 text-xs">
+                    <div class="flex justify-between"><span class="text-gray-200 font-medium">Item :</span><span
                             id="summary-rank-name" class="font-bold text-white">VIP (1 Month)</span></div>
-                    <div class="flex justify-between"><span class="text-gray-400">Price :</span><span id="summary-price"
-                            class="font-bold text-gold">2.99€</span></div>
-                    <div class="border-t border-white/5 pt-2 flex justify-between text-sm font-bold"><span
-                            class="text-white">Total :</span><span id="summary-total" class="text-white">2.99€</span>
-                    </div>
+                    <div class="flex justify-between"><span class="text-gray-200 font-medium">Price :</span><span
+                            id="summary-price" class="font-bold text-gold">2.99€</span></div>
+                    <div class="border-t border-white/5 pt-2 flex justify-between font-bold"><span
+                            class="text-white">Total :</span><span class="text-white">2.99€</span></div>
                 </div>
             </div>
         </div>
 
         <div class="mt-5">
             <button onclick="proceedToTebex()"
-                class="w-full py-3.5 bg-gradient-to-r from-gold to-amber-500 hover:from-amber-400 hover:to-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(255,184,0,0.3)] flex items-center justify-center gap-2 cursor-pointer">
+                class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer">
                 <span>Proceed to Checkout</span><i class="fa-solid fa-arrow-right text-[10px]"></i>
             </button>
-            <p class="text-[10px] text-gray-500 text-center mt-3 flex items-center justify-center gap-1.5"><i
+            <p class="text-[10px] text-gray-300 text-center mt-3 flex items-center justify-center gap-1.5"><i
                     class="fa-solid fa-lock text-gold"></i> <span>Secure payment powered by Tebex</span></p>
         </div>
     </div>
 
-    <!-- NAVBAR PLEINE LARGEUR (GLASSMORPHISM) -->
+    <!-- NAVBAR PLEINE LARGEUR (GLASSMORPHISM ORIGINELLE) -->
     <nav
-        class="fixed top-0 left-0 w-full z-50 bg-[#060810]/80 backdrop-blur-md border-b border-white/10 transition-all">
+        class="fixed top-0 left-0 w-full z-50 bg-[#060810]/85 backdrop-blur-md border-b border-white/10 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Logo -->
             <a href="#" onclick="switchPage('home'); return false;"
@@ -428,7 +363,7 @@
             </a>
 
             <!-- Liens Desktop -->
-            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-[0.15em] text-gray-300">
+            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-[0.15em] text-gray-200">
                 <a href="#" onclick="switchPage('home'); return false;"
                     class="hover:text-gold transition-colors">Home</a>
                 <a href="#features" onclick="switchPage('home');"
@@ -449,7 +384,7 @@
 
                 <!-- Bouton Menu Mobile (Hamburger) -->
                 <button onclick="toggleMobileMenu()"
-                    class="md:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-300 hover:text-white cursor-pointer transition-colors">
+                    class="md:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-200 hover:text-white cursor-pointer transition-colors">
                     <i id="mobile-menu-icon" class="fa-solid fa-bars text-base"></i>
                 </button>
             </div>
@@ -458,7 +393,7 @@
         <!-- Menu Déroulant Mobile -->
         <div id="mobile-menu"
             class="hidden md:hidden bg-[#0a0e1a] border-b border-white/10 px-6 py-6 space-y-4 shadow-2xl transition-all">
-            <div class="flex flex-col space-y-3 text-xs font-bold uppercase tracking-wider text-gray-300">
+            <div class="flex flex-col space-y-3 text-xs font-bold uppercase tracking-wider text-gray-200">
                 <a href="#" onclick="switchPage('home'); toggleMobileMenu(); return false;"
                     class="hover:text-gold transition-colors py-1">Home</a>
                 <a href="#features" onclick="switchPage('home'); toggleMobileMenu();"
@@ -471,7 +406,7 @@
                     class="text-sky hover:text-sky-300 transition-colors py-1">Apply / Ticket</a>
             </div>
             <div class="pt-4 border-t border-white/10 flex justify-between items-center sm:hidden">
-                <span class="text-[10px] text-gray-400 uppercase tracking-widest">Account</span>
+                <span class="text-[10px] text-gray-200 uppercase tracking-widest font-bold">Account</span>
                 <div id="nav-auth-container-mobile">
                     <!-- Injecté par JS pour mobile -->
                 </div>
@@ -485,42 +420,37 @@
             class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-24 pb-10 px-4 border-b border-white/5">
             <div class="z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center animate-zoom-in">
                 <div
-                    class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-sky-500/30 rounded-full px-3.5 py-1.5 backdrop-blur-md shadow-lg">
+                    class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-3.5 py-1.5 backdrop-blur-md">
                     <span class="relative flex h-2 w-2">
-                        <span
-                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                        <span
-                            class="relative inline-flex rounded-full h-2 w-2 bg-green-500 shadow-[0_0_8px_#22c55e]"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    <span class="text-[10px] sm:text-xs font-bold text-gray-300 uppercase tracking-[0.15em]">
+                    <span class="text-[10px] sm:text-xs font-bold text-gray-200 uppercase tracking-[0.15em]">
                         <span id="player-count" class="text-white">...</span> <span>Players Online</span>
                     </span>
-
                 </div>
 
-                <h1
-                    class="hero-title font-black italic uppercase tracking-normal text-white mb-3 leading-none drop-shadow-xl w-full">
-                    SOUP<span class="text-gold animate-pulse"
-                        style="text-shadow: 0 0 30px rgba(255, 184, 0, 0.4);">TEAMS</span>
+                <!-- SOUPTEAMS AVEC CLIGNOTEMENT SUBTIL -->
+                <h1 class="hero-title font-black italic uppercase tracking-normal text-white mb-3 leading-none w-full">
+                    SOUP<span class="text-gold animate-pulse">TEAMS</span>
                 </h1>
 
                 <p
-                    class="text-xs sm:text-lg text-gray-300 font-medium mb-8 max-w-md sm:max-w-xl mx-auto uppercase tracking-widest drop-shadow px-2">
-                    <span>The ultimate</span> <span class="text-white font-bold">PvP Soup
-                        1.8.8</span> <span>experience</span>.
+                    class="text-xs sm:text-lg text-gray-200 font-semibold mb-8 max-w-md sm:max-w-xl mx-auto uppercase tracking-widest px-2 drop-shadow-sm">
+                    <span>The ultimate</span> <span class="text-white font-bold">PvP Soup 1.8.8</span>
+                    <span>experience</span>.
                 </p>
 
                 <div class="w-full max-w-xs sm:max-w-none flex justify-center">
                     <button onclick="copyIP()"
-                        class="group relative btn-skew bg-white/20 p-[1px] cursor-pointer hover:bg-gradient-to-r hover:from-gold hover:to-orange-500 transition-all duration-300 hover:-translate-y-0.5 w-full sm:w-auto">
+                        class="group relative btn-skew bg-white/10 p-[1px] cursor-pointer hover:bg-gold transition-colors w-full sm:w-auto">
                         <div
-                            class="bg-[#0b101c]/90 backdrop-blur-sm px-5 sm:px-8 py-3.5 sm:py-4 transition-all duration-300 group-hover:bg-transparent">
+                            class="bg-[#080a10] px-5 sm:px-8 py-3.5 sm:py-4 transition-colors group-hover:bg-transparent">
                             <div class="btn-skew-content flex items-center justify-center gap-3.5 sm:gap-4">
                                 <i
-                                    class="fa-solid fa-gamepad text-gray-400 group-hover:text-black text-base sm:text-lg transition-colors"></i>
+                                    class="fa-solid fa-gamepad text-gray-200 group-hover:text-black text-base sm:text-lg transition-colors"></i>
                                 <div class="text-left">
                                     <div
-                                        class="text-[8px] font-bold text-gray-400 group-hover:text-black/90 uppercase tracking-[0.2em] mb-0.5 transition-colors">
+                                        class="text-[8px] font-bold text-gray-300 group-hover:text-black uppercase tracking-[0.2em] mb-0.5 transition-colors">
                                         Join the server</div>
                                     <div id="ip-text"
                                         class="text-sm sm:text-lg font-black text-white group-hover:text-black tracking-[0.08em] transition-colors">
@@ -540,151 +470,134 @@
                     <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight">
                         <span>Hardcore</span> <span class="text-blood">Mechanics</span>
                     </h2>
-                    <div
-                        class="w-12 h-1 bg-blood mx-auto rounded-full opacity-80 shadow-[0_0_10px_rgba(225,29,72,0.6)]">
-                    </div>
+                    <div class="w-12 h-1 bg-blood mx-auto rounded-full opacity-80"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
-                    <div class="mj-card rounded-2xl p-5 sm:p-6 reveal-on-scroll delay-100"
-                        style="--card-accent: #FFB800;">
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex flex-col items-start">
                             <div
-                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gold/15 text-gold text-base mb-4 border border-gold/30">
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gold/10 text-gold text-base mb-4 border border-gold/20">
                                 <i class="fa-solid fa-coins"></i>
                             </div>
                             <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Gold
                                 Economy</h3>
                         </div>
-                        <p class="text-gray-400 font-normal text-xs leading-relaxed">Gold is
-                            king. Eliminate enemies, farm events, and purchase powerful gear directly with gold nuggets.
-                        </p>
+                        <p class="text-gray-200 font-medium text-xs sm:text-sm leading-relaxed">Gold is king. Eliminate
+                            enemies, farm events, and purchase powerful gear directly with gold nuggets.</p>
                     </div>
 
-                    <div class="mj-card rounded-2xl p-5 sm:p-6 reveal-on-scroll delay-200"
-                        style="--card-accent: #38BDF8;">
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex flex-col items-start">
                             <div
-                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-sky/15 text-sky text-base mb-4 border border-sky/30">
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-sky/10 text-sky text-base mb-4 border border-sky/20">
                                 <i class="fa-solid fa-users-rays"></i>
                             </div>
                             <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Teams
                             </h3>
                         </div>
-                        <p class="text-gray-400 font-normal text-xs leading-relaxed">Create your
-                            team, claim territory, and climb the competitive monthly leaderboard for exclusive rewards.
-                        </p>
+                        <p class="text-gray-200 font-medium text-xs sm:text-sm leading-relaxed">Create your team, claim
+                            territory, and climb the competitive monthly leaderboard for exclusive rewards.</p>
                     </div>
 
-                    <div class="mj-card rounded-2xl p-5 sm:p-6 reveal-on-scroll delay-300"
-                        style="--card-accent: #22c55e;">
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex flex-col items-start">
                             <div
-                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400 text-base mb-4 border border-emerald-500/30">
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 text-base mb-4 border border-emerald-500/20">
                                 <i class="fa-solid fa-bowl-food"></i>
                             </div>
                             <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Soup
                                 Mechanics</h3>
                         </div>
-                        <p class="text-gray-400 font-normal text-xs leading-relaxed">Regenerate
-                            3.5 hearts per soup. Use classic recipes or craft soups directly with cactus and cocoa
-                            beans.</p>
+                        <p class="text-gray-200 font-medium text-xs sm:text-sm leading-relaxed">Regenerate 3.5 hearts
+                            per soup. Use classic recipes or craft soups directly with cactus and cocoa beans.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION AIDE EN JEU & COMMANDES -->
+        <!-- COMMANDES -->
         <section class="py-16 md:py-24 relative border-t border-white/5 bg-[#080b14]/50 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
                     <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight">
                         <span>In-Game</span> <span class="text-gold">Help & Commands</span>
                     </h2>
-                    <div class="w-12 h-1 bg-gold mx-auto rounded-full opacity-80 shadow-[0_0_10px_rgba(255,184,0,0.6)]">
-                    </div>
+                    <div class="w-12 h-1 bg-gold mx-auto rounded-full opacity-80"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                    <!-- Carte Teams -->
-                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-100" style="--card-accent: #38BDF8;">
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex items-center gap-3 mb-4">
                             <div
-                                class="w-10 h-10 rounded-xl bg-sky/15 border border-sky/30 flex items-center justify-center text-sky text-base">
+                                class="w-10 h-10 rounded-xl bg-sky/10 border border-sky/20 flex items-center justify-center text-sky text-base">
                                 <i class="fa-solid fa-users-rectangle"></i>
                             </div>
                             <h3 class="text-lg font-black uppercase text-white tracking-wide">Teams System</h3>
                         </div>
-                        <ul class="space-y-2 text-xs font-mono text-gray-300">
+                        <ul class="space-y-2.5 text-xs font-mono text-gray-200 font-medium">
                             <li><code class="text-sky font-bold">/t info</code> - <span
-                                    class="font-sans text-gray-400">View team information</span></li>
+                                    class="font-sans text-gray-200">View team information</span></li>
                             <li><code class="text-sky font-bold">/t create [name]</code> - <span
-                                    class="font-sans text-gray-400">Create a clan</span></li>
+                                    class="font-sans text-gray-200">Create a clan</span></li>
                             <li><code class="text-sky font-bold">/t leave</code> - <span
-                                    class="font-sans text-gray-400">Leave your team</span></li>
+                                    class="font-sans text-gray-200">Leave your team</span></li>
                             <li><code class="text-sky font-bold">/t kick [player]</code> - <span
-                                    class="font-sans text-gray-400">Kick a player</span></li>
+                                    class="font-sans text-gray-200">Kick a player</span></li>
                             <li><code class="text-sky font-bold">/t join [name]</code> - <span
-                                    class="font-sans text-gray-400">Join via invitation</span>
-                            </li>
+                                    class="font-sans text-gray-200">Join via invitation</span></li>
                             <li><code class="text-sky font-bold">/t hq</code> - <span
-                                    class="font-sans text-gray-400">Teleport to team home</span></li>
+                                    class="font-sans text-gray-200">Teleport to team home</span></li>
                             <li><code class="text-sky font-bold">/t sethq</code> - <span
-                                    class="font-sans text-gray-400">Set team home</span></li>
+                                    class="font-sans text-gray-200">Set team home</span></li>
                             <li><code class="text-sky font-bold">/t invite [player]</code> - <span
-                                    class="font-sans text-gray-400">Invite a player</span></li>
+                                    class="font-sans text-gray-200">Invite a player</span></li>
                             <li><code class="text-sky font-bold">/t disband</code> - <span
-                                    class="font-sans text-gray-400">Disband clan (Owner
-                                    only)</span></li>
+                                    class="font-sans text-gray-200">Disband clan (Owner only)</span></li>
                         </ul>
                     </div>
 
-                    <!-- Carte Go -->
-                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-200" style="--card-accent: #FFB800;">
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex items-center gap-3 mb-4">
                             <div
-                                class="w-10 h-10 rounded-xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold text-base">
+                                class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-base">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
                             <h3 class="text-lg font-black uppercase text-white tracking-wide">Personal Warps (/go)</h3>
                         </div>
-                        <ul class="space-y-2 text-xs font-mono text-gray-300 mb-4">
+                        <ul class="space-y-2.5 text-xs font-mono text-gray-200 font-medium mb-4">
                             <li><code class="text-gold font-bold">/go [name]</code> - <span
-                                    class="font-sans text-gray-400">Teleport to your
-                                    warp</span></li>
+                                    class="font-sans text-gray-200">Teleport to your warp</span></li>
                             <li><code class="text-gold font-bold">/go set [name]</code> - <span
-                                    class="font-sans text-gray-400">Set a personal warp</span>
-                            </li>
+                                    class="font-sans text-gray-200">Set a personal warp</span></li>
                             <li><code class="text-gold font-bold">/go delete [name]</code> - <span
-                                    class="font-sans text-gray-400">Delete a warp</span></li>
+                                    class="font-sans text-gray-200">Delete a warp</span></li>
                             <li><code class="text-gold font-bold">/go list</code> - <span
-                                    class="font-sans text-gray-400">List your warps</span></li>
+                                    class="font-sans text-gray-200">List your warps</span></li>
                         </ul>
                         <div
-                            class="bg-white/5 border border-white/10 rounded-xl p-3 text-[11px] text-gray-400 space-y-1">
+                            class="bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-gray-200 font-medium space-y-1">
                             <p class="font-bold text-white"><i
-                                    class="fa-solid fa-triangle-exclamation text-gold mr-1"></i> <span>Teleportation
-                                    Rules:</span></p>
-                            <p>For <code class="text-white">/t hq</code> & <code class="text-white">/go</code>: Takes ~5
-                                seconds. No player within 30 blocks radius.
+                                    class="fa-solid fa-triangle-exclamation text-gold mr-1"></i> Teleportation Rules:
                             </p>
+                            <p>For <code class="text-white font-bold">/t hq</code> & <code
+                                    class="text-white font-bold">/go</code>: Takes ~5 seconds. No player within 30
+                                blocks radius.</p>
                         </div>
                     </div>
 
-                    <!-- Carte Spawn -->
-                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-300" style="--card-accent: #E11D48;">
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex items-center gap-3 mb-4">
                             <div
-                                class="w-10 h-10 rounded-xl bg-blood/15 border border-blood/30 flex items-center justify-center text-blood text-base">
+                                class="w-10 h-10 rounded-xl bg-blood/10 border border-blood/20 flex items-center justify-center text-blood text-base">
                                 <i class="fa-solid fa-chess-rook"></i>
                             </div>
                             <h3 class="text-lg font-black uppercase text-white tracking-wide">Spawn & Protection</h3>
                         </div>
-                        <div class="space-y-3 text-xs text-gray-300 leading-relaxed">
-                            <p><code class="text-blood font-bold">/spawn</code> : <span>Takes 15
-                                    seconds of teleportation (if not in combat and no movement) and restores spawn
-                                    protection.</span></p>
-                            <p class="bg-white/5 border border-white/10 rounded-xl p-3 text-[11px] text-gray-400">
+                        <div class="space-y-3.5 text-xs text-gray-200 leading-relaxed font-medium">
+                            <p><code class="text-blood font-bold">/spawn</code> : Takes 15 seconds of teleportation (if
+                                not in combat and no movement) and restores spawn protection.</p>
+                            <p class="bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-gray-200">
                                 <i class="fa-solid fa-shield text-blood mr-1"></i> <strong>Spawn Protection:</strong>
                                 Active at spawn. If you leave spawn and re-enter, PvP will be enabled for you inside the
                                 spawn area!
@@ -692,32 +605,28 @@
                         </div>
                     </div>
 
-                    <!-- Carte Economy -->
-                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll delay-400" style="--card-accent: #22c55e;">
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex items-center gap-3 mb-4">
                             <div
-                                class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-base">
+                                class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
                                 <i class="fa-solid fa-coins"></i>
                             </div>
                             <h3 class="text-lg font-black uppercase text-white tracking-wide">Gold Economy & Market</h3>
                         </div>
-                        <ul class="space-y-2 text-xs font-mono text-gray-300 mb-3">
+                        <ul class="space-y-2.5 text-xs font-mono text-gray-200 font-medium mb-3.5">
                             <li><code class="text-emerald-400 font-bold">/balance</code> - <span
-                                    class="font-sans text-gray-400">Check your gold
-                                    balance</span></li>
+                                    class="font-sans text-gray-200">Check your gold balance</span></li>
                             <li><code class="text-emerald-400 font-bold">/deposit [qty]</code> - <span
-                                    class="font-sans text-gray-400">Deposit gold ingots to
-                                    balance</span></li>
+                                    class="font-sans text-gray-200">Deposit gold ingots</span></li>
                             <li><code class="text-emerald-400 font-bold">/buyview</code> - <span
-                                    class="font-sans text-gray-400">View available
-                                    sales</span></li>
+                                    class="font-sans text-gray-200">View available sales</span></li>
                             <li><code class="text-emerald-400 font-bold">/sell [id] [qty] [price]</code> - <span
-                                    class="font-sans text-gray-400">Sell items</span></li>
+                                    class="font-sans text-gray-200">Sell items</span></li>
                             <li><code class="text-emerald-400 font-bold">/buy [id] [qty]</code> - <span
-                                    class="font-sans text-gray-400">Buy items</span></li>
+                                    class="font-sans text-gray-200">Buy items</span></li>
                         </ul>
-                        <p class="text-[11px] text-gray-400 italic">You must mine and smelt gold to
-                            increase your balance.</p>
+                        <p class="text-xs text-gray-200 italic font-medium">You must mine and smelt gold to increase
+                            your balance.</p>
                     </div>
                 </div>
             </div>
@@ -730,56 +639,43 @@
                     class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 md:mb-14 reveal-on-scroll gap-3">
                     <div>
                         <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-2">Store</h2>
-                        <p class="text-gray-400 font-medium uppercase tracking-widest text-[11px]">Support the server.
+                        <p class="text-gray-200 font-semibold uppercase tracking-widest text-[11px]">Support the server.
                             Unlock perks.</p>
                     </div>
                     <a href="https://soupteams.tebex.io" target="_blank"
-                        class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white font-bold uppercase tracking-widest text-[11px] rounded transition-all duration-300 border border-white/10 backdrop-blur-sm hover:border-gold/50">
+                        class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white font-bold uppercase tracking-widest text-[11px] rounded transition-colors border border-white/10">
                         <span>Visit store</span> <i class="fa-solid fa-arrow-right ml-1.5 text-gold text-[10px]"></i>
                     </a>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
-                    <div
-                        class="mj-card rounded-2xl p-5 sm:p-6 border-white/15 relative overflow-hidden reveal-on-scroll delay-100">
-                        <div class="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10">
-                            <div class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Free Rank
-                            </div>
-                            <h3 class="text-xl sm:text-2xl font-black text-white uppercase mb-2">DEFAULT</h3>
-                            <div class="text-xl sm:text-2xl font-bold text-white mb-5">0.00€ <span
-                                    class="text-[11px] font-medium text-gray-500">/ forever</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2.5 mb-6 text-xs font-medium text-white/70 relative z-10">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-400 mr-2.5 text-xs"></i>
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
+                        <div class="text-gray-300 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Free Rank</div>
+                        <h3 class="text-xl sm:text-2xl font-black text-white uppercase mb-2">DEFAULT</h3>
+                        <div class="text-xl sm:text-2xl font-bold text-white mb-5">0.00€ <span
+                                class="text-[11px] font-medium text-gray-300">/ forever</span></div>
+                        <ul class="space-y-3 mb-6 text-xs font-medium text-gray-200">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-300 mr-2.5 text-xs"></i>
                                 <span>Standard white nickname</span>
                             </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-400 mr-2.5 text-xs"></i>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-300 mr-2.5 text-xs"></i>
                                 <span>Standard queue access</span>
                             </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-400 mr-2.5 text-xs"></i>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-300 mr-2.5 text-xs"></i>
                                 <span>Gold multiplier x1.0</span>
                             </li>
                         </ul>
                         <button
-                            class="relative z-10 w-full py-3 bg-white/10 text-white/50 font-black uppercase tracking-widest text-xs rounded cursor-not-allowed">Current
+                            class="w-full py-3 bg-white/5 text-gray-400 font-black uppercase tracking-widest text-xs rounded cursor-not-allowed">Current
                             Rank</button>
                     </div>
 
-                    <div
-                        class="mj-card rounded-2xl p-5 sm:p-6 border-gold/30 relative overflow-hidden reveal-on-scroll delay-200">
-                        <div class="absolute inset-0 bg-gradient-to-b from-gold/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10">
-                            <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">VIP Rank</div>
-                            <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">VIP</h3>
-                            <div class="text-xl sm:text-2xl font-bold text-white mb-5">2.99€ <span
-                                    class="text-[11px] font-medium text-gray-400">/ month</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2.5 mb-6 text-xs font-medium text-white/80 relative z-10">
+                    <div class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll">
+                        <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">VIP Rank</div>
+                        <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">VIP</h3>
+                        <div class="text-xl sm:text-2xl font-bold text-white mb-5">2.99€ <span
+                                class="text-[11px] font-medium text-gray-200">/ month</span></div>
+                        <ul class="space-y-3 mb-6 text-xs font-medium text-gray-200">
                             <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                 <span>Gold colored nickname</span>
                             </li>
@@ -791,25 +687,16 @@
                             </li>
                         </ul>
                         <button onclick="openCheckout('VIP', '2.99€', 'https://soupteams.tebex.io/package/vip')"
-                            class="relative z-10 w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded transition-all duration-300 hover:scale-[1.02] shadow-[0_0_15px_rgba(255,184,0,0.3)] cursor-pointer">Get
+                            class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded transition-colors cursor-pointer">Get
                             VIP</button>
                     </div>
 
-                    <div
-                        class="mj-card rounded-2xl p-5 sm:p-6 border-sky/30 relative overflow-hidden reveal-on-scroll delay-300">
-                        <div class="absolute inset-0 bg-gradient-to-b from-sky/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10">
-                            <div
-                                class="absolute top-0 right-0 bg-sky/20 text-sky font-bold uppercase text-[9px] tracking-wider px-2.5 py-0.5 rounded border border-sky/40 backdrop-blur-md animate-pulse">
-                                Popular</div>
-                            <div class="text-sky text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE Rank</div>
-                            <h3 class="text-xl sm:text-2xl font-black text-sky uppercase mb-2">ELITE</h3>
-                            <div class="text-xl sm:text-2xl font-bold text-white mb-5">5.99€ <span
-                                    class="text-[11px] font-medium text-gray-400">/ month</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2.5 mb-6 text-xs font-medium text-white/80 relative z-10">
+                    <div class="mj-card rounded-2xl p-6 border-sky/30 reveal-on-scroll">
+                        <div class="text-sky text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE Rank</div>
+                        <h3 class="text-xl sm:text-2xl font-black text-sky uppercase mb-2">ELITE</h3>
+                        <div class="text-xl sm:text-2xl font-bold text-white mb-5">5.99€ <span
+                                class="text-[11px] font-medium text-gray-200">/ month</span></div>
+                        <ul class="space-y-3 mb-6 text-xs font-medium text-gray-200">
                             <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
                                 <span>Blue colored nickname</span>
                             </li>
@@ -821,78 +708,83 @@
                             </li>
                         </ul>
                         <button onclick="openCheckout('ELITE', '5.99€', 'https://soupteams.tebex.io/package/elite')"
-                            class="relative z-10 w-full py-3 bg-sky hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded transition-all duration-300 hover:scale-[1.02] shadow-[0_0_15px_rgba(56,189,248,0.3)] cursor-pointer">Get
+                            class="w-full py-3 bg-sky hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded transition-colors cursor-pointer">Get
                             Elite</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION SEO MULTILINGUE -->
+        <!-- SECTION SEO -->
         <section class="py-12 px-4 border-t border-white/5 bg-[#080b14]/30">
-            <div class="max-w-4xl mx-auto text-gray-400 text-xs leading-relaxed space-y-4">
-                <h3 class="text-white font-bold text-sm uppercase tracking-wider">SoupTeams
-                    : The Best Minecraft Soup PvP Server (1.8.8)</h3>
-                <p>Welcome to <strong>SoupTeams</strong>, the ultimate platform designed for
-                    fans of classic <strong>PvP Soup</strong> and hardcore Minecraft mechanics. Built explicitly for
-                    version <strong>1.8.8</strong>, our server delivers clean knockback, fast-paced combat, and intense
-                    team-based competition.</p>
-                <p>Whether you are looking for custom kits, a competitive gold economy, or
-                    dynamic territory claims, SoupTeams offers an uncompromised competitive environment. Join our
-                    community today at <code>MC.SOUPTEAMS.EU</code> and prove your skills in the arena!</p>
+            <div class="max-w-4xl mx-auto text-gray-200 text-xs sm:text-sm font-medium leading-relaxed space-y-4">
+                <h3 class="text-white font-bold text-sm uppercase tracking-wider">SoupTeams : The Best Minecraft Soup
+                    PvP Server (1.8.8)</h3>
+                <p>Welcome to <strong>SoupTeams</strong>, the ultimate platform designed for fans of classic <strong>PvP
+                        Soup</strong> and hardcore Minecraft mechanics. Built explicitly for version
+                    <strong>1.8.8</strong>, our server delivers clean knockback, fast-paced combat, and intense
+                    team-based competition.
+                </p>
+                <p>Whether you are looking for custom kits, a competitive gold economy, or dynamic territory claims,
+                    SoupTeams offers an uncompromised competitive environment. Join our community today at
+                    <code>MC.SOUPTEAMS.EU</code> and prove your skills in the arena!
+                </p>
             </div>
         </section>
     </div>
 
-    <!-- PAGE CANDIDATURE / TICKET (PRIVÉE VERS DISCORD) -->
+    <!-- PAGE CANDIDATURE / TICKET -->
     <div id="page-apply" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-2xl mx-auto">
         <div class="text-center mb-10">
             <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Staff Application & Ticket</h1>
-            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wider">Fill out this form. Only admins can see
-                and review your submission.</p>
+            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Fill out this form. Only
+                admins can see and review your submission.</p>
             <div class="w-12 h-1 bg-sky mx-auto rounded-full mt-3"></div>
         </div>
 
-        <form id="application-form"
-            class="mj-card rounded-2xl p-6 sm:p-8 space-y-4 border-sky/20 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-sky/5 to-transparent pointer-events-none"></div>
-
-            <div class="relative z-10 space-y-4">
-                <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Minecraft
-                        Username (Logged In)</label>
-                    <div id="app-username-display"
-                        class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-gold text-xs font-bold flex items-center justify-between">
-                        <span id="app-username-text">Not logged in</span>
-                        <button type="button" onclick="openLoginModal()"
-                            class="text-xs text-sky hover:underline cursor-pointer">Change / Login</button>
-                    </div>
+        <form id="application-form" class="mj-card rounded-2xl p-6 sm:p-8 space-y-4">
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-200 mb-1.5">Minecraft
+                    Username (Logged In)</label>
+                <div id="app-username-display"
+                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-gold text-xs font-bold flex items-center justify-between">
+                    <span id="app-username-text">Not logged in</span>
+                    <button type="button" onclick="openLoginModal()"
+                        class="text-xs text-sky hover:underline cursor-pointer">Change / Login</button>
                 </div>
-
-                <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Request
-                        Type</label>
-                    <select id="app-type"
-                        class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white text-xs focus:outline-none focus:border-sky">
-                        <option value="Staff Application">Staff Application</option>
-                        <option value="Support Ticket">Support Ticket / Help</option>
-                        <option value="Ban Appeal">Ban Appeal</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Your
-                        Message / Motivations</label>
-                    <textarea id="app-message" rows="5" required
-                        placeholder="Describe your request or application details in detail..."
-                        class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white text-xs placeholder-gray-600 focus:outline-none focus:border-sky resize-none"></textarea>
-                </div>
-
-                <button type="submit" id="app-submit-btn"
-                    class="w-full py-3.5 bg-sky hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-[0_0_20px_rgba(56,189,248,0.3)] cursor-pointer">
-                    Submit Request
-                </button>
             </div>
+
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-200 mb-1.5">Request
+                    Type</label>
+                <select id="app-type"
+                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white text-xs font-medium focus:outline-none focus:border-sky">
+                    <option value="Staff Application">Staff Application</option>
+                    <option value="Support Ticket">Support Ticket / Help</option>
+                    <option value="Ban Appeal">Ban Appeal</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-200 mb-1.5">Your Message /
+                    Motivations</label>
+                <textarea id="app-message" rows="5" required
+                    placeholder="Describe your request or application details in detail..."
+                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white text-xs font-medium placeholder-gray-500 focus:outline-none focus:border-sky resize-none"></textarea>
+            </div>
+
+            <div class="flex items-center gap-3 bg-[#060810] border border-white/10 rounded-xl p-3.5">
+                <input type="checkbox" id="app-not-robot" required
+                    class="w-4 h-4 accent-sky bg-black border-white/20 rounded cursor-pointer">
+                <label for="app-not-robot" class="text-xs text-gray-200 font-bold cursor-pointer select-none">
+                    I am not a robot (Anti-Bot Verification)
+                </label>
+            </div>
+
+            <button type="submit" id="app-submit-btn"
+                class="w-full py-3.5 bg-sky hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-colors cursor-pointer">
+                Submit Request
+            </button>
         </form>
 
         <div class="mt-8 text-center">
@@ -906,13 +798,12 @@
     <div id="page-staff" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-5xl mx-auto">
         <div class="text-center mb-12">
             <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Server Staff</h1>
-            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wider">Meet the
-                team dedicated to keeping SoupTeams safe and fair.</p>
+            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Meet the team dedicated
+                to keeping SoupTeams safe and fair.</p>
             <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
         </div>
 
         <div class="space-y-12">
-            <!-- 1. NIVEAU 1 : OWNER -->
             <div>
                 <div class="flex items-center gap-3 mb-6">
                     <div class="h-px bg-white/10 flex-1"></div>
@@ -922,28 +813,22 @@
                 </div>
                 <div class="grid grid-cols-1 max-w-xs mx-auto">
                     <div
-                        class="mj-card rounded-2xl p-6 border-red-800/40 text-center relative overflow-hidden reveal-on-scroll flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
+                        class="mj-card rounded-2xl p-6 border-red-800/40 text-center reveal-on-scroll flex flex-col justify-between h-full">
+                        <div class="flex flex-col items-center">
                             <span
-                                class="inline-block px-3 py-1 rounded-full bg-red-900/20 text-red-500 text-[10px] font-black uppercase tracking-widest border border-red-800/40 mb-4 shadow-sm">
-                                Owner
-                            </span>
+                                class="inline-block px-3 py-1 rounded-full bg-red-900/20 text-red-500 text-[10px] font-black uppercase tracking-widest border border-red-800/40 mb-4">Owner</span>
                             <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <img src="https://mc-heads.net/body/lvnah" alt="lvnah"
-                                    class="h-32 sm:h-36 object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
+                                    class="h-32 sm:h-36 object-contain">
                             </div>
                             <h3 class="text-lg font-black mt-3 tracking-wide" style="color: #AA0000;">lvnah</h3>
-                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider font-bold">Founder & Lead
+                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-bold">Founder & Lead
                                 Dev</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. NIVEAU 2 : MODERATOR -->
             <div>
                 <div class="flex items-center gap-3 mb-6">
                     <div class="h-px bg-white/10 flex-1"></div>
@@ -951,15 +836,12 @@
                         class="text-xs font-black uppercase tracking-[0.2em] text-pink-400 bg-pink-950/40 border border-pink-800/40 px-4 py-1 rounded-full">Moderator</span>
                     <div class="h-px bg-white/10 flex-1"></div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div
-                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-100 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center reveal-on-scroll flex flex-col justify-between h-full">
+                        <div class="flex flex-col items-center">
                             <span
-                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm">Moderator</span>
+                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4">Moderator</span>
                             <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
@@ -968,18 +850,15 @@
                             </div>
                             <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
                             </h3>
-                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
+                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-semibold">Apply on
+                                Discord</p>
                         </div>
                     </div>
-
                     <div
-                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-150 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center reveal-on-scroll flex flex-col justify-between h-full">
+                        <div class="flex flex-col items-center">
                             <span
-                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm">Moderator</span>
+                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4">Moderator</span>
                             <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
@@ -988,18 +867,15 @@
                             </div>
                             <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
                             </h3>
-                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
+                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-semibold">Apply on
+                                Discord</p>
                         </div>
                     </div>
-
                     <div
-                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center relative overflow-hidden reveal-on-scroll delay-200 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-pink-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
+                        class="mj-card rounded-2xl p-6 border-pink-500/30 text-center reveal-on-scroll flex flex-col justify-between h-full">
+                        <div class="flex flex-col items-center">
                             <span
-                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4 shadow-sm">Moderator</span>
+                                class="inline-block px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-black uppercase tracking-widest border border-pink-500/40 mb-4">Moderator</span>
                             <div class="h-36 sm:h-40 flex items-center justify-center my-2 w-full">
                                 <div
                                     class="w-20 h-28 rounded-xl bg-pink-500/5 border border-dashed border-pink-500/30 flex items-center justify-center text-pink-500/50 text-2xl">
@@ -1008,118 +884,8 @@
                             </div>
                             <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
                             </h3>
-                            <p class="text-[11px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. NIVEAU 3 : HELPER -->
-            <div>
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="h-px bg-white/10 flex-1"></div>
-                    <span
-                        class="text-xs font-black uppercase tracking-[0.2em] text-yellow-400 bg-yellow-950/40 border border-yellow-800/40 px-4 py-1 rounded-full">Helper</span>
-                    <div class="h-px bg-white/10 flex-1"></div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-                    <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-250 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
-                            <span
-                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2 w-full">
-                                <div
-                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;">Recruitment Open
-                            </h3>
-                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
-                        </div>
-                    </div>
-
-                    <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-300 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
-                            <span
-                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2 w-full">
-                                <div
-                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;">Recruitment Open
-                            </h3>
-                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
-                        </div>
-                    </div>
-
-                    <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-350 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
-                            <span
-                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2 w-full">
-                                <div
-                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;">Recruitment Open
-                            </h3>
-                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
-                        </div>
-                    </div>
-
-                    <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-400 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
-                            <span
-                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2 w-full">
-                                <div
-                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;">Recruitment Open
-                            </h3>
-                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
-                        </div>
-                    </div>
-
-                    <div
-                        class="mj-card rounded-2xl p-5 border-yellow-500/30 text-center relative overflow-hidden reveal-on-scroll delay-450 flex flex-col justify-between h-full">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-b from-yellow-500/10 to-transparent pointer-events-none">
-                        </div>
-                        <div class="relative z-10 flex flex-col items-center">
-                            <span
-                                class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-black uppercase tracking-widest border border-yellow-500/40 mb-4 shadow-sm">Helper</span>
-                            <div class="h-32 flex items-center justify-center my-2 w-full">
-                                <div
-                                    class="w-16 h-24 rounded-xl bg-yellow-500/5 border border-dashed border-yellow-500/30 flex items-center justify-center text-yellow-500/50 text-xl">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-sm font-black mt-3 tracking-wide" style="color: #FFFF55;">Recruitment Open
-                            </h3>
-                            <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">Apply on Discord</p>
+                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-semibold">Apply on
+                                Discord</p>
                         </div>
                     </div>
                 </div>
@@ -1137,36 +903,36 @@
     <div id="page-rules" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
         <div class="text-center mb-10">
             <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Server Rules</h1>
-            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wider">Please
-                follow these guidelines to ensure a fair community for everyone.</p>
+            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Please follow these
+                guidelines to ensure a fair community for everyone.</p>
             <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
         </div>
         <div class="space-y-4">
             <div class="mj-card rounded-2xl p-5 sm:p-6 border-gold/30">
                 <h3 class="text-sm sm:text-base font-bold text-gold uppercase mb-2 flex items-center gap-2.5"><i
                         class="fa-solid fa-shield-halved"></i> <span>1. No Cheating or Unfair Modifications</span></h3>
-                <p class="text-gray-300 text-xs leading-relaxed">Any client modifications,
-                    hacks, X-Ray texture packs, macros, or automated scripts giving an unfair advantage over other
-                    players will result in a permanent, unappealable ban from SoupTeams.</p>
+                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">Any client modifications, hacks,
+                    X-Ray texture packs, macros, or automated scripts giving an unfair advantage over other players will
+                    result in a permanent, unappealable ban from SoupTeams.</p>
             </div>
             <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
                 <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5"><i
                         class="fa-solid fa-comments text-sky"></i> <span>2. Respect and Chat Etiquette</span></h3>
-                <p class="text-gray-300 text-xs leading-relaxed">Harassment, hate speech,
-                    racism, excessive toxicity, advertising other servers, or leaking personal information (doxxing) in
-                    public chat is strictly prohibited.</p>
+                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">Harassment, hate speech, racism,
+                    excessive toxicity, advertising other servers, or leaking personal information (doxxing) in public
+                    chat is strictly prohibited.</p>
             </div>
             <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
                 <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5"><i
                         class="fa-solid fa-bug text-blood"></i> <span>3. Bug Exploitation</span></h3>
-                <p class="text-gray-300 text-xs leading-relaxed">If you discover a glitch,
+                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">If you discover a glitch,
                     duplication method, or map exploit, you must report it immediately to staff on Discord. Using
                     exploits for personal gain or team advantage will lead to rollbacks and bans.</p>
             </div>
             <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
                 <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5"><i
                         class="fa-solid fa-users text-gold"></i> <span>4. Team Regulations</span></h3>
-                <p class="text-gray-300 text-xs leading-relaxed">Team betrayals (traitoring)
+                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">Team betrayals (traitoring)
                     inside claimed territory or allied agreements are managed in-game, but intentional griefing of core
                     team infrastructure via alt accounts is strictly forbidden.</p>
             </div>
@@ -1181,10 +947,9 @@
     <!-- PAGE SUPPORT -->
     <div id="page-support" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Support Center
-            </h1>
-            <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wider">Need help
-                with a purchase, bug report, or ban appeal? We are here for you.</p>
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Support Center</h1>
+            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Need help with a
+                purchase, bug report, or ban appeal? We are here for you.</p>
             <div class="w-12 h-1 bg-sky mx-auto rounded-full mt-3"></div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
@@ -1195,12 +960,12 @@
                         <i class="fab fa-discord"></i>
                     </div>
                     <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2">Discord Community</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-5">Join our
-                        official Discord server to open a ticket, chat with players, and get instant assistance from our
-                        staff team.</p>
+                    <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed mb-5">Join our official
+                        Discord server to open a ticket, chat with players, and get instant assistance from our staff
+                        team.</p>
                 </div>
                 <a href="https://dsc.gg/soupteams" target="_blank"
-                    class="w-full py-2.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-black uppercase tracking-widest text-[11px] rounded-xl text-center transition-all shadow-[0_0_15px_rgba(88,101,242,0.4)] block"><span>Open
+                    class="w-full py-2.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-black uppercase tracking-widest text-[11px] rounded-xl text-center transition-colors block"><span>Open
                         Discord Ticket</span></a>
             </div>
             <div class="mj-card rounded-2xl p-6 border-gold/30 flex flex-col justify-between">
@@ -1210,34 +975,32 @@
                         <i class="fa-solid fa-store"></i>
                     </div>
                     <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2">Store & Payments</h3>
-                    <p class="text-gray-400 text-xs leading-relaxed mb-5">Did you purchase a
-                        rank or package and haven't received it within 15 minutes? Contact us via Discord with your
+                    <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed mb-5">Did you purchase a rank
+                        or package and haven't received it within 15 minutes? Contact us via Discord with your
                         transaction ID.</p>
                 </div>
                 <a href="https://soupteams.tebex.io" target="_blank"
-                    class="w-full py-2.5 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-[11px] rounded-xl text-center transition-all shadow-[0_0_15px_rgba(255,184,0,0.3)] block"><span>Visit
+                    class="w-full py-2.5 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-[11px] rounded-xl text-center transition-colors block"><span>Visit
                         Store Support</span></a>
             </div>
         </div>
         <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10 text-center">
             <h4 class="text-xs sm:text-sm font-bold text-white uppercase mb-1.5">Frequently Asked Questions</h4>
-            <p class="text-gray-400 text-[11px] sm:text-xs mb-4">Make sure to check our FAQ channel
-                on Discord before opening a ticket to get faster answers regarding ranks transfer or unban requests.</p>
+            <p class="text-gray-200 text-[11px] sm:text-xs font-medium mb-4">Make sure to check our FAQ channel on
+                Discord before opening a ticket to get faster answers regarding ranks transfer or unban requests.</p>
             <button onclick="switchPage('home')"
                 class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"><i
                     class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home</button>
         </div>
     </div>
 
-    <!-- CHATBOT SIMPLE ET ÉPURÉ -->
+    <!-- CHATBOT -->
     <div class="fixed bottom-6 right-6 z-[140]">
-        <!-- Bouton Bulle Simple -->
         <button onclick="toggleSimpleChat()"
             class="w-12 h-12 rounded-full bg-gold hover:bg-yellow-400 text-black shadow-lg flex items-center justify-center text-lg cursor-pointer transition-transform hover:scale-105 active:scale-95">
             <i class="fa-solid fa-headset"></i>
         </button>
 
-        <!-- Fenêtre du Chat Simple -->
         <div id="simple-chat-window"
             class="absolute bottom-16 right-0 w-[90vw] sm:w-[340px] bg-[#0d1220] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
             <div class="bg-[#060810] border-b border-white/10 px-4 py-3 flex items-center justify-between">
@@ -1245,34 +1008,32 @@
                     <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
                     <h4 class="text-xs font-bold text-white uppercase">SoupTeams Help</h4>
                 </div>
-                <button onclick="toggleSimpleChat()" class="text-gray-400 hover:text-white cursor-pointer"><i
+                <button onclick="toggleSimpleChat()" class="text-gray-200 hover:text-white cursor-pointer"><i
                         class="fa-solid fa-xmark text-sm"></i></button>
             </div>
 
-            <!-- Messages -->
-            <div id="simple-chat-messages" class="p-4 space-y-3 max-h-[260px] overflow-y-auto text-xs text-gray-300">
+            <div id="simple-chat-messages"
+                class="p-4 space-y-3 max-h-[260px] overflow-y-auto text-xs text-gray-200 font-medium">
                 <div class="bg-white/5 p-3 rounded-xl border border-white/5 leading-relaxed">
                     Hello! 👋 Any questions about the server? Click an option below or type your message:
                 </div>
             </div>
 
-            <!-- Suggestions rapides simples -->
             <div class="px-3 py-2 bg-black/30 border-t border-white/5 flex flex-wrap gap-1.5">
                 <button onclick="sendSimpleReply('What is the IP?')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-300 px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Server
+                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Server
                     IP</button>
                 <button onclick="sendSimpleReply('How to buy a rank?')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-300 px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Store</button>
+                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Store</button>
                 <button onclick="sendSimpleReply('What version?')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-300 px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Version</button>
+                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Version</button>
                 <button onclick="sendSimpleReply('Discord')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-300 px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Discord</button>
+                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Discord</button>
             </div>
 
-            <!-- Input simple -->
             <div class="p-2.5 bg-[#060810] border-t border-white/10 flex gap-2">
                 <input type="text" id="simple-chat-input" placeholder="Type your message..."
-                    class="flex-1 bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white text-xs placeholder-gray-500 focus:outline-none focus:border-gold"
+                    class="flex-1 bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white text-xs font-medium placeholder-gray-500 focus:outline-none focus:border-gold"
                     onkeydown="if(event.key === 'Enter') handleSimpleSubmit()">
                 <button onclick="handleSimpleSubmit()"
                     class="px-3 py-2 bg-gold text-black rounded-xl text-xs font-bold cursor-pointer hover:bg-yellow-400"><i
@@ -1288,7 +1049,7 @@
                     class="text-gold">Teams</span></h2>
 
             <div
-                class="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-400 font-semibold uppercase text-[10px] tracking-[0.2em]">
+                class="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-200 font-bold uppercase text-[10px] tracking-[0.2em]">
                 <a href="#" onclick="switchPage('staff'); return false;"
                     class="hover:text-white transition-colors">Staff</a>
                 <a href="#" onclick="switchPage('rules'); return false;"
@@ -1300,12 +1061,10 @@
                         class="fab fa-discord text-sm"></i> Discord</a>
             </div>
 
-            <p class="text-gray-600 text-[9px] sm:text-[10px] font-medium tracking-widest uppercase">&copy; 2026
-                SoupTeams. <br><span class="opacity-30 mt-0.5 inline-block">Not affiliated
-                    with Mojang AB.</span></p>
+            <p class="text-gray-300 text-[9px] sm:text-[10px] font-medium tracking-widest uppercase">&copy; 2026
+                SoupTeams. <br><span class="opacity-50 mt-0.5 inline-block">Not affiliated with Mojang AB.</span></p>
         </div>
     </footer>
-
 
     <!-- SCRIPTS -->
     <script>
@@ -1320,7 +1079,10 @@
             const currentActive = document.querySelector('.page-view.active');
             const targetPage = document.getElementById('page-id-' + pageId) || document.getElementById('page-' + pageId);
 
-            if (currentActive === targetPage) return;
+            if (currentActive === targetPage) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
 
             if (currentActive) {
                 currentActive.style.opacity = '0';
@@ -1351,7 +1113,6 @@
             }, currentActive ? 300 : 0);
         }
 
-        // Gestion du menu mobile
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const icon = document.getElementById('mobile-menu-icon');
@@ -1363,16 +1124,12 @@
             }
         }
 
-        // Gestion du toast de succès discret en bas à droite
         function showSuccessToast() {
             const toast = document.getElementById('success-toast');
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3500);
+            setTimeout(() => { toast.classList.remove('show'); }, 3500);
         }
 
-        // Gestion de la modale d'avertissement de connexion
         function showCustomWarning() {
             document.getElementById('custom-warning-overlay').classList.remove('opacity-0', 'pointer-events-none');
             document.getElementById('custom-warning-modal').classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
@@ -1388,7 +1145,6 @@
             openLoginModal();
         }
 
-        // Gestion de la modale d'erreur personnalisée
         function showCustomError(text) {
             if (text) document.getElementById('error-modal-text').innerText = text;
             document.getElementById('custom-error-overlay').classList.remove('opacity-0', 'pointer-events-none');
@@ -1400,7 +1156,6 @@
             document.getElementById('custom-error-modal').classList.add('opacity-0', 'pointer-events-none', 'scale-95');
         }
 
-        // Gestion du Chat Simple (Anglais uniquement)
         const chatResponses = {
             welcome: "Hello! 👋 Any questions about the server? Click an option below or type your message:",
             ip: "The server IP is: <b>MC.SOUPTEAMS.EU</b>",
@@ -1456,7 +1211,6 @@
             return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
 
-        // ENREGISTREMENT ET ENVOI DU FORMULAIRE VERS DISCORD (WEBHOOK)
         document.getElementById('application-form').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -1468,23 +1222,24 @@
             const username = loggedUser;
             const type = document.getElementById('app-type').value;
             const message = document.getElementById('app-message').value.trim();
+            const notRobot = document.getElementById('app-not-robot').checked;
             const submitBtn = document.getElementById('app-submit-btn');
 
-            // Vérification du nombre de caractères (minimum 50)
-            if (message.length < 50) {
-                showCustomError(`Your message is too short (${message.length}/50 characters). Please write at least 50 characters.`);
+            if (!notRobot) {
+                showCustomError("Please check the 'I am not a robot' box to verify you are human.");
+                return;
+            }
+
+            if (message.length < 25) {
+                showCustomError(`Your message is too short (${message.length}/25 characters). Please write at least 25 characters.`);
                 document.getElementById('app-message').focus();
                 return;
             }
 
             const webhookUrl = "https://discord.com/api/webhooks/1549403750970560664/6ZTFSWm4GUYJMO-UAF2yqGaMIm8mx4UsmASmMXkBeBvIyYkBf7GQAQVZ6Z_FFmqZqGWG";
 
-            if (!webhookUrl || webhookUrl.includes("TON_URL")) {
-                alert("Please configure your Discord Webhook URL in the script code first!");
-                return;
-            }
-
             submitBtn.disabled = true;
+            submitBtn.style.opacity = "0.5";
             submitBtn.innerText = "Sending...";
 
             const payload = {
@@ -1494,21 +1249,9 @@
                     description: `A new ticket has just been submitted by ${username}.`,
                     color: 38159,
                     fields: [
-                        {
-                            name: "👤 Username",
-                            value: `\`${username}\``,
-                            inline: false
-                        },
-                        {
-                            name: "📌 Type",
-                            value: `\`${type}\``,
-                            inline: false
-                        },
-                        {
-                            name: "💬 Message",
-                            value: `>>> ${message}`,
-                            inline: false
-                        }
+                        { name: "👤 Username", value: `\`${username}\``, inline: false },
+                        { name: "📌 Type", value: `\`${type}\``, inline: false },
+                        { name: "💬 Message", value: `>>> ${message}`, inline: false }
                     ],
                     thumbnail: {
                         url: `https://mc-heads.net/avatar/${encodeURIComponent(username)}/100`
@@ -1532,15 +1275,22 @@
                     document.getElementById('application-form').reset();
                     updateAuthUI();
                     switchPage('home');
+                } else if (response.status === 429) {
+                    const data = await response.json().catch(() => ({}));
+                    const retrySecs = data.retry_after || 5;
+                    showCustomError(`Rate limit reached. Please wait ${Math.ceil(retrySecs)} seconds before trying again.`);
                 } else {
-                    alert("Error sending request. Please try again later.");
+                    showCustomError("Error sending request to Discord. Please try again later.");
                 }
             } catch (err) {
                 console.error("Webhook Error:", err);
-                alert("An error occurred. Check your network.");
+                showCustomError("Network error occurred.");
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Submit Request";
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = "1";
+                    submitBtn.innerText = "Submit Request";
+                }, 3000);
             }
         });
 
@@ -1570,17 +1320,17 @@
 
             if (loggedUser) {
                 htmlContent = `
-                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full pl-2 pr-3 py-1">
+                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full pl-2 pr-3 py-1.5">
                         <img src="https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/32" alt="Skin" class="w-6 h-6 rounded-md object-cover shrink-0">
                         <span class="text-xs font-bold text-white max-w-[110px] truncate">${loggedUser}</span>
-                        <button onclick="logoutUser()" class="text-gray-400 hover:text-red-400 text-xs ml-1 transition-colors cursor-pointer shrink-0" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        <button onclick="logoutUser()" class="text-gray-300 hover:text-red-400 text-xs ml-1 transition-colors cursor-pointer shrink-0" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                 `;
                 mobileHtmlContent = htmlContent;
                 if (appUsernameText) appUsernameText.innerText = loggedUser;
             } else {
                 htmlContent = `
-                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl transition-all flex items-center gap-2 cursor-pointer shrink-0">
+                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer shrink-0">
                         <i class="fa-solid fa-right-to-bracket text-[10px]"></i> <span>Login</span>
                     </button>
                 `;
@@ -1651,9 +1401,7 @@
             const toast = document.getElementById('toast-notification');
             document.getElementById('toast-message').innerText = username;
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3500);
+            setTimeout(() => { toast.classList.remove('show'); }, 3500);
         }
 
         function logoutUser() {
