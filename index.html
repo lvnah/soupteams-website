@@ -1043,26 +1043,27 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- FOOTER PARFAITEMENT CENTRÉ -->
     <footer class="bg-[#05070e]/80 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
-        <div class="max-w-4xl mx-auto flex flex-col items-center gap-5">
-            <h2 class="text-lg font-black text-white uppercase opacity-20 tracking-widest">Soup<span
+        <div class="max-w-4xl mx-auto flex flex-col items-center justify-center gap-5">
+            <h2 class="text-lg font-black text-white uppercase opacity-20 tracking-widest text-center">Soup<span
                     class="text-gold">Teams</span></h2>
 
+            <!-- Conteneur flex en mode grille/centrage strict -->
             <div
-                class="flex flex-wrap justify-center items-center gap-4 sm:gap-8 text-gray-200 font-bold uppercase text-[10px] tracking-[0.2em]">
+                class="flex items-center justify-center gap-6 sm:gap-10 text-gray-200 font-bold uppercase text-[10px] tracking-[0.2em] w-full text-center">
                 <a href="#" onclick="switchPage('staff'); return false;"
-                    class="hover:text-white transition-colors">Staff</a>
+                    class="hover:text-white transition-colors text-right w-16 sm:w-20">Staff</a>
                 <a href="#" onclick="switchPage('rules'); return false;"
-                    class="hover:text-white transition-colors">Rules</a>
+                    class="hover:text-white transition-colors text-center w-16 sm:w-20">Rules</a>
                 <a href="#" onclick="switchPage('support'); return false;"
-                    class="hover:text-white transition-colors">Support</a>
+                    class="hover:text-white transition-colors text-center w-16 sm:w-20">Support</a>
                 <a href="https://dsc.gg/soupteams" target="_blank"
-                    class="hover:text-[#5865F2] transition-colors flex items-center gap-1.5"><i
-                        class="fab fa-discord text-sm"></i> Discord</a>
+                    class="hover:text-[#5865F2] transition-colors text-left w-16 sm:w-20">Discord</a>
             </div>
 
-            <p class="text-gray-300 text-[9px] sm:text-[10px] font-medium tracking-widest uppercase">&copy; 2026
+            <p class="text-gray-300 text-[9px] sm:text-[10px] font-medium tracking-widest uppercase text-center">&copy;
+                2026
                 SoupTeams. <br><span class="opacity-50 mt-0.5 inline-block">Not affiliated with Mojang AB.</span></p>
         </div>
     </footer>
