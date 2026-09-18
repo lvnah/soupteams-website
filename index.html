@@ -46,15 +46,6 @@
                         sky: '#38BDF8',
                         blood: '#E11D48',
                         darkBg: '#080a10',
-                    },
-                    animation: {
-                        'zoom-in': 'zoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        zoomIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.98) translateY(8px)' },
-                            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
-                        }
                     }
                 }
             }
@@ -67,6 +58,22 @@
             color: #d4d4d8;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* Écran noir initial pour l'effet de découverte */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: #080a10;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+        }
+
+        #intro-overlay.hidden-overlay {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
         .hero-bg {
@@ -191,6 +198,9 @@
 </head>
 
 <body class="antialiased font-sans selection:bg-gold selection:text-black relative">
+
+    <!-- Écran noir initial (Fade-out au chargement) -->
+    <div id="intro-overlay"></div>
 
     <!-- MODALE AVERTISSEMENT CONNEXION REQUISE -->
     <div id="custom-warning-overlay"
@@ -354,7 +364,7 @@
         </div>
     </div>
 
-    <!-- NAVBAR PLEINE LARGEUR (GLASSMORPHISM ORIGINELLE) -->
+    <!-- NAVBAR PLEINE LARGEUR -->
     <nav
         class="fixed top-0 left-0 w-full z-50 bg-[#060810]/85 backdrop-blur-md border-b border-white/10 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -420,7 +430,7 @@
     <div id="page-home" class="page-view active">
         <section id="accueil"
             class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-24 pb-10 px-4 border-b border-white/5">
-            <div class="z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center animate-zoom-in">
+            <div class="z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center">
                 <div
                     class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-3.5 py-1.5 backdrop-blur-md">
                     <span class="relative flex h-2 w-2">
@@ -431,7 +441,7 @@
                     </span>
                 </div>
 
-                <!-- SOUPTEAMS AVEC CLIGNOTEMENT SUBTIL -->
+                <!-- SOUPTEAMS AVEC CLIGNOTEMENT SUBTIL (ANIMATE-PULSE) -->
                 <h1 class="hero-title font-black italic uppercase tracking-normal text-white mb-3 leading-none w-full">
                     SOUP<span class="text-gold animate-pulse">TEAMS</span>
                 </h1>
@@ -1050,13 +1060,12 @@
         </div>
     </div>
 
-    <!-- FOOTER PARFAITEMENT CENTRÉ -->
+    <!-- FOOTER -->
     <footer class="bg-[#05070e]/80 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
         <div class="max-w-4xl mx-auto flex flex-col items-center justify-center gap-5">
             <h2 class="text-lg font-black text-white uppercase opacity-20 tracking-widest text-center">Soup<span
                     class="text-gold">Teams</span></h2>
 
-            <!-- Conteneur flex en mode grille/centrage strict -->
             <div
                 class="flex items-center justify-center gap-6 sm:gap-10 text-gray-200 font-bold uppercase text-[10px] tracking-[0.2em] w-full text-center">
                 <a href="#" onclick="switchPage('staff'); return false;"
@@ -1078,6 +1087,16 @@
     <!-- SCRIPTS -->
     <script>
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+
+        // Gestion de l'écran noir initial de découverte
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const overlay = document.getElementById('intro-overlay');
+                if (overlay) {
+                    overlay.classList.add('hidden-overlay');
+                }
+            }, 250);
+        });
 
         let loggedUser = localStorage.getItem('soup_username') || "";
         let selectedTebexUrl = "https://soupteams.tebex.io";
