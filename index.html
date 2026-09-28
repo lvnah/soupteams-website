@@ -36,6 +36,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -43,9 +44,7 @@
                     },
                     colors: {
                         gold: '#FFB800',
-                        sky: '#38BDF8',
                         blood: '#E11D48',
-                        darkBg: '#080a10',
                     }
                 }
             }
@@ -53,18 +52,42 @@
     </script>
 
     <style>
-        body {
-            background-color: #080a10;
-            color: #d4d4d8;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-card: #121212;
+            --bg-nav: rgba(10, 10, 10, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #d4d4d8;
+            --text-heading: #ffffff;
+            --hero-overlay-from: rgba(10, 10, 10, 0.6);
+            --hero-overlay-via: rgba(10, 10, 10, 0.85);
+            --hero-overlay-to: #0a0a0a;
         }
 
-        /* Écran noir initial pour l'effet de découverte */
+        .light {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-nav: rgba(255, 255, 255, 0.9);
+            --border-color: #e2e8f0;
+            --text-main: #475569;
+            --text-heading: #0f172a;
+            --hero-overlay-from: rgba(248, 250, 252, 0.6);
+            --hero-overlay-via: rgba(248, 250, 252, 0.85);
+            --hero-overlay-to: #f8fafc;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
         #intro-overlay {
             position: fixed;
             inset: 0;
-            background-color: #080a10;
+            background-color: var(--bg-main);
             z-index: 9999;
             opacity: 1;
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
@@ -78,7 +101,7 @@
 
         .hero-bg {
             background-image:
-                linear-gradient(to bottom, rgba(8, 10, 16, 0.6) 0%, rgba(8, 10, 16, 0.85) 75%, rgba(8, 10, 16, 1) 100%),
+                linear-gradient(to bottom, var(--hero-overlay-from) 0%, var(--hero-overlay-via) 75%, var(--hero-overlay-to) 100%),
                 url('https://minecraft.fr/wp-content/uploads/2026/06/fonds-sous-marins-spring-shaders-shader-minecraft.webp');
             background-size: cover;
             background-position: center;
@@ -94,10 +117,11 @@
             font-size: clamp(2.5rem, 9vw, 7rem);
         }
 
+        /* ANIMATIONS DE SCROLL : FONDU DOUX ET PROGRESSIF */
         .reveal-on-scroll {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(15px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
@@ -107,8 +131,9 @@
         }
 
         .mj-card {
-            background-color: #0d111a;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .btn-skew {
@@ -143,7 +168,7 @@
             display: none;
             opacity: 0;
             transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .page-view.active {
@@ -183,11 +208,11 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #080a10;
+            background: var(--bg-main);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #1e293b;
+            background: #27272a;
             border-radius: 4px;
         }
 
@@ -199,7 +224,7 @@
 
 <body class="antialiased font-sans selection:bg-gold selection:text-black relative">
 
-    <!-- Écran noir initial (Fade-out au chargement) -->
+    <!-- Écran initial -->
     <div id="intro-overlay"></div>
 
     <!-- MODALE AVERTISSEMENT CONNEXION REQUISE -->
@@ -207,18 +232,20 @@
         class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[200] opacity-0 pointer-events-none transition-opacity duration-200">
     </div>
     <div id="custom-warning-modal"
-        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#0d111a] border border-white/10 rounded-xl z-[210] p-6 shadow-xl opacity-0 pointer-events-none scale-95 transition-all duration-200">
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl z-[210] p-6 shadow-xl opacity-0 pointer-events-none scale-95 transition-all duration-200">
         <div class="flex flex-col items-center text-center">
             <div
                 class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Authentication Required</h3>
-            <p class="text-xs text-gray-200 font-medium leading-relaxed mb-6">Please log in with your Minecraft username
+            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Authentication
+                Required</h3>
+            <p class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please log in with your
+                Minecraft username
                 before submitting a request!</p>
             <div class="flex gap-3 w-full">
                 <button onclick="closeCustomWarning()"
-                    class="w-1/2 py-2.5 bg-white/5 hover:bg-white/10 text-white font-semibold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">
+                    class="w-1/2 py-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[var(--text-heading)] font-semibold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer border border-[var(--border-color)]">
                     Cancel
                 </button>
                 <button onclick="openLoginModalFromWarning()"
@@ -229,19 +256,21 @@
         </div>
     </div>
 
-    <!-- MODALE ERREUR MESSAGE TROP COURT OU BOT -->
+    <!-- MODALE ERREUR -->
     <div id="custom-error-overlay"
         class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[200] opacity-0 pointer-events-none transition-opacity duration-200">
     </div>
     <div id="custom-error-modal"
-        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[#0d111a] border border-white/10 rounded-xl z-[210] p-6 shadow-xl opacity-0 pointer-events-none scale-95 transition-all duration-200">
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl z-[210] p-6 shadow-xl opacity-0 pointer-events-none scale-95 transition-all duration-200">
         <div class="flex flex-col items-center text-center">
             <div
                 class="w-12 h-12 rounded-xl bg-blood/10 border border-blood/20 flex items-center justify-center text-blood text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-base font-bold text-white uppercase tracking-wider mb-2">Submission Error</h3>
-            <p id="error-modal-text" class="text-xs text-gray-200 font-medium leading-relaxed mb-6">Please fix the form
+            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Submission Error
+            </h3>
+            <p id="error-modal-text" class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please fix
+                the form
                 errors before submitting.</p>
             <button onclick="closeCustomError()"
                 class="w-full py-2.5 bg-blood hover:bg-rose-600 text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">
@@ -252,27 +281,28 @@
 
     <!-- NOTIFICATION TOAST DE CONNEXION -->
     <div id="toast-notification"
-        class="fixed bottom-6 right-6 z-[150] bg-[#0d111a] border border-white/10 rounded-xl p-3.5 shadow-xl flex items-center gap-3 max-w-xs pointer-events-none">
+        class="fixed bottom-6 right-6 z-[150] bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-3.5 shadow-xl flex items-center gap-3 max-w-xs pointer-events-none">
         <div
             class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-sm shrink-0">
             <i class="fa-solid fa-circle-check"></i>
         </div>
         <div>
             <div class="text-[9px] font-bold text-emerald-400 uppercase tracking-wider">Successfully Logged In</div>
-            <div id="toast-message" class="text-xs font-bold text-white truncate max-w-[180px]"></div>
+            <div id="toast-message" class="text-xs font-bold text-[var(--text-heading)] truncate max-w-[180px]"></div>
         </div>
     </div>
 
     <!-- NOTIFICATION TOAST DE SUCCÈS -->
     <div id="success-toast"
-        class="fixed bottom-6 right-6 z-[150] bg-[#0d111a] border border-white/10 rounded-xl p-3.5 shadow-xl flex items-center gap-3 max-w-xs pointer-events-none">
+        class="fixed bottom-6 right-6 z-[150] bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-3.5 shadow-xl flex items-center gap-3 max-w-xs pointer-events-none">
         <div
-            class="w-8 h-8 rounded-lg bg-sky/10 border border-sky/20 flex items-center justify-center text-sky text-sm shrink-0">
+            class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-sm shrink-0">
             <i class="fa-solid fa-circle-check"></i>
         </div>
         <div>
-            <div class="text-[9px] font-bold text-sky uppercase tracking-wider">Request Sent!</div>
-            <div class="text-xs font-bold text-white truncate max-w-[180px]">Successfully submitted.</div>
+            <div class="text-[9px] font-bold text-gold uppercase tracking-wider">Request Sent!</div>
+            <div class="text-xs font-bold text-[var(--text-heading)] truncate max-w-[180px]">Successfully submitted.
+            </div>
         </div>
     </div>
 
@@ -281,19 +311,20 @@
         class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[110] opacity-0 pointer-events-none transition-opacity duration-200"
         onclick="closeLoginModal()"></div>
     <div id="login-modal"
-        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-sm bg-[#0d111a] border border-white/10 rounded-xl z-[120] p-5 shadow-xl opacity-0 pointer-events-none scale-95">
-        <div class="flex items-center justify-between pb-3 border-b border-white/5 mb-4">
-            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Minecraft Login</h3>
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] max-w-sm bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl z-[120] p-5 shadow-xl opacity-0 pointer-events-none scale-95">
+        <div class="flex items-center justify-between pb-3 border-b border-[var(--border-color)] mb-4">
+            <h3 class="text-sm font-bold text-[var(--text-heading)] uppercase tracking-wider">Minecraft Login</h3>
             <button onclick="closeLoginModal()"
-                class="w-6 h-6 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-300 hover:text-white cursor-pointer"><i
+                class="w-6 h-6 rounded-lg bg-black/5 dark:bg-white/5 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-[var(--text-heading)] cursor-pointer"><i
                     class="fa-solid fa-xmark text-xs"></i></button>
         </div>
         <div class="space-y-3">
             <div>
-                <label class="block text-[10px] font-semibold uppercase tracking-wider text-gray-200 mb-1.5">Minecraft
+                <label
+                    class="block text-[10px] font-semibold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Minecraft
                     Username</label>
                 <input type="text" id="login-username-input" placeholder="Ex: Notch" maxlength="16"
-                    class="w-full bg-[#080a10] border border-white/15 rounded-lg py-2.5 px-3 text-white placeholder-gray-500 text-xs font-medium focus:outline-none focus:border-gold transition-colors"
+                    class="w-full bg-[var(--bg-main)] border border-[var(--border-color)] rounded-lg py-2.5 px-3 text-[var(--text-heading)] placeholder-gray-400 text-xs font-medium focus:outline-none focus:border-gold transition-colors"
                     onkeydown="if(event.key === 'Enter') submitLogin()">
                 <p id="login-error" class="text-blood text-[10px] mt-1 hidden">Please enter a valid username (max 16
                     chars).</p>
@@ -303,52 +334,58 @@
         </div>
     </div>
 
-    <!-- TIROIR DE PAIEMENT LATÉRAL (BOUTIQUE / APERÇU 3D) -->
+    <!-- TIROIR DE PAIEMENT LATÉRAL -->
     <div id="drawer-overlay"
         class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[99] opacity-0 pointer-events-none transition-opacity duration-200"
         onclick="closeCheckout()"></div>
     <div id="checkout-drawer"
-        class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-[#0d111a] border-l border-white/10 z-[100] shadow-2xl flex flex-col justify-between p-5 overflow-y-auto">
+        class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-[var(--bg-card)] border-l border-[var(--border-color)] z-[100] shadow-2xl flex flex-col justify-between p-5 overflow-y-auto">
         <div>
-            <div class="flex items-center justify-between pb-4 border-b border-white/5 mb-5">
+            <div class="flex items-center justify-between pb-4 border-b border-[var(--border-color)] mb-5">
                 <div>
                     <span id="drawer-badge"
-                        class="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 text-gray-200 border border-white/5">RANK</span>
-                    <h3 id="drawer-title" class="text-base font-bold text-white uppercase mt-1">VIP Rank</h3>
+                        class="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[var(--text-heading)] border border-[var(--border-color)]">RANK</span>
+                    <h3 id="drawer-title" class="text-base font-bold text-[var(--text-heading)] uppercase mt-1">VIP Rank
+                    </h3>
                 </div>
                 <button onclick="closeCheckout()"
-                    class="w-7 h-7 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-gray-300 hover:text-white transition-colors cursor-pointer"><i
+                    class="w-7 h-7 rounded-lg bg-black/5 dark:bg-white/5 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-[var(--text-heading)] transition-colors cursor-pointer"><i
                         class="fa-solid fa-xmark text-xs"></i></button>
             </div>
 
             <div class="space-y-4">
-                <div class="bg-[#080a10] border border-white/5 rounded-xl p-4 text-center relative overflow-hidden">
-                    <div class="text-[9px] font-semibold text-gray-200 uppercase tracking-widest mb-1">In-Game Visual
+                <div
+                    class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-4 text-center relative overflow-hidden">
+                    <div class="text-[9px] font-semibold text-[var(--text-main)] uppercase tracking-widest mb-1">In-Game
+                        Visual
                         Preview</div>
                     <div class="relative h-40 flex flex-col items-center justify-center my-1">
                         <div class="absolute top-1 z-10">
                             <span id="drawer-nametag-username"
-                                class="text-xs font-bold tracking-tight px-1.5 py-0.5 rounded bg-black/40 border border-white/5"></span>
+                                class="text-xs font-bold tracking-tight px-1.5 py-0.5 rounded bg-black/40 border border-[var(--border-color)]"></span>
                         </div>
                         <img id="drawer-skin-3d" src="" alt="Skin 3D" class="h-32 object-contain mt-4">
                     </div>
                 </div>
 
-                <div class="bg-[#080a10] border border-white/5 rounded-xl p-3 space-y-1.5">
-                    <div class="text-[9px] font-semibold text-sky uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-comments text-sky"></i> Chat
+                <div class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3 space-y-1.5">
+                    <div class="text-[9px] font-semibold text-gold uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-comments text-gold"></i> Chat
                     </div>
                     <div id="chat-preview-box"
-                        class="font-mono text-[11px] bg-black/40 p-2 rounded border border-white/5 text-gray-200"></div>
+                        class="font-mono text-[11px] bg-black/20 dark:bg-black/40 p-2 rounded border border-[var(--border-color)] text-[var(--text-heading)]">
+                    </div>
                 </div>
 
-                <div class="bg-[#080a10] border border-white/5 rounded-xl p-3 space-y-2 text-xs">
-                    <div class="flex justify-between"><span class="text-gray-200 font-medium">Item :</span><span
-                            id="summary-rank-name" class="font-bold text-white">VIP (1 Month)</span></div>
-                    <div class="flex justify-between"><span class="text-gray-200 font-medium">Price :</span><span
-                            id="summary-price" class="font-bold text-gold">2.99€</span></div>
-                    <div class="border-t border-white/5 pt-2 flex justify-between font-bold"><span
-                            class="text-white">Total :</span><span id="summary-total" class="text-white">2.99€</span>
+                <div class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3 space-y-2 text-xs">
+                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Item
+                            :</span><span id="summary-rank-name" class="font-bold text-[var(--text-heading)]">VIP (1
+                            Month)</span></div>
+                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Price
+                            :</span><span id="summary-price" class="font-bold text-gold">2.99€</span></div>
+                    <div class="border-t border-[var(--border-color)] pt-2 flex justify-between font-bold"><span
+                            class="text-[var(--text-heading)]">Total :</span><span id="summary-total"
+                            class="text-[var(--text-heading)]">2.99€</span>
                     </div>
                 </div>
             </div>
@@ -359,23 +396,23 @@
                 class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer">
                 <span>Proceed to Checkout</span><i class="fa-solid fa-arrow-right text-[10px]"></i>
             </button>
-            <p class="text-[10px] text-gray-300 text-center mt-3 flex items-center justify-center gap-1.5"><i
+            <p class="text-[10px] text-[var(--text-main)] text-center mt-3 flex items-center justify-center gap-1.5"><i
                     class="fa-solid fa-lock text-gold"></i> <span>Secure payment powered by Tebex</span></p>
         </div>
     </div>
 
-    <!-- NAVBAR PLEINE LARGEUR -->
+    <!-- NAVBAR -->
     <nav
-        class="fixed top-0 left-0 w-full z-50 bg-[#060810]/85 backdrop-blur-md border-b border-white/10 transition-all">
+        class="fixed top-0 left-0 w-full z-50 bg-[var(--bg-nav)] backdrop-blur-md border-b border-[var(--border-color)] transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo -->
             <a href="#" onclick="switchPage('home'); return false;"
-                class="text-lg sm:text-xl font-black tracking-tight text-white uppercase flex items-center gap-2 cursor-pointer">
+                class="text-lg sm:text-xl font-black tracking-tight text-[var(--text-heading)] uppercase flex items-center gap-2 cursor-pointer">
                 Soup<span class="text-gold">Teams</span>
             </a>
 
             <!-- Liens Desktop -->
-            <div class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-[0.15em] text-gray-200">
+            <div
+                class="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-[0.15em] text-[var(--text-main)]">
                 <a href="#" onclick="switchPage('home'); return false;"
                     class="hover:text-gold transition-colors">Home</a>
                 <a href="#features" onclick="switchPage('home');"
@@ -384,28 +421,33 @@
                     class="text-gold hover:text-yellow-400 transition-colors">Store</a>
                 <a href="#" onclick="switchPage('staff'); return false;"
                     class="hover:text-gold transition-colors">Staff</a>
-                <a href="#" onclick="switchPage('apply'); return false;"
-                    class="text-sky hover:text-sky-300 transition-colors">Apply / Ticket</a>
+                <a href="#" onclick="switchPage('apply'); return false;" class="hover:text-gold transition-colors">Apply
+                    / Ticket</a>
             </div>
 
-            <!-- Bouton Authentification Desktop & Mobile Toggle -->
             <div class="flex items-center gap-3">
+                <!-- Bouton Bascule Mode Jour / Nuit -->
+                <button onclick="toggleDarkMode()"
+                    class="w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-heading)] hover:text-gold cursor-pointer transition-colors"
+                    title="Toggle Theme">
+                    <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+
                 <div id="nav-auth-container" class="hidden sm:flex items-center">
                     <!-- Injecté par JS -->
                 </div>
 
-                <!-- Bouton Menu Mobile (Hamburger) -->
                 <button onclick="toggleMobileMenu()"
-                    class="md:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-200 hover:text-white cursor-pointer transition-colors">
+                    class="md:hidden w-10 h-10 rounded-xl bg-black/5 dark:bg-white/5 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-heading)] hover:text-gold cursor-pointer transition-colors">
                     <i id="mobile-menu-icon" class="fa-solid fa-bars text-base"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Menu Déroulant Mobile -->
+        <!-- Menu Mobile -->
         <div id="mobile-menu"
-            class="hidden md:hidden bg-[#0a0e1a] border-b border-white/10 px-6 py-6 space-y-4 shadow-2xl transition-all">
-            <div class="flex flex-col space-y-3 text-xs font-bold uppercase tracking-wider text-gray-200">
+            class="hidden md:hidden bg-[var(--bg-card)] border-b border-[var(--border-color)] px-6 py-6 space-y-4 shadow-2xl transition-all">
+            <div class="flex flex-col space-y-3 text-xs font-bold uppercase tracking-wider text-[var(--text-main)]">
                 <a href="#" onclick="switchPage('home'); toggleMobileMenu(); return false;"
                     class="hover:text-gold transition-colors py-1">Home</a>
                 <a href="#features" onclick="switchPage('home'); toggleMobileMenu();"
@@ -415,13 +457,11 @@
                 <a href="#" onclick="switchPage('staff'); toggleMobileMenu(); return false;"
                     class="hover:text-gold transition-colors py-1">Staff</a>
                 <a href="#" onclick="switchPage('apply'); toggleMobileMenu(); return false;"
-                    class="text-sky hover:text-sky-300 transition-colors py-1">Apply / Ticket</a>
+                    class="hover:text-gold transition-colors py-1">Apply / Ticket</a>
             </div>
-            <div class="pt-4 border-t border-white/10 flex justify-between items-center sm:hidden">
-                <span class="text-[10px] text-gray-200 uppercase tracking-widest font-bold">Account</span>
-                <div id="nav-auth-container-mobile">
-                    <!-- Injecté par JS pour mobile -->
-                </div>
+            <div class="pt-4 border-t border-[var(--border-color)] flex justify-between items-center sm:hidden">
+                <span class="text-[10px] text-[var(--text-main)] uppercase tracking-widest font-bold">Account</span>
+                <div id="nav-auth-container-mobile"></div>
             </div>
         </div>
     </nav>
@@ -429,43 +469,44 @@
     <!-- PAGE ACCUEIL / BOUTIQUE -->
     <div id="page-home" class="page-view active">
         <section id="accueil"
-            class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-24 pb-10 px-4 border-b border-white/5">
+            class="hero-bg min-h-screen flex flex-col items-center justify-center relative pt-24 pb-10 px-4 border-b border-[var(--border-color)]">
             <div class="z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center">
                 <div
-                    class="mb-5 md:mb-6 flex items-center gap-2 bg-white/5 border border-white/15 rounded-full px-3.5 py-1.5 backdrop-blur-md">
+                    class="mb-5 md:mb-6 flex items-center gap-2 bg-black/10 dark:bg-white/5 border border-[var(--border-color)] rounded-full px-3.5 py-1.5 backdrop-blur-md">
                     <span class="relative flex h-2 w-2">
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                     </span>
-                    <span class="text-[10px] sm:text-xs font-bold text-gray-200 uppercase tracking-[0.15em]">
-                        <span id="player-count" class="text-white">...</span> <span>Players Online</span>
+                    <span class="text-[10px] sm:text-xs font-bold text-[var(--text-main)] uppercase tracking-[0.15em]">
+                        <span id="player-count" class="text-[var(--text-heading)]">...</span> <span>Players
+                            Online</span>
                     </span>
                 </div>
 
-                <!-- SOUPTEAMS AVEC CLIGNOTEMENT SUBTIL (ANIMATE-PULSE) -->
-                <h1 class="hero-title font-black italic uppercase tracking-normal text-white mb-3 leading-none w-full">
+                <h1
+                    class="hero-title font-black italic uppercase tracking-normal text-[var(--text-heading)] mb-3 leading-none w-full">
                     SOUP<span class="text-gold animate-pulse">TEAMS</span>
                 </h1>
 
                 <p
-                    class="text-xs sm:text-lg text-gray-200 font-semibold mb-8 max-w-md sm:max-w-xl mx-auto uppercase tracking-widest px-2 drop-shadow-sm">
-                    <span>The ultimate</span> <span class="text-white font-bold">PvP Soup 1.8.8</span>
+                    class="text-xs sm:text-lg text-[var(--text-main)] font-semibold mb-8 max-w-md sm:max-w-xl mx-auto uppercase tracking-widest px-2 drop-shadow-sm">
+                    <span>The ultimate</span> <span class="text-[var(--text-heading)] font-bold">PvP Soup 1.8.8</span>
                     <span>experience</span>.
                 </p>
 
                 <div class="w-full max-w-xs sm:max-w-none flex justify-center">
                     <button onclick="copyIP()"
-                        class="group relative btn-skew bg-white/10 p-[1px] cursor-pointer hover:bg-gold transition-colors w-full sm:w-auto">
+                        class="group relative btn-skew bg-black/20 dark:bg-white/10 p-[1px] cursor-pointer hover:bg-gold transition-colors w-full sm:w-auto">
                         <div
-                            class="bg-[#080a10] px-5 sm:px-8 py-3.5 sm:py-4 transition-colors group-hover:bg-transparent">
+                            class="bg-[var(--bg-main)] px-5 sm:px-8 py-3.5 sm:py-4 transition-colors group-hover:bg-transparent">
                             <div class="btn-skew-content flex items-center justify-center gap-3.5 sm:gap-4">
                                 <i
-                                    class="fa-solid fa-gamepad text-gray-200 group-hover:text-black text-base sm:text-lg transition-colors"></i>
+                                    class="fa-solid fa-gamepad text-[var(--text-main)] group-hover:text-black text-base sm:text-lg transition-colors"></i>
                                 <div class="text-left">
                                     <div
-                                        class="text-[8px] font-bold text-gray-300 group-hover:text-black uppercase tracking-[0.2em] mb-0.5 transition-colors">
+                                        class="text-[8px] font-bold text-[var(--text-main)] group-hover:text-black uppercase tracking-[0.2em] mb-0.5 transition-colors">
                                         Join the server</div>
                                     <div id="ip-text"
-                                        class="text-sm sm:text-lg font-black text-white group-hover:text-black tracking-[0.08em] transition-colors">
+                                        class="text-sm sm:text-lg font-black text-[var(--text-heading)] group-hover:text-black tracking-[0.08em] transition-colors">
                                         MC.SOUPTEAMS.EU</div>
                                 </div>
                             </div>
@@ -479,7 +520,8 @@
         <section id="features" class="py-16 md:py-24 relative z-10 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
-                    <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight">
+                    <h2
+                        class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-3 tracking-tight">
                         <span>Hardcore</span> <span class="text-blood">Mechanics</span>
                     </h2>
                     <div class="w-12 h-1 bg-blood mx-auto rounded-full opacity-80"></div>
@@ -492,23 +534,29 @@
                                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-gold/10 text-gold text-base mb-4 border border-gold/20">
                                 <i class="fa-solid fa-coins"></i>
                             </div>
-                            <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Gold
+                            <h3
+                                class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2 tracking-wide">
+                                Gold
                                 Economy</h3>
                         </div>
-                        <p class="text-gray-200 font-medium text-xs sm:text-sm leading-relaxed">Gold is king. Eliminate
+                        <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Gold is king.
+                            Eliminate
                             enemies, farm events, and purchase powerful gear directly with gold nuggets.</p>
                     </div>
 
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex flex-col items-start">
                             <div
-                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-sky/10 text-sky text-base mb-4 border border-sky/20">
+                                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gold/10 text-gold text-base mb-4 border border-gold/20">
                                 <i class="fa-solid fa-users-rays"></i>
                             </div>
-                            <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Teams
+                            <h3
+                                class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2 tracking-wide">
+                                Teams
                             </h3>
                         </div>
-                        <p class="text-gray-200 font-medium text-xs sm:text-sm leading-relaxed">Create your team, claim
+                        <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Create your
+                            team, claim
                             territory, and climb the competitive monthly leaderboard for exclusive rewards.</p>
                     </div>
 
@@ -518,10 +566,13 @@
                                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 text-base mb-4 border border-emerald-500/20">
                                 <i class="fa-solid fa-bowl-food"></i>
                             </div>
-                            <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2 tracking-wide">Soup
+                            <h3
+                                class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2 tracking-wide">
+                                Soup
                                 Mechanics</h3>
                         </div>
-                        <p class="text-gray-200 font-medium text-xs sm:text-sm leading-relaxed">Regenerate 3.5 hearts
+                        <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Regenerate 3.5
+                            hearts
                             per soup. Use classic recipes or craft soups directly with cactus and cocoa beans.</p>
                     </div>
                 </div>
@@ -529,10 +580,11 @@
         </section>
 
         <!-- COMMANDES -->
-        <section class="py-16 md:py-24 relative border-t border-white/5 bg-[#080b14]/50 px-4">
+        <section class="py-16 md:py-24 relative border-t border-[var(--border-color)] bg-black/5 dark:bg-black/20 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
-                    <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-3 tracking-tight">
+                    <h2
+                        class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-3 tracking-tight">
                         <span>In-Game</span> <span class="text-gold">Help & Commands</span>
                     </h2>
                     <div class="w-12 h-1 bg-gold mx-auto rounded-full opacity-80"></div>
@@ -542,30 +594,31 @@
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
                         <div class="flex items-center gap-3 mb-4">
                             <div
-                                class="w-10 h-10 rounded-xl bg-sky/10 border border-sky/20 flex items-center justify-center text-sky text-base">
+                                class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-base">
                                 <i class="fa-solid fa-users-rectangle"></i>
                             </div>
-                            <h3 class="text-lg font-black uppercase text-white tracking-wide">Teams System</h3>
+                            <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">Teams
+                                System</h3>
                         </div>
-                        <ul class="space-y-2.5 text-xs font-mono text-gray-200 font-medium">
-                            <li><code class="text-sky font-bold">/t info</code> - <span
-                                    class="font-sans text-gray-200">View team information</span></li>
-                            <li><code class="text-sky font-bold">/t create [name]</code> - <span
-                                    class="font-sans text-gray-200">Create a clan</span></li>
-                            <li><code class="text-sky font-bold">/t leave</code> - <span
-                                    class="font-sans text-gray-200">Leave your team</span></li>
-                            <li><code class="text-sky font-bold">/t kick [player]</code> - <span
-                                    class="font-sans text-gray-200">Kick a player</span></li>
-                            <li><code class="text-sky font-bold">/t join [name]</code> - <span
-                                    class="font-sans text-gray-200">Join via invitation</span></li>
-                            <li><code class="text-sky font-bold">/t hq</code> - <span
-                                    class="font-sans text-gray-200">Teleport to team home</span></li>
-                            <li><code class="text-sky font-bold">/t sethq</code> - <span
-                                    class="font-sans text-gray-200">Set team home</span></li>
-                            <li><code class="text-sky font-bold">/t invite [player]</code> - <span
-                                    class="font-sans text-gray-200">Invite a player</span></li>
-                            <li><code class="text-sky font-bold">/t disband</code> - <span
-                                    class="font-sans text-gray-200">Disband clan (Owner only)</span></li>
+                        <ul class="space-y-2.5 text-xs font-mono text-[var(--text-main)] font-medium">
+                            <li><code class="text-gold font-bold">/t info</code> - <span
+                                    class="font-sans text-[var(--text-main)]">View team information</span></li>
+                            <li><code class="text-gold font-bold">/t create [name]</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Create a clan</span></li>
+                            <li><code class="text-gold font-bold">/t leave</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Leave your team</span></li>
+                            <li><code class="text-gold font-bold">/t kick [player]</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Kick a player</span></li>
+                            <li><code class="text-gold font-bold">/t join [name]</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Join via invitation</span></li>
+                            <li><code class="text-gold font-bold">/t hq</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Teleport to team home</span></li>
+                            <li><code class="text-gold font-bold">/t sethq</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Set team home</span></li>
+                            <li><code class="text-gold font-bold">/t invite [player]</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Invite a player</span></li>
+                            <li><code class="text-gold font-bold">/t disband</code> - <span
+                                    class="font-sans text-[var(--text-main)]">Disband clan (Owner only)</span></li>
                         </ul>
                     </div>
 
@@ -575,25 +628,27 @@
                                 class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-base">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
-                            <h3 class="text-lg font-black uppercase text-white tracking-wide">Personal Warps (/go)</h3>
+                            <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">Personal
+                                Warps (/go)</h3>
                         </div>
-                        <ul class="space-y-2.5 text-xs font-mono text-gray-200 font-medium mb-4">
+                        <ul class="space-y-2.5 text-xs font-mono text-[var(--text-main)] font-medium mb-4">
                             <li><code class="text-gold font-bold">/go [name]</code> - <span
-                                    class="font-sans text-gray-200">Teleport to your warp</span></li>
+                                    class="font-sans text-[var(--text-main)]">Teleport to your warp</span></li>
                             <li><code class="text-gold font-bold">/go set [name]</code> - <span
-                                    class="font-sans text-gray-200">Set a personal warp</span></li>
+                                    class="font-sans text-[var(--text-main)]">Set a personal warp</span></li>
                             <li><code class="text-gold font-bold">/go delete [name]</code> - <span
-                                    class="font-sans text-gray-200">Delete a warp</span></li>
+                                    class="font-sans text-[var(--text-main)]">Delete a warp</span></li>
                             <li><code class="text-gold font-bold">/go list</code> - <span
-                                    class="font-sans text-gray-200">List your warps</span></li>
+                                    class="font-sans text-[var(--text-main)]">List your warps</span></li>
                         </ul>
                         <div
-                            class="bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-gray-200 font-medium space-y-1">
-                            <p class="font-bold text-white"><i
+                            class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3.5 text-xs text-[var(--text-main)] font-medium space-y-1">
+                            <p class="font-bold text-[var(--text-heading)]"><i
                                     class="fa-solid fa-triangle-exclamation text-gold mr-1"></i> Teleportation Rules:
                             </p>
-                            <p>For <code class="text-white font-bold">/t hq</code> & <code
-                                    class="text-white font-bold">/go</code>: Takes ~5 seconds. No player within 30
+                            <p>For <code class="text-[var(--text-heading)] font-bold">/t hq</code> & <code
+                                    class="text-[var(--text-heading)] font-bold">/go</code>: Takes ~5 seconds. No player
+                                within 30
                                 blocks radius.</p>
                         </div>
                     </div>
@@ -604,12 +659,14 @@
                                 class="w-10 h-10 rounded-xl bg-blood/10 border border-blood/20 flex items-center justify-center text-blood text-base">
                                 <i class="fa-solid fa-chess-rook"></i>
                             </div>
-                            <h3 class="text-lg font-black uppercase text-white tracking-wide">Spawn & Protection</h3>
+                            <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">Spawn &
+                                Protection</h3>
                         </div>
-                        <div class="space-y-3.5 text-xs text-gray-200 leading-relaxed font-medium">
+                        <div class="space-y-3.5 text-xs text-[var(--text-main)] leading-relaxed font-medium">
                             <p><code class="text-blood font-bold">/spawn</code> : Takes 15 seconds of teleportation (if
                                 not in combat and no movement) and restores spawn protection.</p>
-                            <p class="bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-gray-200">
+                            <p
+                                class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3.5 text-xs text-[var(--text-main)]">
                                 <i class="fa-solid fa-shield text-blood mr-1"></i> <strong>Spawn Protection:</strong>
                                 Active at spawn. If you leave spawn and re-enter, PvP will be enabled for you inside the
                                 spawn area!
@@ -623,21 +680,23 @@
                                 class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-base">
                                 <i class="fa-solid fa-coins"></i>
                             </div>
-                            <h3 class="text-lg font-black uppercase text-white tracking-wide">Gold Economy & Market</h3>
+                            <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">Gold
+                                Economy & Market</h3>
                         </div>
-                        <ul class="space-y-2.5 text-xs font-mono text-gray-200 font-medium mb-3.5">
+                        <ul class="space-y-2.5 text-xs font-mono text-[var(--text-main)] font-medium mb-3.5">
                             <li><code class="text-emerald-400 font-bold">/balance</code> - <span
-                                    class="font-sans text-gray-200">Check your gold balance</span></li>
+                                    class="font-sans text-[var(--text-main)]">Check your gold balance</span></li>
                             <li><code class="text-emerald-400 font-bold">/deposit [qty]</code> - <span
-                                    class="font-sans text-gray-200">Deposit gold ingots</span></li>
+                                    class="font-sans text-[var(--text-main)]">Deposit gold ingots</span></li>
                             <li><code class="text-emerald-400 font-bold">/buyview</code> - <span
-                                    class="font-sans text-gray-200">View available sales</span></li>
+                                    class="font-sans text-[var(--text-main)]">View available sales</span></li>
                             <li><code class="text-emerald-400 font-bold">/sell [id] [qty] [price]</code> - <span
-                                    class="font-sans text-gray-200">Sell items</span></li>
+                                    class="font-sans text-[var(--text-main)]">Sell items</span></li>
                             <li><code class="text-emerald-400 font-bold">/buy [id] [qty]</code> - <span
-                                    class="font-sans text-gray-200">Buy items</span></li>
+                                    class="font-sans text-[var(--text-main)]">Buy items</span></li>
                         </ul>
-                        <p class="text-xs text-gray-200 italic font-medium">You must mine and smelt gold to increase
+                        <p class="text-xs text-[var(--text-main)] italic font-medium">You must mine and smelt gold to
+                            increase
                             your balance.</p>
                     </div>
                 </div>
@@ -645,49 +704,55 @@
         </section>
 
         <!-- Boutique Section -->
-        <section id="boutique" class="py-16 md:py-24 relative border-t border-white/5 px-4">
+        <section id="boutique" class="py-16 md:py-24 relative border-t border-[var(--border-color)] px-4">
             <div class="max-w-6xl mx-auto">
                 <div
                     class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 md:mb-14 reveal-on-scroll gap-3">
                     <div>
-                        <h2 class="text-2xl md:text-3xl font-black uppercase text-white mb-2">Store</h2>
-                        <p class="text-gray-200 font-semibold uppercase tracking-widest text-[11px]">Support the server.
+                        <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-2">Store</h2>
+                        <p class="text-[var(--text-main)] font-semibold uppercase tracking-widest text-[11px]">Support
+                            the server.
                             Unlock perks.</p>
                     </div>
                     <a href="https://soupteams.tebex.io" target="_blank"
-                        class="px-4 py-2 bg-white/5 hover:bg-white/10 text-white font-bold uppercase tracking-widest text-[11px] rounded transition-colors border border-white/10">
+                        class="px-4 py-2 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[var(--text-heading)] font-bold uppercase tracking-widest text-[11px] rounded transition-colors border border-[var(--border-color)]">
                         <span>Visit store</span> <i class="fa-solid fa-arrow-right ml-1.5 text-gold text-[10px]"></i>
                     </a>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
-                        <div class="text-gray-300 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Free Rank</div>
-                        <h3 class="text-xl sm:text-2xl font-black text-white uppercase mb-2">DEFAULT</h3>
-                        <div class="text-xl sm:text-2xl font-bold text-white mb-5">0.00€ <span
-                                class="text-[11px] font-medium text-gray-300">/ forever</span></div>
-                        <ul class="space-y-3 mb-6 text-xs font-medium text-gray-200">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-300 mr-2.5 text-xs"></i>
+                        <div class="text-[var(--text-main)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Free
+                            Rank</div>
+                        <h3 class="text-xl sm:text-2xl font-black text-[var(--text-heading)] uppercase mb-2">DEFAULT
+                        </h3>
+                        <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">0.00€ <span
+                                class="text-[11px] font-medium text-[var(--text-main)]">/ forever</span></div>
+                        <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
+                            <li class="flex items-center"><i
+                                    class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
                                 <span>Standard white nickname</span>
                             </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-300 mr-2.5 text-xs"></i>
+                            <li class="flex items-center"><i
+                                    class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
                                 <span>Standard queue access</span>
                             </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gray-300 mr-2.5 text-xs"></i>
+                            <li class="flex items-center"><i
+                                    class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
                                 <span>Gold multiplier x1.0</span>
                             </li>
                         </ul>
                         <button
-                            class="w-full py-3 bg-white/5 text-gray-400 font-black uppercase tracking-widest text-xs rounded cursor-not-allowed">Current
+                            class="w-full py-3 bg-black/5 dark:bg-white/5 text-gray-400 font-black uppercase tracking-widest text-xs rounded cursor-not-allowed">Current
                             Rank</button>
                     </div>
 
                     <div class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll">
                         <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">VIP Rank</div>
                         <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">VIP</h3>
-                        <div class="text-xl sm:text-2xl font-bold text-white mb-5">2.99€ <span
-                                class="text-[11px] font-medium text-gray-200">/ month</span></div>
-                        <ul class="space-y-3 mb-6 text-xs font-medium text-gray-200">
+                        <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">2.99€ <span
+                                class="text-[11px] font-medium text-[var(--text-main)]">/ month</span></div>
+                        <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
                             <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                 <span>Gold colored nickname</span>
                             </li>
@@ -706,27 +771,27 @@
                             VIP</button>
                     </div>
 
-                    <div class="mj-card rounded-2xl p-6 border-sky/30 reveal-on-scroll">
-                        <div class="text-sky text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE Rank</div>
-                        <h3 class="text-xl sm:text-2xl font-black text-sky uppercase mb-2">ELITE</h3>
-                        <div class="text-xl sm:text-2xl font-bold text-white mb-5">5.99€ <span
-                                class="text-[11px] font-medium text-gray-200">/ month</span></div>
-                        <ul class="space-y-3 mb-6 text-xs font-medium text-gray-200">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
-                                <span>Blue colored nickname</span>
+                    <div class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll">
+                        <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE Rank</div>
+                        <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">ELITE</h3>
+                        <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">5.99€ <span
+                                class="text-[11px] font-medium text-[var(--text-main)]">/ month</span></div>
+                        <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                <span>Gold colored nickname</span>
                             </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                 <span>Priority queue access</span>
                             </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                 <span>Gold multiplier x1.5</span>
                             </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-sky mr-2.5 text-xs"></i>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                 <span>3/3 go</span>
                             </li>
                         </ul>
                         <button onclick="openCheckout('ELITE', '5.99€', 'https://soupteams.tebex.io/package/elite')"
-                            class="w-full py-3 bg-sky hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded transition-colors cursor-pointer">Get
+                            class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded transition-colors cursor-pointer">Get
                             Elite</button>
                     </div>
                 </div>
@@ -734,9 +799,11 @@
         </section>
 
         <!-- SECTION SEO -->
-        <section class="py-12 px-4 border-t border-white/5 bg-[#080b14]/30">
-            <div class="max-w-4xl mx-auto text-gray-200 text-xs sm:text-sm font-medium leading-relaxed space-y-4">
-                <h3 class="text-white font-bold text-sm uppercase tracking-wider">SoupTeams : The Best Minecraft Soup
+        <section class="py-12 px-4 border-t border-[var(--border-color)] bg-black/5 dark:bg-black/25">
+            <div
+                class="max-w-4xl mx-auto text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed space-y-4 reveal-on-scroll">
+                <h3 class="text-[var(--text-heading)] font-bold text-sm uppercase tracking-wider">SoupTeams :
+                    Minecraft Soup
                     PvP Server (1.8.8)</h3>
                 <p>Welcome to <strong>SoupTeams</strong>, the ultimate platform designed for fans of classic <strong>PvP
                         Soup</strong> and hardcore Minecraft mechanics. Built explicitly for version
@@ -754,29 +821,33 @@
     <!-- PAGE CANDIDATURE / TICKET -->
     <div id="page-apply" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-2xl mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Staff Application & Ticket</h1>
-            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Fill out this form. Only
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Staff Application &
+                Ticket</h1>
+            <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Fill out this
+                form. Only
                 admins can see and review your submission.</p>
-            <div class="w-12 h-1 bg-sky mx-auto rounded-full mt-3"></div>
+            <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
         </div>
 
-        <form id="application-form" class="mj-card rounded-2xl p-6 sm:p-8 space-y-4">
+        <form id="application-form" class="mj-card rounded-2xl p-6 sm:p-8 space-y-4 reveal-on-scroll">
             <div>
-                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-200 mb-1.5">Minecraft
+                <label
+                    class="block text-[11px] font-bold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Minecraft
                     Username (Logged In)</label>
                 <div id="app-username-display"
-                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-gold text-xs font-bold flex items-center justify-between">
+                    class="w-full bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl py-3 px-3.5 text-gold text-xs font-bold flex items-center justify-between">
                     <span id="app-username-text">Not logged in</span>
                     <button type="button" onclick="openLoginModal()"
-                        class="text-xs text-sky hover:underline cursor-pointer">Change / Login</button>
+                        class="text-xs text-gold hover:underline cursor-pointer">Change / Login</button>
                 </div>
             </div>
 
             <div>
-                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-200 mb-1.5">Request
+                <label
+                    class="block text-[11px] font-bold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Request
                     Type</label>
                 <select id="app-type"
-                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white text-xs font-medium focus:outline-none focus:border-sky">
+                    class="w-full bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl py-3 px-3.5 text-[var(--text-heading)] text-xs font-medium focus:outline-none focus:border-gold">
                     <option value="Staff Application">Staff Application</option>
                     <option value="Support Ticket">Support Ticket / Help</option>
                     <option value="Ban Appeal">Ban Appeal</option>
@@ -784,30 +855,32 @@
             </div>
 
             <div>
-                <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-200 mb-1.5">Your Message /
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Your
+                    Message /
                     Motivations</label>
                 <textarea id="app-message" rows="5" required
                     placeholder="Describe your request or application details in detail..."
-                    class="w-full bg-[#060810] border border-white/10 rounded-xl py-3 px-3.5 text-white text-xs font-medium placeholder-gray-500 focus:outline-none focus:border-sky resize-none"></textarea>
+                    class="w-full bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl py-3 px-3.5 text-[var(--text-heading)] text-xs font-medium placeholder-gray-500 focus:outline-none focus:border-gold resize-none"></textarea>
             </div>
 
-            <div class="flex items-center gap-3 bg-[#060810] border border-white/10 rounded-xl p-3.5">
+            <div
+                class="flex items-center gap-3 bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3.5">
                 <input type="checkbox" id="app-not-robot" required
-                    class="w-4 h-4 accent-sky bg-black border-white/20 rounded cursor-pointer">
-                <label for="app-not-robot" class="text-xs text-gray-200 font-bold cursor-pointer select-none">
+                    class="w-4 h-4 accent-gold bg-black border-[var(--border-color)] rounded cursor-pointer">
+                <label for="app-not-robot" class="text-xs text-[var(--text-main)] font-bold cursor-pointer select-none">
                     I am not a robot (Anti-Bot Verification)
                 </label>
             </div>
 
             <button type="submit" id="app-submit-btn"
-                class="w-full py-3.5 bg-sky hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-colors cursor-pointer">
+                class="w-full py-3.5 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded-xl transition-colors cursor-pointer">
                 Submit Request
             </button>
         </form>
 
         <div class="mt-8 text-center">
             <button onclick="switchPage('home')"
-                class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"><i
+                class="px-5 py-2.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-heading)] font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer border border-[var(--border-color)]"><i
                     class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home</button>
         </div>
     </div>
@@ -815,8 +888,9 @@
     <!-- PAGE STAFF -->
     <div id="page-staff" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-5xl mx-auto">
         <div class="text-center mb-12">
-            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Server Staff</h1>
-            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Meet the team dedicated
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Server Staff</h1>
+            <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Meet the team
+                dedicated
                 to keeping SoupTeams safe and fair.</p>
             <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
         </div>
@@ -824,10 +898,10 @@
         <div class="space-y-12">
             <div>
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-px bg-white/10 flex-1"></div>
+                    <div class="h-px bg-[var(--border-color)] flex-1"></div>
                     <span
                         class="text-xs font-black uppercase tracking-[0.2em] text-red-500 bg-red-950/40 border border-red-800/40 px-4 py-1 rounded-full">Owner</span>
-                    <div class="h-px bg-white/10 flex-1"></div>
+                    <div class="h-px bg-[var(--border-color)] flex-1"></div>
                 </div>
                 <div class="grid grid-cols-1 max-w-xs mx-auto">
                     <div
@@ -840,7 +914,8 @@
                                     class="h-32 sm:h-36 object-contain">
                             </div>
                             <h3 class="text-lg font-black mt-3 tracking-wide" style="color: #AA0000;">lvnah</h3>
-                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-bold">Founder & Lead
+                            <p class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-bold">
+                                Founder & Lead
                                 Dev</p>
                         </div>
                     </div>
@@ -849,10 +924,10 @@
 
             <div>
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-px bg-white/10 flex-1"></div>
+                    <div class="h-px bg-[var(--border-color)] flex-1"></div>
                     <span
                         class="text-xs font-black uppercase tracking-[0.2em] text-pink-400 bg-pink-950/40 border border-pink-800/40 px-4 py-1 rounded-full">Moderator</span>
-                    <div class="h-px bg-white/10 flex-1"></div>
+                    <div class="h-px bg-[var(--border-color)] flex-1"></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div
@@ -868,7 +943,8 @@
                             </div>
                             <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
                             </h3>
-                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-semibold">Apply on
+                            <p class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
+                                Apply on
                                 Discord</p>
                         </div>
                     </div>
@@ -885,7 +961,8 @@
                             </div>
                             <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
                             </h3>
-                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-semibold">Apply on
+                            <p class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
+                                Apply on
                                 Discord</p>
                         </div>
                     </div>
@@ -902,7 +979,8 @@
                             </div>
                             <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
                             </h3>
-                            <p class="text-[11px] text-gray-200 mt-1 uppercase tracking-wider font-semibold">Apply on
+                            <p class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
+                                Apply on
                                 Discord</p>
                         </div>
                     </div>
@@ -912,7 +990,7 @@
 
         <div class="mt-12 text-center">
             <button onclick="switchPage('home')"
-                class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"><i
+                class="px-5 py-2.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-heading)] font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer border border-[var(--border-color)]"><i
                     class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home</button>
         </div>
     </div>
@@ -920,44 +998,55 @@
     <!-- PAGE RULES -->
     <div id="page-rules" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Server Rules</h1>
-            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Please follow these
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Server Rules</h1>
+            <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Please follow
+                these
                 guidelines to ensure a fair community for everyone.</p>
             <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
         </div>
         <div class="space-y-4">
-            <div class="mj-card rounded-2xl p-5 sm:p-6 border-gold/30">
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-gold/30 reveal-on-scroll">
                 <h3 class="text-sm sm:text-base font-bold text-gold uppercase mb-2 flex items-center gap-2.5"><i
                         class="fa-solid fa-shield-halved"></i> <span>1. No Cheating or Unfair Modifications</span></h3>
-                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">Any client modifications, hacks,
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed">Any client
+                    modifications, hacks,
                     X-Ray texture packs, macros, or automated scripts giving an unfair advantage over other players will
                     result in a permanent, unappealable ban from SoupTeams.</p>
             </div>
-            <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
-                <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5"><i
-                        class="fa-solid fa-comments text-sky"></i> <span>2. Respect and Chat Etiquette</span></h3>
-                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">Harassment, hate speech, racism,
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-[var(--border-color)] reveal-on-scroll">
+                <h3
+                    class="text-sm sm:text-base font-bold text-[var(--text-heading)] uppercase mb-2 flex items-center gap-2.5">
+                    <i class="fa-solid fa-comments text-gold"></i> <span>2. Respect and Chat Etiquette</span>
+                </h3>
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed">Harassment, hate
+                    speech, racism,
                     excessive toxicity, advertising other servers, or leaking personal information (doxxing) in public
                     chat is strictly prohibited.</p>
             </div>
-            <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
-                <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5"><i
-                        class="fa-solid fa-bug text-blood"></i> <span>3. Bug Exploitation</span></h3>
-                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">If you discover a glitch,
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-[var(--border-color)] reveal-on-scroll">
+                <h3
+                    class="text-sm sm:text-base font-bold text-[var(--text-heading)] uppercase mb-2 flex items-center gap-2.5">
+                    <i class="fa-solid fa-bug text-blood"></i> <span>3. Bug Exploitation</span>
+                </h3>
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed">If you discover a
+                    glitch,
                     duplication method, or map exploit, you must report it immediately to staff on Discord. Using
                     exploits for personal gain or team advantage will lead to rollbacks and bans.</p>
             </div>
-            <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10">
-                <h3 class="text-sm sm:text-base font-bold text-white uppercase mb-2 flex items-center gap-2.5"><i
-                        class="fa-solid fa-users text-gold"></i> <span>4. Team Regulations</span></h3>
-                <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed">Team betrayals (traitoring)
+            <div class="mj-card rounded-2xl p-5 sm:p-6 border-[var(--border-color)] reveal-on-scroll">
+                <h3
+                    class="text-sm sm:text-base font-bold text-[var(--text-heading)] uppercase mb-2 flex items-center gap-2.5">
+                    <i class="fa-solid fa-users text-gold"></i> <span>4. Team Regulations</span>
+                </h3>
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed">Team betrayals
+                    (traitoring)
                     inside claimed territory or allied agreements are managed in-game, but intentional griefing of core
                     team infrastructure via alt accounts is strictly forbidden.</p>
             </div>
         </div>
         <div class="mt-8 text-center">
             <button onclick="switchPage('home')"
-                class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"><i
+                class="px-5 py-2.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-heading)] font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer border border-[var(--border-color)]"><i
                     class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home</button>
         </div>
     </div>
@@ -965,20 +1054,23 @@
     <!-- PAGE SUPPORT -->
     <div id="page-support" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-2xl sm:text-4xl font-black uppercase text-white mb-3">Support Center</h1>
-            <p class="text-gray-200 text-xs sm:text-sm font-semibold uppercase tracking-wider">Need help with a
+            <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Support Center</h1>
+            <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Need help with
+                a
                 purchase, bug report, or ban appeal? We are here for you.</p>
-            <div class="w-12 h-1 bg-sky mx-auto rounded-full mt-3"></div>
+            <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
-            <div class="mj-card rounded-2xl p-6 border-sky/30 flex flex-col justify-between">
+            <div class="mj-card rounded-2xl p-6 border-gold/30 flex flex-col justify-between reveal-on-scroll">
                 <div>
                     <div
                         class="w-10 h-10 flex items-center justify-center rounded-xl bg-[#5865F2]/20 text-[#5865F2] text-base mb-4 border border-[#5865F2]/40">
                         <i class="fab fa-discord"></i>
                     </div>
-                    <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2">Discord Community</h3>
-                    <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed mb-5">Join our official
+                    <h3 class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2">Discord
+                        Community</h3>
+                    <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed mb-5">Join our
+                        official
                         Discord server to open a ticket, chat with players, and get instant assistance from our staff
                         team.</p>
                 </div>
@@ -986,14 +1078,16 @@
                     class="w-full py-2.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-black uppercase tracking-widest text-[11px] rounded-xl text-center transition-colors block"><span>Open
                         Discord Ticket</span></a>
             </div>
-            <div class="mj-card rounded-2xl p-6 border-gold/30 flex flex-col justify-between">
+            <div class="mj-card rounded-2xl p-6 border-gold/30 flex flex-col justify-between reveal-on-scroll">
                 <div>
                     <div
                         class="w-10 h-10 flex items-center justify-center rounded-xl bg-gold/20 text-gold text-base mb-4 border border-gold/40">
                         <i class="fa-solid fa-store"></i>
                     </div>
-                    <h3 class="text-base sm:text-lg font-bold uppercase text-white mb-2">Store & Payments</h3>
-                    <p class="text-gray-200 text-xs sm:text-sm font-medium leading-relaxed mb-5">Did you purchase a rank
+                    <h3 class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2">Store &
+                        Payments</h3>
+                    <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed mb-5">Did you
+                        purchase a rank
                         or package and haven't received it within 15 minutes? Contact us via Discord with your
                         transaction ID.</p>
                 </div>
@@ -1002,12 +1096,14 @@
                         Store Support</span></a>
             </div>
         </div>
-        <div class="mj-card rounded-2xl p-5 sm:p-6 border-white/10 text-center">
-            <h4 class="text-xs sm:text-sm font-bold text-white uppercase mb-1.5">Frequently Asked Questions</h4>
-            <p class="text-gray-200 text-[11px] sm:text-xs font-medium mb-4">Make sure to check our FAQ channel on
+        <div class="mj-card rounded-2xl p-5 sm:p-6 border-[var(--border-color)] text-center reveal-on-scroll">
+            <h4 class="text-xs sm:text-sm font-bold text-[var(--text-heading)] uppercase mb-1.5">Frequently Asked
+                Questions</h4>
+            <p class="text-[var(--text-main)] text-[11px] sm:text-xs font-medium mb-4">Make sure to check our FAQ
+                channel on
                 Discord before opening a ticket to get faster answers regarding ranks transfer or unban requests.</p>
             <button onclick="switchPage('home')"
-                class="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer"><i
+                class="px-5 py-2.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-heading)] font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer border border-[var(--border-color)]"><i
                     class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home</button>
         </div>
     </div>
@@ -1020,38 +1116,42 @@
         </button>
 
         <div id="simple-chat-window"
-            class="absolute bottom-16 right-0 w-[90vw] sm:w-[340px] bg-[#0d1220] border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-            <div class="bg-[#060810] border-b border-white/10 px-4 py-3 flex items-center justify-between">
+            class="absolute bottom-16 right-0 w-[90vw] sm:w-[340px] bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div
+                class="bg-[var(--bg-main)] border-b border-[var(--border-color)] px-4 py-3 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
-                    <h4 class="text-xs font-bold text-white uppercase">SoupTeams Help</h4>
+                    <h4 class="text-xs font-bold text-[var(--text-heading)] uppercase">SoupTeams Help</h4>
                 </div>
-                <button onclick="toggleSimpleChat()" class="text-gray-200 hover:text-white cursor-pointer"><i
+                <button onclick="toggleSimpleChat()"
+                    class="text-[var(--text-main)] hover:text-[var(--text-heading)] cursor-pointer"><i
                         class="fa-solid fa-xmark text-sm"></i></button>
             </div>
 
             <div id="simple-chat-messages"
-                class="p-4 space-y-3 max-h-[260px] overflow-y-auto text-xs text-gray-200 font-medium">
-                <div class="bg-white/5 p-3 rounded-xl border border-white/5 leading-relaxed">
+                class="p-4 space-y-3 max-h-[260px] overflow-y-auto text-xs text-[var(--text-main)] font-medium">
+                <div
+                    class="mj-card p-3 rounded-xl border border-[var(--border-color)] leading-relaxed text-[var(--text-heading)]">
                     Hello! 👋 Any questions about the server? Click an option below or type your message:
                 </div>
             </div>
 
-            <div class="px-3 py-2 bg-black/30 border-t border-white/5 flex flex-wrap gap-1.5">
+            <div
+                class="px-3 py-2 bg-black/10 dark:bg-black/30 border-t border-[var(--border-color)] flex flex-wrap gap-1.5">
                 <button onclick="sendSimpleReply('What is the IP?')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Server
+                    class="text-[10px] bg-[var(--bg-card)] border border-[var(--border-color)] hover:bg-gold hover:text-black text-[var(--text-heading)] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Server
                     IP</button>
                 <button onclick="sendSimpleReply('How to buy a rank?')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Store</button>
+                    class="text-[10px] bg-[var(--bg-card)] border border-[var(--border-color)] hover:bg-gold hover:text-black text-[var(--text-heading)] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Store</button>
                 <button onclick="sendSimpleReply('What version?')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Version</button>
+                    class="text-[10px] bg-[var(--bg-card)] border border-[var(--border-color)] hover:bg-gold hover:text-black text-[var(--text-heading)] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Version</button>
                 <button onclick="sendSimpleReply('Discord')"
-                    class="text-[10px] bg-white/5 hover:bg-gold hover:text-black text-gray-200 font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Discord</button>
+                    class="text-[10px] bg-[var(--bg-card)] border border-[var(--border-color)] hover:bg-gold hover:text-black text-[var(--text-heading)] font-semibold px-2.5 py-1 rounded-lg transition-colors cursor-pointer">Discord</button>
             </div>
 
-            <div class="p-2.5 bg-[#060810] border-t border-white/10 flex gap-2">
+            <div class="p-2.5 bg-[var(--bg-main)] border-t border-[var(--border-color)] flex gap-2">
                 <input type="text" id="simple-chat-input" placeholder="Type your message..."
-                    class="flex-1 bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white text-xs font-medium placeholder-gray-500 focus:outline-none focus:border-gold"
+                    class="flex-1 bg-black/5 dark:bg-black/50 border border-[var(--border-color)] rounded-xl px-3 py-2 text-[var(--text-heading)] text-xs font-medium placeholder-gray-500 focus:outline-none focus:border-gold"
                     onkeydown="if(event.key === 'Enter') handleSimpleSubmit()">
                 <button onclick="handleSimpleSubmit()"
                     class="px-3 py-2 bg-gold text-black rounded-xl text-xs font-bold cursor-pointer hover:bg-yellow-400"><i
@@ -1061,24 +1161,27 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-[#05070e]/80 backdrop-blur-xl border-t border-white/5 py-8 text-center relative z-10 px-4">
+    <footer
+        class="bg-[var(--bg-nav)] backdrop-blur-xl border-t border-[var(--border-color)] py-8 text-center relative z-10 px-4">
         <div class="max-w-4xl mx-auto flex flex-col items-center justify-center gap-5">
-            <h2 class="text-lg font-black text-white uppercase opacity-20 tracking-widest text-center">Soup<span
-                    class="text-gold">Teams</span></h2>
+            <h2 class="text-lg font-black text-[var(--text-heading)] uppercase opacity-20 tracking-widest text-center">
+                Soup<span class="text-gold">Teams</span></h2>
 
             <div
-                class="flex items-center justify-center gap-6 sm:gap-10 text-gray-200 font-bold uppercase text-[10px] tracking-[0.2em] w-full text-center">
+                class="flex items-center justify-center gap-6 sm:gap-10 text-[var(--text-main)] font-bold uppercase text-[10px] tracking-[0.2em] w-full text-center">
                 <a href="#" onclick="switchPage('staff'); return false;"
-                    class="hover:text-white transition-colors text-right w-16 sm:w-20">Staff</a>
+                    class="hover:text-[var(--text-heading)] transition-colors text-right w-16 sm:w-20">Staff</a>
                 <a href="#" onclick="switchPage('rules'); return false;"
-                    class="hover:text-white transition-colors text-center w-16 sm:w-20">Rules</a>
+                    class="hover:text-[var(--text-heading)] transition-colors text-center w-16 sm:w-20">Rules</a>
                 <a href="#" onclick="switchPage('support'); return false;"
-                    class="hover:text-white transition-colors text-center w-16 sm:w-20">Support</a>
+                    class="hover:text-[var(--text-heading)] transition-colors text-center w-16 sm:w-20">Support</a>
                 <a href="https://dsc.gg/soupteams" target="_blank"
                     class="hover:text-[#5865F2] transition-colors text-left w-16 sm:w-20">Discord</a>
             </div>
 
-            <p class="text-gray-300 text-[9px] sm:text-[10px] font-medium tracking-widest uppercase text-center">&copy;
+            <p
+                class="text-[var(--text-main)] text-[9px] sm:text-[10px] font-medium tracking-widest uppercase text-center">
+                &copy;
                 2026
                 SoupTeams. <br><span class="opacity-50 mt-0.5 inline-block">Not affiliated with Mojang AB.</span></p>
         </div>
@@ -1087,6 +1190,32 @@
     <!-- SCRIPTS -->
     <script>
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+
+        // Initialisation du Mode Jour / Nuit depuis localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('soup_theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light');
+                document.getElementById('theme-icon').className = "fa-solid fa-sun text-sm";
+            } else {
+                document.documentElement.classList.remove('light');
+                document.getElementById('theme-icon').className = "fa-solid fa-moon text-sm";
+            }
+        });
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('light')) {
+                html.classList.remove('light');
+                localStorage.setItem('soup_theme', 'dark');
+                icon.className = "fa-solid fa-moon text-sm";
+            } else {
+                html.classList.add('light');
+                localStorage.setItem('soup_theme', 'light');
+                icon.className = "fa-solid fa-sun text-sm";
+            }
+        }
 
         // Gestion de l'écran noir initial de découverte
         window.addEventListener('load', () => {
@@ -1114,17 +1243,17 @@
 
             if (currentActive) {
                 currentActive.style.opacity = '0';
-                currentActive.style.transform = 'translateY(-15px)';
+                currentActive.style.transform = 'translateY(-10px)';
                 setTimeout(() => {
                     currentActive.classList.remove('active');
                     currentActive.style.opacity = '';
                     currentActive.style.transform = '';
-                }, 300);
+                }, 400);
             }
 
             setTimeout(() => {
                 targetPage.style.opacity = '0';
-                targetPage.style.transform = 'translateY(15px)';
+                targetPage.style.transform = 'translateY(10px)';
                 targetPage.classList.add('active');
 
                 void targetPage.offsetWidth;
@@ -1137,8 +1266,8 @@
                 setTimeout(() => {
                     targetPage.style.opacity = '';
                     targetPage.style.transform = '';
-                }, 300);
-            }, currentActive ? 300 : 0);
+                }, 400);
+            }, currentActive ? 400 : 0);
         }
 
         function toggleMobileMenu() {
@@ -1189,7 +1318,7 @@
             ip: "The server IP is: <b>MC.SOUPTEAMS.EU</b>",
             store: "You can purchase ranks on our store: <a href='https://soupteams.tebex.io' target='_blank' class='text-gold underline'>soupteams.tebex.io</a>",
             version: "The server is running version <b>1.8.8</b>.",
-            discord: "Here is the Discord link: <a href='https://dsc.gg/soupteams' target='_blank' class='text-sky underline'>dsc.gg/soupteams</a>",
+            discord: "Here is the Discord link: <a href='https://dsc.gg/soupteams' target='_blank' class='text-gold underline'>dsc.gg/soupteams</a>",
             fallback: "Join our Discord if you need more help!"
         };
 
@@ -1230,7 +1359,7 @@
                     reply = chatResponses.discord;
                 }
 
-                container.innerHTML += `<div class="bg-white/5 p-3 rounded-xl border border-white/5 leading-relaxed">${reply}</div>`;
+                container.innerHTML += `<div class="mj-card p-3 rounded-xl border border-[var(--border-color)] leading-relaxed">${reply}</div>`;
                 container.scrollTop = container.scrollHeight;
             }, 400);
         }
@@ -1333,7 +1462,7 @@
                         observerInstance.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
             document.querySelectorAll('.reveal-on-scroll').forEach(element => observer.observe(element));
         });
@@ -1348,17 +1477,17 @@
 
             if (loggedUser) {
                 htmlContent = `
-                    <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full pl-2 pr-3 py-1.5">
+                    <div class="flex items-center gap-2 bg-black/5 dark:bg-white/5 border border-[var(--border-color)] rounded-full pl-2 pr-3 py-1.5">
                         <img src="https://mc-heads.net/avatar/${encodeURIComponent(loggedUser)}/32" alt="Skin" class="w-6 h-6 rounded-md object-cover shrink-0">
-                        <span class="text-xs font-bold text-white max-w-[110px] truncate">${loggedUser}</span>
-                        <button onclick="logoutUser()" class="text-gray-300 hover:text-red-400 text-xs ml-1 transition-colors cursor-pointer shrink-0" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        <span class="text-xs font-bold text-[var(--text-heading)] max-w-[110px] truncate">${loggedUser}</span>
+                        <button onclick="logoutUser()" class="text-[var(--text-main)] hover:text-red-400 text-xs ml-1 transition-colors cursor-pointer shrink-0" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
                 `;
                 mobileHtmlContent = htmlContent;
                 if (appUsernameText) appUsernameText.innerText = loggedUser;
             } else {
                 htmlContent = `
-                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-gold hover:text-black text-white text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer shrink-0">
+                    <button onclick="openLoginModal()" class="bg-black/10 dark:bg-white/10 hover:bg-gold hover:text-black text-[var(--text-heading)] text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 cursor-pointer shrink-0 border border-[var(--border-color)]">
                         <i class="fa-solid fa-right-to-bracket text-[10px]"></i> <span>Login</span>
                     </button>
                 `;
@@ -1451,14 +1580,8 @@
             const chatBox = document.getElementById('chat-preview-box');
 
             nametagEl.innerText = loggedUser;
-
-            if (rankName === 'VIP') {
-                nametagEl.style.color = "#FFB800";
-                chatBox.innerHTML = `<span style="color: #FFB800;">${loggedUser}</span>: <span class="text-white">Hi !</span>`;
-            } else {
-                nametagEl.style.color = "#38BDF8";
-                chatBox.innerHTML = `<span style="color: #38BDF8;">${loggedUser}</span>: <span class="text-white">Hi !</span>`;
-            }
+            nametagEl.style.color = "#FFB800";
+            chatBox.innerHTML = `<span style="color: #FFB800;">${loggedUser}</span>: <span class="text-[var(--text-heading)]">Hi !</span>`;
 
             document.getElementById('summary-rank-name').innerText = rankName + " (1 Month)";
             document.getElementById('summary-price').innerText = price;
