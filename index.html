@@ -45,6 +45,7 @@
                     colors: {
                         gold: '#FFB800',
                         blood: '#E11D48',
+                        mcblue: '#38BDF8', // Couleur &b Minecraft (Aqua)
                     }
                 }
             }
@@ -369,8 +370,9 @@
                 </div>
 
                 <div class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3 space-y-1.5">
-                    <div class="text-[9px] font-semibold text-gold uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fa-solid fa-comments text-gold"></i> Chat
+                    <div id="drawer-chat-label"
+                        class="text-[9px] font-semibold uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-comments"></i> Chat
                     </div>
                     <div id="chat-preview-box"
                         class="font-mono text-[11px] bg-black/20 dark:bg-black/40 p-2 rounded border border-[var(--border-color)] text-[var(--text-heading)]">
@@ -382,7 +384,7 @@
                             :</span><span id="summary-rank-name" class="font-bold text-[var(--text-heading)]">VIP (1
                             Month)</span></div>
                     <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Price
-                            :</span><span id="summary-price" class="font-bold text-gold">2.99€</span></div>
+                            :</span><span id="summary-price" class="font-bold">2.99€</span></div>
                     <div class="border-t border-[var(--border-color)] pt-2 flex justify-between font-bold"><span
                             class="text-[var(--text-heading)]">Total :</span><span id="summary-total"
                             class="text-[var(--text-heading)]">2.99€</span>
@@ -392,8 +394,8 @@
         </div>
 
         <div class="mt-5">
-            <button onclick="proceedToTebex()"
-                class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer">
+            <button id="drawer-proceed-btn" onclick="proceedToTebex()"
+                class="w-full py-3 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer bg-gold hover:bg-yellow-400">
                 <span>Proceed to Checkout</span><i class="fa-solid fa-arrow-right text-[10px]"></i>
             </button>
             <p class="text-[10px] text-[var(--text-main)] text-center mt-3 flex items-center justify-center gap-1.5"><i
@@ -721,77 +723,97 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
-                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
-                        <div class="text-[var(--text-main)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Free
-                            Rank</div>
-                        <h3 class="text-xl sm:text-2xl font-black text-[var(--text-heading)] uppercase mb-2">DEFAULT
-                        </h3>
-                        <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">0.00€ <span
-                                class="text-[11px] font-medium text-[var(--text-main)]">/ forever</span></div>
-                        <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
-                            <li class="flex items-center"><i
-                                    class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
-                                <span>Standard white nickname</span>
-                            </li>
-                            <li class="flex items-center"><i
-                                    class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
-                                <span>Standard queue access</span>
-                            </li>
-                            <li class="flex items-center"><i
-                                    class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
-                                <span>Gold multiplier x1.0</span>
-                            </li>
-                        </ul>
+                    <!-- DEFAULT CARD (flexbox pour aligner le bouton en bas) -->
+                    <div class="mj-card rounded-2xl p-6 reveal-on-scroll flex flex-col justify-between">
+                        <div>
+                            <div class="text-[var(--text-main)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
+                                Free
+                                Rank</div>
+                            <h3 class="text-xl sm:text-2xl font-black text-[var(--text-heading)] uppercase mb-2">DEFAULT
+                            </h3>
+                            <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">0.00€ <span
+                                    class="text-[11px] font-medium text-[var(--text-main)]">/ forever</span></div>
+                            <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
+                                    <span>Standard white nickname</span>
+                                </li>
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
+                                    <span>Standard queue access</span>
+                                </li>
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
+                                    <span>Gold multiplier x1.0</span>
+                                </li>
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
+                                    <span>/Go x1</span>
+                                </li>
+                            </ul>
+                        </div>
                         <button
                             class="w-full py-3 bg-black/5 dark:bg-white/5 text-gray-400 font-black uppercase tracking-widest text-xs rounded cursor-not-allowed">Current
                             Rank</button>
                     </div>
 
-                    <div class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll">
-                        <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">VIP Rank</div>
-                        <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">VIP</h3>
-                        <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">2.99€ <span
-                                class="text-[11px] font-medium text-[var(--text-main)]">/ month</span></div>
-                        <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>Gold colored nickname</span>
-                            </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>Priority queue access</span>
-                            </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>Gold multiplier x1.2</span>
-                            </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>/Go x2</span>
-                            </li>
-                        </ul>
+                    <!-- VIP CARD -->
+                    <div class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll flex flex-col justify-between">
+                        <div>
+                            <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">VIP Rank</div>
+                            <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">VIP</h3>
+                            <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">2.99€ <span
+                                    class="text-[11px] font-medium text-[var(--text-main)]">/ month</span></div>
+                            <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <span>Gold colored nickname</span>
+                                </li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <span>Priority queue access</span>
+                                </li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <span>Gold multiplier x1.2</span>
+                                </li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <span>/Go x2</span>
+                                </li>
+                            </ul>
+                        </div>
                         <button onclick="openCheckout('VIP', '2.99€', 'https://soupteams.tebex.io/package/vip')"
                             class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded transition-colors cursor-pointer">Get
                             VIP</button>
                     </div>
 
-                    <div class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll">
-                        <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE Rank</div>
-                        <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">ELITE</h3>
-                        <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">5.99€ <span
-                                class="text-[11px] font-medium text-[var(--text-main)]">/ month</span></div>
-                        <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>Gold colored nickname</span>
-                            </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>Priority queue access</span>
-                            </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>Gold multiplier x1.5</span>
-                            </li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
-                                <span>3/3 go</span>
-                            </li>
-                        </ul>
+                    <!-- ELITE CARD (&b color applied) -->
+                    <div
+                        class="mj-card rounded-2xl p-6 border-mcblue/40 reveal-on-scroll flex flex-col justify-between">
+                        <div>
+                            <div class="text-mcblue text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE Rank
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-black text-mcblue uppercase mb-2">ELITE</h3>
+                            <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">5.99€ <span
+                                    class="text-[11px] font-medium text-[var(--text-main)]">/ month</span></div>
+                            <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i>
+                                    <span>Aqua colored nickname</span>
+                                </li>
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i>
+                                    <span>Priority queue access</span>
+                                </li>
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i>
+                                    <span>Gold multiplier x1.5</span>
+                                </li>
+                                <li class="flex items-center"><i
+                                        class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i>
+                                    <span>/Go x3</span>
+                                </li>
+                            </ul>
+                        </div>
                         <button onclick="openCheckout('ELITE', '5.99€', 'https://soupteams.tebex.io/package/elite')"
-                            class="w-full py-3 bg-gold hover:bg-yellow-400 text-black font-black uppercase tracking-widest text-xs rounded transition-colors cursor-pointer">Get
+                            class="w-full py-3 bg-mcblue hover:bg-sky-400 text-black font-black uppercase tracking-widest text-xs rounded transition-colors cursor-pointer">Get
                             Elite</button>
                     </div>
                 </div>
@@ -1540,7 +1562,7 @@
                     showToast(exactUsername);
                 } else {
                     error.innerText = "This Minecraft account does not exist!";
-                    error.classList.remove('hidden');
+                    error.classList.add('hidden');
                     input.focus();
                 }
             } catch (err) {
@@ -1578,10 +1600,26 @@
 
             const nametagEl = document.getElementById('drawer-nametag-username');
             const chatBox = document.getElementById('chat-preview-box');
+            const chatLabel = document.getElementById('drawer-chat-label');
+            const priceEl = document.getElementById('summary-price');
+            const proceedBtn = document.getElementById('drawer-proceed-btn');
 
             nametagEl.innerText = loggedUser;
-            nametagEl.style.color = "#FFB800";
-            chatBox.innerHTML = `<span style="color: #FFB800;">${loggedUser}</span>: <span class="text-[var(--text-heading)]">Hi !</span>`;
+
+            // Gestion conditionnelle des couleurs selon le rang sélectionné (VIP = Gold #FFB800, ELITE = mcblue #38BDF8)
+            const isElite = (rankName === 'ELITE');
+            const colorClass = isElite ? 'text-mcblue' : 'text-gold';
+            const colorHex = isElite ? '#38BDF8' : '#FFB800';
+
+            // Application de la couleur pour le chat et le prix
+            chatLabel.className = `text-[9px] font-semibold uppercase tracking-wider flex items-center gap-1.5 ${colorClass}`;
+            priceEl.className = `font-bold ${colorClass}`;
+
+            // Bouton de paiement
+            proceedBtn.className = `w-full py-3 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer ${isElite ? 'bg-mcblue hover:bg-sky-400' : 'bg-gold hover:bg-yellow-400'}`;
+
+            nametagEl.style.color = colorHex;
+            chatBox.innerHTML = `<span style="color: ${colorHex};">${loggedUser}</span>: <span class="text-[var(--text-heading)]">Hi !</span>`;
 
             document.getElementById('summary-rank-name').innerText = rankName + " (1 Month)";
             document.getElementById('summary-price').innerText = price;
