@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const MINECRAFT_API_URL = "http://151.242.159.7:8080/api/top10";
+  const MINECRAFT_API_URL = "http://151.242.159.7:2952/api/top10";
 
   try {
     const response = await fetch(MINECRAFT_API_URL, {
