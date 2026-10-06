@@ -1267,86 +1267,98 @@
         });
 
         // Fonction pour récupérer le Top 10 Balances
-        async function fetchTopBalance() {
-            const container = document.getElementById('baltop-list');
-            if (!container) return;
+async function fetchTopBalance() {
+    const container = document.getElementById('baltop-list');
+    if (!container) return;
 
-            try {
-                const response = await fetch(TOP_BALANCE_API_URL, {
-                    method: 'GET',
-                    headers: { 'Accept': 'application/json' }
-                });
+    try {
+        const response = await fetch(TOP_BALANCE_API_URL, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status}`);
-                }
-
-                const players = await response.json();
-
-                if (!players || players.length === 0) {
-                    container.innerHTML = `
-                        <div class="text-center text-[var(--text-main)] text-xs font-medium py-4">
-                            No balance data available yet.
-                        </div>
-                    `;
-                    return;
-                }
-
-                let html = '';
-                players.forEach((data) => {
-                    let rankColor = "text-[var(--text-main)] font-bold";
-                    let rankBadge = `#${data.rank}`;
-                    let borderStyle = "border-[var(--border-color)]";
-
-                    if (data.rank === 1) {
-                        rankColor = "text-gold font-black";
-                        rankBadge = "🥇";
-                        borderStyle = "border-gold/30 bg-gold/5";
-                    } else if (data.rank === 2) {
-                        rankColor = "text-slate-300 font-black";
-                        rankBadge = "🥈";
-                        borderStyle = "border-slate-400/20";
-                    } else if (data.rank === 3) {
-                        rankColor = "text-amber-600 font-black";
-                        rankBadge = "🥉";
-                        borderStyle = "border-amber-600/20";
-                    }
-
-                    const formattedBalance = Number(data.balance).toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
-
-                    html += `
-                        <div class="flex items-center justify-between bg-[var(--bg-main)] p-2.5 rounded-xl border ${borderStyle} transition-all hover:scale-[1.01]">
-                            <div class="flex items-center gap-3 min-w-0">
-                                <span class="w-6 text-center text-xs ${rankColor} shrink-0">${rankBadge}</span>
-                                <img src="https://mc-heads.net/avatar/${encodeURIComponent(data.player)}/28" 
-                                     alt="${data.player}" 
-                                     class="w-7 h-7 rounded-lg object-cover shrink-0 border border-[var(--border-color)]">
-                                <span class="text-xs font-bold text-[var(--text-heading)] truncate">
-                                    ${escapeHtml(data.player)}
-                                </span>
-                            </div>
-                            <span class="text-xs font-mono font-bold text-emerald-400 shrink-0 ml-2">
-                                ${formattedBalance} Gold
-                            </span>
-                        </div>
-                    `;
-                });
-
-                container.innerHTML = html;
-
-            } catch (error) {
-                console.error("Top Balance API Error:", error);
-                container.innerHTML = `
-                    <div class="text-center text-blood text-xs font-medium py-4 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        <span>Unable to load leaderboard.</span>
-                    </div>
-                `;
-            }
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
         }
+
+        const data = await response.json();
+
+        // VÉRIFICATION CRITIQUE : Si la réponse contient une erreur ou n'est pas un tableau
+        if (!Array.isArray(data)) {
+            console.error("Réponse de l'API non valide (pas un tableau) :", data);
+            container.innerHTML = `
+                <div class="text-center text-amber-500 text-xs font-medium py-4 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>${data.error || "Impossible de charger le classement."}</span>
+                </div>
+            `;
+            return;
+        }
+
+        if (data.length === 0) {
+            container.innerHTML = `
+                <div class="text-center text-[var(--text-main)] text-xs font-medium py-4">
+                    Aucune donnée de solde disponible pour le moment.
+                </div>
+            `;
+            return;
+        }
+
+        let html = '';
+        data.forEach((playerData) => {
+            let rankColor = "text-[var(--text-main)] font-bold";
+            let rankBadge = `#${playerData.rank}`;
+            let borderStyle = "border-[var(--border-color)]";
+
+            if (playerData.rank === 1) {
+                rankColor = "text-gold font-black";
+                rankBadge = "🥇";
+                borderStyle = "border-gold/30 bg-gold/5";
+            } else if (playerData.rank === 2) {
+                rankColor = "text-slate-300 font-black";
+                rankBadge = "🥈";
+                borderStyle = "border-slate-400/20";
+            } else if (playerData.rank === 3) {
+                rankColor = "text-amber-600 font-black";
+                rankBadge = "🥉";
+                borderStyle = "border-amber-600/20";
+            }
+
+            const formattedBalance = Number(playerData.balance).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            html += `
+                <div class="flex items-center justify-between bg-[var(--bg-main)] p-2.5 rounded-xl border ${borderStyle} transition-all hover:scale-[1.01]">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <span class="w-6 text-center text-xs ${rankColor} shrink-0">${rankBadge}</span>
+                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(playerData.player)}/28" 
+                             alt="${playerData.player}" 
+                             class="w-7 h-7 rounded-lg object-cover shrink-0 border border-[var(--border-color)]">
+                        <span class="text-xs font-bold text-[var(--text-heading)] truncate">
+                            ${escapeHtml(playerData.player)}
+                        </span>
+                    </div>
+                    <span class="text-xs font-mono font-bold text-emerald-400 shrink-0 ml-2">
+                        ${formattedBalance} Gold
+                    </span>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+
+    } catch (error) {
+        console.error("Top Balance API Error:", error);
+        container.innerHTML = `
+            <div class="text-center text-blood text-xs font-medium py-4 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Erreur lors du chargement du classement.</span>
+            </div>
+        `;
+    }
+}
 
         function toggleDarkMode() {
             const html = document.documentElement;
