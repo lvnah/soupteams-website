@@ -705,6 +705,40 @@
             </div>
         </section>
 
+        <!-- SECTION TOP 10 BALANCES (AJOUTÉE) -->
+        <section id="top-balance" class="py-16 md:py-24 relative border-t border-[var(--border-color)] px-4">
+            <div class="max-w-xl mx-auto">
+                <div class="text-center mb-10 reveal-on-scroll">
+                    <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-2">
+                        <span>Top 10</span> <span class="text-gold">Balances</span>
+                    </h2>
+                    <p class="text-[var(--text-main)] font-semibold uppercase tracking-widest text-[11px]">The wealthiest players on SoupTeams</p>
+                    <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3 opacity-80"></div>
+                </div>
+
+                <div class="mj-card rounded-2xl p-6 border-gold/30 shadow-2xl relative overflow-hidden reveal-on-scroll">
+                    <div class="flex items-center justify-between mb-5 border-b border-[var(--border-color)] pb-3">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-sm">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <h3 class="text-sm font-black text-[var(--text-heading)] uppercase tracking-wider">Leaderboard</h3>
+                        </div>
+                        <button onclick="fetchTopBalance()" title="Refresh" class="text-xs text-[var(--text-main)] hover:text-gold transition-colors cursor-pointer p-1">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+
+                    <!-- Conteneur de la liste -->
+                    <div id="baltop-list" class="space-y-2">
+                        <div class="text-center text-[var(--text-main)] text-xs font-semibold py-8">
+                            <i class="fa-solid fa-spinner animate-spin text-gold mr-2"></i> Loading top balances...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Boutique Section -->
         <section id="boutique" class="py-16 md:py-24 relative border-t border-[var(--border-color)] px-4">
             <div class="max-w-6xl mx-auto">
@@ -723,7 +757,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 max-w-5xl mx-auto">
-                    <!-- DEFAULT CARD (flexbox pour aligner le bouton en bas) -->
+                    <!-- DEFAULT CARD -->
                     <div class="mj-card rounded-2xl p-6 reveal-on-scroll flex flex-col justify-between">
                         <div>
                             <div class="text-[var(--text-main)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
@@ -784,7 +818,7 @@
                             VIP</button>
                     </div>
 
-                    <!-- ELITE CARD (&b color applied) -->
+                    <!-- ELITE CARD -->
                     <div
                         class="mj-card rounded-2xl p-6 border-mcblue/40 reveal-on-scroll flex flex-col justify-between">
                         <div>
@@ -1213,6 +1247,9 @@
     <script>
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 
+        // API Endpoint Top 10 Balance
+        const TOP_BALANCE_API_URL = "http://151.242.159.7:8080/api/top10";
+
         // Initialisation du Mode Jour / Nuit depuis localStorage
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('soup_theme');
@@ -1223,7 +1260,93 @@
                 document.documentElement.classList.remove('light');
                 document.getElementById('theme-icon').className = "fa-solid fa-moon text-sm";
             }
+
+            // Chargement initial du Top 10 et rafraîchissement automatique
+            fetchTopBalance();
+            setInterval(fetchTopBalance, 30000);
         });
+
+        // Fonction pour récupérer le Top 10 Balances
+        async function fetchTopBalance() {
+            const container = document.getElementById('baltop-list');
+            if (!container) return;
+
+            try {
+                const response = await fetch(TOP_BALANCE_API_URL, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+
+                const players = await response.json();
+
+                if (!players || players.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center text-[var(--text-main)] text-xs font-medium py-4">
+                            No balance data available yet.
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '';
+                players.forEach((data) => {
+                    let rankColor = "text-[var(--text-main)] font-bold";
+                    let rankBadge = `#${data.rank}`;
+                    let borderStyle = "border-[var(--border-color)]";
+
+                    if (data.rank === 1) {
+                        rankColor = "text-gold font-black";
+                        rankBadge = "🥇";
+                        borderStyle = "border-gold/30 bg-gold/5";
+                    } else if (data.rank === 2) {
+                        rankColor = "text-slate-300 font-black";
+                        rankBadge = "🥈";
+                        borderStyle = "border-slate-400/20";
+                    } else if (data.rank === 3) {
+                        rankColor = "text-amber-600 font-black";
+                        rankBadge = "🥉";
+                        borderStyle = "border-amber-600/20";
+                    }
+
+                    const formattedBalance = Number(data.balance).toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+
+                    html += `
+                        <div class="flex items-center justify-between bg-[var(--bg-main)] p-2.5 rounded-xl border ${borderStyle} transition-all hover:scale-[1.01]">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="w-6 text-center text-xs ${rankColor} shrink-0">${rankBadge}</span>
+                                <img src="https://mc-heads.net/avatar/${encodeURIComponent(data.player)}/28" 
+                                     alt="${data.player}" 
+                                     class="w-7 h-7 rounded-lg object-cover shrink-0 border border-[var(--border-color)]">
+                                <span class="text-xs font-bold text-[var(--text-heading)] truncate">
+                                    ${escapeHtml(data.player)}
+                                </span>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-emerald-400 shrink-0 ml-2">
+                                ${formattedBalance} Gold
+                            </span>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+
+            } catch (error) {
+                console.error("Top Balance API Error:", error);
+                container.innerHTML = `
+                    <div class="text-center text-blood text-xs font-medium py-4 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Unable to load leaderboard.</span>
+                    </div>
+                `;
+            }
+        }
 
         function toggleDarkMode() {
             const html = document.documentElement;
@@ -1606,16 +1729,13 @@
 
             nametagEl.innerText = loggedUser;
 
-            // Gestion conditionnelle des couleurs selon le rang sélectionné (VIP = Gold #FFB800, ELITE = mcblue #38BDF8)
             const isElite = (rankName === 'ELITE');
             const colorClass = isElite ? 'text-mcblue' : 'text-gold';
             const colorHex = isElite ? '#38BDF8' : '#FFB800';
 
-            // Application de la couleur pour le chat et le prix
             chatLabel.className = `text-[9px] font-semibold uppercase tracking-wider flex items-center gap-1.5 ${colorClass}`;
             priceEl.className = `font-bold ${colorClass}`;
 
-            // Bouton de paiement
             proceedBtn.className = `w-full py-3 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer ${isElite ? 'bg-mcblue hover:bg-sky-400' : 'bg-gold hover:bg-yellow-400'}`;
 
             nametagEl.style.color = colorHex;
