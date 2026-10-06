@@ -419,6 +419,8 @@
                     class="hover:text-gold transition-colors">Home</a>
                 <a href="#features" onclick="switchPage('home');"
                     class="hover:text-gold transition-colors">Information</a>
+                <a href="#top-teams" onclick="switchPage('home');"
+                    class="hover:text-gold transition-colors">Teams</a>
                 <a href="#boutique" onclick="switchPage('home');"
                     class="text-gold hover:text-yellow-400 transition-colors">Store</a>
                 <a href="#" onclick="switchPage('staff'); return false;"
@@ -454,6 +456,8 @@
                     class="hover:text-gold transition-colors py-1">Home</a>
                 <a href="#features" onclick="switchPage('home'); toggleMobileMenu();"
                     class="hover:text-gold transition-colors py-1">Information</a>
+                <a href="#top-teams" onclick="switchPage('home'); toggleMobileMenu();"
+                    class="hover:text-gold transition-colors py-1">Teams</a>
                 <a href="#boutique" onclick="switchPage('home'); toggleMobileMenu();"
                     class="text-gold hover:text-yellow-400 transition-colors py-1">Store</a>
                 <a href="#" onclick="switchPage('staff'); toggleMobileMenu(); return false;"
@@ -705,34 +709,67 @@
             </div>
         </section>
 
-        <!-- SECTION TOP 10 BALANCES (AJOUTÉE) -->
+        <!-- SECTION TOP 10 BALANCES & TEAMS -->
         <section id="top-balance" class="py-16 md:py-24 relative border-t border-[var(--border-color)] px-4">
-            <div class="max-w-xl mx-auto">
-                <div class="text-center mb-10 reveal-on-scroll">
-                    <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-2">
-                        <span>Top 10</span> <span class="text-gold">Balances</span>
-                    </h2>
-                    <p class="text-[var(--text-main)] font-semibold uppercase tracking-widest text-[11px]">The wealthiest players on SoupTeams</p>
-                    <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3 opacity-80"></div>
-                </div>
-
-                <div class="mj-card rounded-2xl p-6 border-gold/30 shadow-2xl relative overflow-hidden reveal-on-scroll">
-                    <div class="flex items-center justify-between mb-5 border-b border-[var(--border-color)] pb-3">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-sm">
-                                <i class="fa-solid fa-trophy"></i>
-                            </div>
-                            <h3 class="text-sm font-black text-[var(--text-heading)] uppercase tracking-wider">Leaderboard</h3>
-                        </div>
-                        <button onclick="fetchTopBalance()" title="Refresh" class="text-xs text-[var(--text-main)] hover:text-gold transition-colors cursor-pointer p-1">
-                            <i class="fa-solid fa-arrows-rotate"></i>
-                        </button>
+            <div class="max-w-5xl mx-auto space-y-12">
+                <!-- TOP 10 BALANCES -->
+                <div class="max-w-xl mx-auto">
+                    <div class="text-center mb-10 reveal-on-scroll">
+                        <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-2">
+                            <span>Top 10</span> <span class="text-gold">Balances</span>
+                        </h2>
+                        <p class="text-[var(--text-main)] font-semibold uppercase tracking-widest text-[11px]">The wealthiest players on SoupTeams</p>
+                        <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3 opacity-80"></div>
                     </div>
 
-                    <!-- Conteneur de la liste -->
-                    <div id="baltop-list" class="space-y-2">
-                        <div class="text-center text-[var(--text-main)] text-xs font-semibold py-8">
-                            <i class="fa-solid fa-spinner animate-spin text-gold mr-2"></i> Loading top balances...
+                    <div class="mj-card rounded-2xl p-6 border-gold/30 shadow-2xl relative overflow-hidden reveal-on-scroll">
+                        <div class="flex items-center justify-between mb-5 border-b border-[var(--border-color)] pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-sm">
+                                    <i class="fa-solid fa-trophy"></i>
+                                </div>
+                                <h3 class="text-sm font-black text-[var(--text-heading)] uppercase tracking-wider">Leaderboard</h3>
+                            </div>
+                            <button onclick="fetchTopBalance()" title="Refresh" class="text-xs text-[var(--text-main)] hover:text-gold transition-colors cursor-pointer p-1">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                        </div>
+
+                        <div id="baltop-list" class="space-y-2">
+                            <div class="text-center text-[var(--text-main)] text-xs font-semibold py-8">
+                                <i class="fa-solid fa-spinner animate-spin text-gold mr-2"></i> Loading top balances...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION TEAMS LIST -->
+                <div id="top-teams" class="max-w-4xl mx-auto pt-8 border-t border-[var(--border-color)]">
+                    <div class="text-center mb-10 reveal-on-scroll">
+                        <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-2">
+                            <span>Active</span> <span class="text-gold">Teams</span>
+                        </h2>
+                        <p class="text-[var(--text-main)] font-semibold uppercase tracking-widest text-[11px]">Registered teams on SoupTeams</p>
+                        <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3 opacity-80"></div>
+                    </div>
+
+                    <div class="mj-card rounded-2xl p-6 border-gold/30 shadow-2xl relative overflow-hidden reveal-on-scroll">
+                        <div class="flex items-center justify-between mb-5 border-b border-[var(--border-color)] pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-sm">
+                                    <i class="fa-solid fa-users-line"></i>
+                                </div>
+                                <h3 class="text-sm font-black text-[var(--text-heading)] uppercase tracking-wider">Teams Directory</h3>
+                            </div>
+                            <button onclick="fetchTeams()" title="Refresh" class="text-xs text-[var(--text-main)] hover:text-gold transition-colors cursor-pointer p-1">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </button>
+                        </div>
+
+                        <div id="teams-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="col-span-full text-center text-[var(--text-main)] text-xs font-semibold py-8">
+                                <i class="fa-solid fa-spinner animate-spin text-gold mr-2"></i> Loading teams...
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1247,8 +1284,9 @@
     <script>
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
 
-        // API Endpoint Top 10 Balance
+        // API Endpoints
         const TOP_BALANCE_API_URL = "/api/top10";
+        const TEAMS_API_URL = "/api/teams";
 
         // Initialisation du Mode Jour / Nuit depuis localStorage
         document.addEventListener('DOMContentLoaded', () => {
@@ -1261,104 +1299,190 @@
                 document.getElementById('theme-icon').className = "fa-solid fa-moon text-sm";
             }
 
-            // Chargement initial du Top 10 et rafraîchissement automatique
+            // Chargement initial du Top 10, des Teams et rafraîchissement automatique
             fetchTopBalance();
-            setInterval(fetchTopBalance, 30000);
+            fetchTeams();
+            setInterval(() => {
+                fetchTopBalance();
+                fetchTeams();
+            }, 30000);
         });
 
         // Fonction pour récupérer le Top 10 Balances
-async function fetchTopBalance() {
-    const container = document.getElementById('baltop-list');
-    if (!container) return;
+        async function fetchTopBalance() {
+            const container = document.getElementById('baltop-list');
+            if (!container) return;
 
-    try {
-        const response = await fetch(TOP_BALANCE_API_URL, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-        });
+            try {
+                const response = await fetch(TOP_BALANCE_API_URL, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
 
-        if (!response.ok) {
-            throw new Error(`HTTP Error: ${response.status}`);
-        }
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
 
-        const data = await response.json();
+                const data = await response.json();
 
-        // VÉRIFICATION CRITIQUE : Si la réponse contient une erreur ou n'est pas un tableau
-        if (!Array.isArray(data)) {
-            console.error("Réponse de l'API non valide (pas un tableau) :", data);
-            container.innerHTML = `
-                <div class="text-center text-amber-500 text-xs font-medium py-4 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    <span>${data.error || "Impossible de charger le classement."}</span>
-                </div>
-            `;
-            return;
-        }
+                if (!Array.isArray(data)) {
+                    console.error("API error data:", data);
+                    container.innerHTML = `
+                        <div class="text-center text-amber-500 text-xs font-medium py-4 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>Unable to load leaderboard.</span>
+                        </div>
+                    `;
+                    return;
+                }
 
-        if (data.length === 0) {
-            container.innerHTML = `
-                <div class="text-center text-[var(--text-main)] text-xs font-medium py-4">
-                    Aucune donnée de solde disponible pour le moment.
-                </div>
-            `;
-            return;
-        }
+                if (data.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center text-[var(--text-main)] text-xs font-medium py-4">
+                            No balance data available.
+                        </div>
+                    `;
+                    return;
+                }
 
-        let html = '';
-        data.forEach((playerData) => {
-            let rankColor = "text-[var(--text-main)] font-bold";
-            let rankBadge = `#${playerData.rank}`;
-            let borderStyle = "border-[var(--border-color)]";
+                let html = '';
+                data.forEach((playerData) => {
+                    let rankColor = "text-[var(--text-main)] font-bold";
+                    let rankBadge = `#${playerData.rank}`;
+                    let borderStyle = "border-[var(--border-color)]";
 
-            if (playerData.rank === 1) {
-                rankColor = "text-gold font-black";
-                rankBadge = "🥇";
-                borderStyle = "border-gold/30 bg-gold/5";
-            } else if (playerData.rank === 2) {
-                rankColor = "text-slate-300 font-black";
-                rankBadge = "🥈";
-                borderStyle = "border-slate-400/20";
-            } else if (playerData.rank === 3) {
-                rankColor = "text-amber-600 font-black";
-                rankBadge = "🥉";
-                borderStyle = "border-amber-600/20";
-            }
+                    if (playerData.rank === 1) {
+                        rankColor = "text-gold font-black";
+                        rankBadge = "🥇";
+                        borderStyle = "border-gold/30 bg-gold/5";
+                    } else if (playerData.rank === 2) {
+                        rankColor = "text-slate-300 font-black";
+                        rankBadge = "🥈";
+                        borderStyle = "border-slate-400/20";
+                    } else if (playerData.rank === 3) {
+                        rankColor = "text-amber-600 font-black";
+                        rankBadge = "🥉";
+                        borderStyle = "border-amber-600/20";
+                    }
 
-            const formattedBalance = Number(playerData.balance).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
+                    const formattedBalance = Number(playerData.balance).toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
 
-            html += `
-                <div class="flex items-center justify-between bg-[var(--bg-main)] p-2.5 rounded-xl border ${borderStyle} transition-all hover:scale-[1.01]">
-                    <div class="flex items-center gap-3 min-w-0">
-                        <span class="w-6 text-center text-xs ${rankColor} shrink-0">${rankBadge}</span>
-                        <img src="https://mc-heads.net/avatar/${encodeURIComponent(playerData.player)}/28" 
-                             alt="${playerData.player}" 
-                             class="w-7 h-7 rounded-lg object-cover shrink-0 border border-[var(--border-color)]">
-                        <span class="text-xs font-bold text-[var(--text-heading)] truncate">
-                            ${escapeHtml(playerData.player)}
-                        </span>
+                    html += `
+                        <div class="flex items-center justify-between bg-[var(--bg-main)] p-2.5 rounded-xl border ${borderStyle} transition-all hover:scale-[1.01]">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <span class="w-6 text-center text-xs ${rankColor} shrink-0">${rankBadge}</span>
+                                <img src="https://mc-heads.net/avatar/${encodeURIComponent(playerData.player)}/28" 
+                                     alt="${playerData.player}" 
+                                     class="w-7 h-7 rounded-lg object-cover shrink-0 border border-[var(--border-color)]">
+                                <span class="text-xs font-bold text-[var(--text-heading)] truncate">
+                                    ${escapeHtml(playerData.player)}
+                                </span>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-emerald-400 shrink-0 ml-2">
+                                ${formattedBalance} Gold
+                            </span>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+
+            } catch (error) {
+                console.error("Top Balance API Error:", error);
+                container.innerHTML = `
+                    <div class="text-center text-blood text-xs font-medium py-4 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Error loading leaderboard.</span>
                     </div>
-                    <span class="text-xs font-mono font-bold text-emerald-400 shrink-0 ml-2">
-                        ${formattedBalance} Gold
-                    </span>
-                </div>
-            `;
-        });
+                `;
+            }
+        }
 
-        container.innerHTML = html;
+        // Fonction pour récupérer la liste des Équipes
+        async function fetchTeams() {
+            const container = document.getElementById('teams-list');
+            if (!container) return;
 
-    } catch (error) {
-        console.error("Top Balance API Error:", error);
-        container.innerHTML = `
-            <div class="text-center text-blood text-xs font-medium py-4 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <span>Erreur lors du chargement du classement.</span>
-            </div>
-        `;
-    }
-}
+            try {
+                const response = await fetch(TEAMS_API_URL, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (!Array.isArray(data)) {
+                    console.error("API Teams error:", data);
+                    container.innerHTML = `
+                        <div class="col-span-full text-center text-amber-500 text-xs font-medium py-4 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>Unable to load teams.</span>
+                        </div>
+                    `;
+                    return;
+                }
+
+                if (data.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-full text-center text-[var(--text-main)] text-xs font-medium py-4">
+                            No active teams created yet.
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '';
+                data.forEach((team) => {
+                    const membersList = team.members.map(m => `
+                        <span class="inline-flex items-center gap-1 bg-[var(--bg-card)] border border-[var(--border-color)] px-2 py-0.5 rounded text-[10px] text-[var(--text-main)] font-semibold">
+                            <img src="https://mc-heads.net/avatar/${encodeURIComponent(m)}/16" alt="${m}" class="w-3.5 h-3.5 rounded-sm">
+                            ${escapeHtml(m)}
+                        </span>
+                    `).join('');
+
+                    html += `
+                        <div class="bg-[var(--bg-main)] p-4 rounded-xl border border-[var(--border-color)] flex flex-col justify-between space-y-3 transition-all hover:scale-[1.01]">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="text-sm font-black text-gold uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="fa-solid fa-shield-halved text-xs"></i>
+                                        [${escapeHtml(team.name)}]
+                                    </h4>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded ${team.hqSet ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">
+                                        HQ: ${team.hqSet ? 'SET' : 'NONE'}
+                                    </span>
+                                </div>
+                                <div class="text-[11px] text-[var(--text-main)] font-medium mb-2">
+                                    Leader: <span class="font-bold text-[var(--text-heading)]">${escapeHtml(team.creator)}</span> 
+                                    <span class="text-[10px] opacity-60">(${team.memberCount}/6 members)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 pt-1">
+                                    ${membersList}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+
+            } catch (error) {
+                console.error("Teams API Error:", error);
+                container.innerHTML = `
+                    <div class="col-span-full text-center text-blood text-xs font-medium py-4 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Error loading teams directory.</span>
+                    </div>
+                `;
+            }
+        }
 
         function toggleDarkMode() {
             const html = document.documentElement;
@@ -1599,7 +1723,7 @@ async function fetchTopBalance() {
             } catch (err) {
                 console.error("Webhook Error:", err);
                 showCustomError("Network error occurred.");
-            } finally {
+            } font-medium {
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.style.opacity = "1";
