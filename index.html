@@ -1720,16 +1720,16 @@
                 } else {
                     showCustomError("Error sending request to Discord. Please try again later.");
                 }
-            } catch (err) {
-                console.error("Webhook Error:", err);
-                showCustomError("Network error occurred.");
-            } font-medium {
-                setTimeout(() => {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = "1";
-                    submitBtn.innerText = "Submit Request";
-                }, 3000);
-            }
+} catch (err) {
+    console.error("Webhook Error:", err);
+    showCustomError("Network error occurred.");
+} finally {
+    setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.innerText = "Submit Request";
+    }, 3000);
+}
         });
 
         document.addEventListener('DOMContentLoaded', () => {
