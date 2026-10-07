@@ -126,7 +126,6 @@
             font-size: clamp(2.5rem, 9vw, 7rem);
         }
 
-        /* ANIMATIONS DE SCROLL : FONDU DOUX ET PROGRESSIF */
         .reveal-on-scroll {
             opacity: 0;
             transform: translateY(15px);
@@ -189,7 +188,6 @@
             transform: translateY(0);
         }
 
-        /* LIENS NAVBAR ACTIFS */
         .nav-link {
             position: relative;
             transition: color 0.2s ease;
@@ -273,10 +271,8 @@
                 class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Authentication
-                Required</h3>
-            <p class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please log in with your
-                Minecraft username before submitting a request!</p>
+            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Authentication Required</h3>
+            <p class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please log in with your Minecraft username before submitting a request!</p>
             <div class="flex gap-3 w-full">
                 <button onclick="closeCustomWarning()"
                     class="w-1/2 py-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[var(--text-heading)] font-semibold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer border border-[var(--border-color)]">
@@ -301,10 +297,8 @@
                 class="w-12 h-12 rounded-xl bg-blood/10 border border-blood/20 flex items-center justify-center text-blood text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Submission Error
-            </h3>
-            <p id="error-modal-text" class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please fix
-                the form errors before submitting.</p>
+            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Submission Error</h3>
+            <p id="error-modal-text" class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please fix the form errors before submitting.</p>
             <button onclick="closeCustomError()"
                 class="w-full py-2.5 bg-blood hover:bg-rose-600 text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">
                 Understood
@@ -334,8 +328,7 @@
         </div>
         <div>
             <div class="text-[9px] font-bold text-gold uppercase tracking-wider">Request Sent!</div>
-            <div class="text-xs font-bold text-[var(--text-heading)] truncate max-w-[180px]">Successfully submitted.
-            </div>
+            <div class="text-xs font-bold text-[var(--text-heading)] truncate max-w-[180px]">Successfully submitted.</div>
         </div>
     </div>
 
@@ -354,13 +347,11 @@
         <div class="space-y-3">
             <div>
                 <label
-                    class="block text-[10px] font-semibold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Minecraft
-                    Username</label>
+                    class="block text-[10px] font-semibold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Minecraft Username</label>
                 <input type="text" id="login-username-input" placeholder="Ex: Notch" maxlength="16"
                     class="w-full bg-[var(--bg-main)] border border-[var(--border-color)] rounded-lg py-2.5 px-3 text-[var(--text-heading)] placeholder-gray-400 text-xs font-medium focus:outline-none focus:border-gold transition-colors"
                     onkeydown="if(event.key === 'Enter') submitLogin()">
-                <p id="login-error" class="text-blood text-[10px] mt-1 hidden">Please enter a valid username (max 16
-                    chars).</p>
+                <p id="login-error" class="text-blood text-[10px] mt-1 hidden">Please enter a valid username (max 16 chars).</p>
             </div>
             <button onclick="submitLogin()"
                 class="w-full py-2.5 bg-gold hover:bg-yellow-400 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">Connect</button>
@@ -378,8 +369,7 @@
                 <div>
                     <span id="drawer-badge"
                         class="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[var(--text-heading)] border border-[var(--border-color)]">RANK</span>
-                    <h3 id="drawer-title" class="text-base font-bold text-[var(--text-heading)] uppercase mt-1">VIP Rank
-                    </h3>
+                    <h3 id="drawer-title" class="text-base font-bold text-[var(--text-heading)] uppercase mt-1">VIP Rank</h3>
                 </div>
                 <button onclick="closeCheckout()"
                     class="w-7 h-7 rounded-lg bg-black/5 dark:bg-white/5 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-[var(--text-heading)] transition-colors cursor-pointer"><i
@@ -389,8 +379,7 @@
             <div class="space-y-4">
                 <div
                     class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-4 text-center relative overflow-hidden">
-                    <div class="text-[9px] font-semibold text-[var(--text-main)] uppercase tracking-widest mb-1">In-Game
-                        Visual Preview</div>
+                    <div class="text-[9px] font-semibold text-[var(--text-main)] uppercase tracking-widest mb-1">In-Game Visual Preview</div>
                     <div class="relative h-40 flex flex-col items-center justify-center my-1">
                         <div class="absolute top-1 z-10">
                             <span id="drawer-nametag-username"
@@ -411,14 +400,9 @@
                 </div>
 
                 <div class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3 space-y-2 text-xs">
-                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Item
-                            :</span><span id="summary-rank-name" class="font-bold text-[var(--text-heading)]">VIP (1
-                            Month)</span></div>
-                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Price
-                            :</span><span id="summary-price" class="font-bold">2.99€</span></div>
-                    <div class="border-t border-[var(--border-color)] pt-2 flex justify-between font-bold"><span
-                            class="text-[var(--text-heading)]">Total :</span><span id="summary-total"
-                            class="text-[var(--text-heading)]">2.99€</span></div>
+                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Item :</span><span id="summary-rank-name" class="font-bold text-[var(--text-heading)]">VIP (1 Month)</span></div>
+                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Price :</span><span id="summary-price" class="font-bold">2.99€</span></div>
+                    <div class="border-t border-[var(--border-color)] pt-2 flex justify-between font-bold"><span class="text-[var(--text-heading)]">Total :</span><span id="summary-total" class="text-[var(--text-heading)]">2.99€</span></div>
                 </div>
             </div>
         </div>
@@ -504,7 +488,7 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTENT CONTAINER FOR FULL STICKY FOOTER FLEXBOX -->
+    <!-- MAIN CONTENT CONTAINER -->
     <main class="flex-grow flex flex-col w-full">
 
         <!-- PAGE ACCUEIL / BOUTIQUE -->
@@ -518,8 +502,7 @@
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
                         <span class="text-[10px] sm:text-xs font-bold text-[var(--text-main)] uppercase tracking-[0.15em]">
-                            <span id="player-count" class="text-[var(--text-heading)]">...</span> <span>Players
-                                Online</span>
+                            <span id="player-count" class="text-[var(--text-heading)]">...</span> <span>Players Online</span>
                         </span>
                     </div>
 
@@ -891,7 +874,7 @@
             </div>
         </div>
 
-        <!-- PAGE SEPAREE : TEAMS -->
+        <!-- PAGE SEPAREE : TEAMS LISTING -->
         <div id="page-topteams" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-5xl mx-auto">
             <div class="flex items-center justify-between mb-8 reveal-on-scroll">
                 <h1 class="text-3xl sm:text-4xl font-black uppercase text-[var(--text-heading)] tracking-wide">
@@ -913,6 +896,39 @@
                 <button onclick="switchPage('home')"
                     class="px-5 py-2.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-heading)] font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer border border-[var(--border-color)]">
                     <i class="fa-solid fa-arrow-left mr-1.5"></i> Back to Home
+                </button>
+            </div>
+        </div>
+
+        <!-- PAGE SEPAREE : TEAM DETAIL VIEW -->
+        <div id="page-teamdetail" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-4xl mx-auto">
+            <div class="bg-[#0c1322]/90 border border-[#1e293b] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md relative overflow-hidden">
+                <div class="mb-8">
+                    <div class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-1">TEAM</div>
+                    <div class="flex items-baseline gap-3 flex-wrap">
+                        <h1 id="team-detail-title" class="text-4xl sm:text-5xl font-black text-white tracking-wider font-mono">
+                            Krim
+                        </h1>
+                        <span id="team-detail-count" class="text-sm font-mono text-gray-400 font-semibold">
+                            [2 member(s)]
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <h2 class="text-2xl font-black text-white uppercase tracking-wide font-mono mb-6 pb-2 border-b border-[#1e293b]">
+                        Roster
+                    </h2>
+                    <div id="team-detail-roster" class="flex flex-wrap gap-8 items-end">
+                        <!-- Généré dynamiquement JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button onclick="switchPage('topteams')"
+                    class="px-5 py-2.5 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 text-[var(--text-heading)] font-bold uppercase text-xs rounded-xl transition-colors cursor-pointer border border-[var(--border-color)]">
+                    <i class="fa-solid fa-arrow-left mr-1.5"></i> Back to Teams
                 </button>
             </div>
         </div>
@@ -1281,6 +1297,8 @@
         const TOP_BALANCE_API_URL = "/api/top10";
         const TEAMS_API_URL = "/api/teams";
 
+        let teamsCache = [];
+
         // Initialisation du Mode Jour / Nuit depuis localStorage
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('soup_theme');
@@ -1292,7 +1310,7 @@
                 document.getElementById('theme-icon').className = "fa-solid fa-moon text-sm";
             }
 
-            // Chargement initial du Top 10, des Teams et rafraîchissement automatique
+            // Chargement initial
             fetchTopBalance();
             fetchTeams();
             setInterval(() => {
@@ -1301,7 +1319,7 @@
             }, 30000);
         });
 
-        // Fonction pour récupérer le Top 10 Balances (Style image 1)
+        // Fonction pour récupérer le Top 10 Balances
         async function fetchTopBalance() {
             const container = document.getElementById('baltop-list');
             if (!container) return;
@@ -1319,7 +1337,6 @@
                 const data = await response.json();
 
                 if (!Array.isArray(data)) {
-                    console.error("API error data:", data);
                     container.innerHTML = `
                         <div class="text-center text-amber-500 text-xs font-medium py-4 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1383,7 +1400,7 @@
             }
         }
 
-        // Fonction pour récupérer la liste des Équipes (Style image 2)
+        // Fonction pour récupérer la liste des Équipes
         async function fetchTeams() {
             const container = document.getElementById('teams-list');
             if (!container) return;
@@ -1401,7 +1418,6 @@
                 const data = await response.json();
 
                 if (!Array.isArray(data)) {
-                    console.error("API Teams error:", data);
                     container.innerHTML = `
                         <div class="col-span-full text-center text-amber-500 text-xs font-medium py-4 flex items-center justify-center gap-2">
                             <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1410,6 +1426,8 @@
                     `;
                     return;
                 }
+
+                teamsCache = data;
 
                 if (data.length === 0) {
                     container.innerHTML = `
@@ -1423,11 +1441,12 @@
                 let html = '';
                 data.forEach((team) => {
                     html += `
-                        <div class="bg-[#0c1322]/80 p-5 rounded-2xl border border-[#1e293b] flex flex-col justify-between h-28">
-                            <h4 class="text-lg font-bold text-white tracking-wide truncate">
+                        <div onclick="openTeamDetail('${escapeHtml(team.name)}')" 
+                             class="bg-[#0c1322]/80 p-5 rounded-2xl border border-[#1e293b] hover:border-gold/50 cursor-pointer transition-all flex flex-col justify-between h-28 group">
+                            <h4 class="text-lg font-bold text-white group-hover:text-gold transition-colors tracking-wide truncate font-mono">
                                 ${escapeHtml(team.name)}
                             </h4>
-                            <div class="text-xs font-bold text-gray-400 tracking-wider uppercase">
+                            <div class="text-xs font-bold text-gray-400 tracking-wider uppercase font-mono">
                                 ${team.memberCount} MEMBERS &nbsp;&middot;&nbsp; SEASONAL
                             </div>
                         </div>
@@ -1445,6 +1464,48 @@
                     </div>
                 `;
             }
+        }
+
+        // Fonction pour ouvrir les détails d'une équipe
+        function openTeamDetail(teamName) {
+            const team = teamsCache.find(t => t.name.toLowerCase() === teamName.toLowerCase());
+            
+            if (!team) return;
+
+            document.getElementById('team-detail-title').innerText = team.name;
+            document.getElementById('team-detail-count').innerText = `[${team.memberCount} member(s)]`;
+
+            const rosterContainer = document.getElementById('team-detail-roster');
+            let rosterHtml = '';
+
+            // Creator / Leader en premier
+            rosterHtml += `
+                <div class="flex flex-col items-center">
+                    <span class="text-mcblue font-bold text-sm font-mono mb-2">${escapeHtml(team.creator)}</span>
+                    <img src="https://mc-heads.net/body/${encodeURIComponent(team.creator)}" alt="${team.creator}" class="h-28 object-contain">
+                    <span class="text-xs font-bold uppercase tracking-widest text-gray-400 font-mono mt-2">LEADER</span>
+                </div>
+            `;
+
+            // Autres membres
+            if (Array.isArray(team.members)) {
+                team.members.forEach(member => {
+                    if (member.toLowerCase() !== team.creator.toLowerCase()) {
+                        rosterHtml += `
+                            <div class="flex flex-col items-center">
+                                <span class="text-mcblue font-bold text-sm font-mono mb-2">${escapeHtml(member)}</span>
+                                <img src="https://mc-heads.net/body/${encodeURIComponent(member)}" alt="${member}" class="h-28 object-contain">
+                                <span class="text-xs font-bold uppercase tracking-widest text-gray-400 font-mono mt-2">MEMBER</span>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            rosterContainer.innerHTML = rosterHtml;
+
+            // Navigation vers la page de détail de l'équipe
+            switchPage('teamdetail');
         }
 
         function toggleDarkMode() {
@@ -1484,7 +1545,8 @@
 
             // Mise à jour de l'état actif dans la Navbar
             document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('data-page') === pageId) {
+                const targetNavLink = (pageId === 'teamdetail') ? 'topteams' : pageId;
+                if (link.getAttribute('data-page') === targetNavLink) {
                     link.classList.add('active-link');
                 } else {
                     link.classList.remove('active-link');
@@ -1518,7 +1580,6 @@
 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                // Trigger animations for elements in new page
                 targetPage.querySelectorAll('.reveal-on-scroll').forEach(el => {
                     el.classList.add('is-visible');
                 });
