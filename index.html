@@ -21,8 +21,7 @@
     <meta property="og:title" content="SoupTeams | Best Minecraft Soup PvP Server 1.8.8">
     <meta property="og:description"
         content="Join SoupTeams, the ultimate Minecraft Soup PvP server in version 1.8.8. Hardcore mechanics, gold economy, and competitive leaderboards.">
-    <meta property="og:image"
-        content="https://minecraft.fr/wp-content/uploads/2026/06/fonds-sous-marins-spring-shaders-shader-minecraft.webp">
+    <meta property="og:image" content="https://i.redd.it/i2ohi9kqwqq91.png">
 
     <!-- Google Fonts: Montserrat -->
     <link
@@ -111,7 +110,7 @@
         .hero-bg {
             background-image:
                 linear-gradient(to bottom, var(--hero-overlay-from) 0%, var(--hero-overlay-via) 75%, var(--hero-overlay-to) 100%),
-                url('https://minecraft.fr/wp-content/uploads/2026/06/fonds-sous-marins-spring-shaders-shader-minecraft.webp');
+                url('https://i.redd.it/i2ohi9kqwqq91.png');
             background-size: cover;
             background-position: center;
         }
@@ -271,8 +270,10 @@
                 class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Authentication Required</h3>
-            <p class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please log in with your Minecraft username before submitting a request!</p>
+            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Authentication
+                Required</h3>
+            <p class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please log in with your
+                Minecraft username before submitting a request!</p>
             <div class="flex gap-3 w-full">
                 <button onclick="closeCustomWarning()"
                     class="w-1/2 py-2.5 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[var(--text-heading)] font-semibold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer border border-[var(--border-color)]">
@@ -297,8 +298,10 @@
                 class="w-12 h-12 rounded-xl bg-blood/10 border border-blood/20 flex items-center justify-center text-blood text-xl mb-4">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Submission Error</h3>
-            <p id="error-modal-text" class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please fix the form errors before submitting.</p>
+            <h3 class="text-base font-bold text-[var(--text-heading)] uppercase tracking-wider mb-2">Submission Error
+            </h3>
+            <p id="error-modal-text" class="text-xs text-[var(--text-main)] font-medium leading-relaxed mb-6">Please fix
+                the form errors before submitting.</p>
             <button onclick="closeCustomError()"
                 class="w-full py-2.5 bg-blood hover:bg-rose-600 text-white font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">
                 Understood
@@ -328,7 +331,8 @@
         </div>
         <div>
             <div class="text-[9px] font-bold text-gold uppercase tracking-wider">Request Sent!</div>
-            <div class="text-xs font-bold text-[var(--text-heading)] truncate max-w-[180px]">Successfully submitted.</div>
+            <div class="text-xs font-bold text-[var(--text-heading)] truncate max-w-[180px]">Successfully submitted.
+            </div>
         </div>
     </div>
 
@@ -347,11 +351,13 @@
         <div class="space-y-3">
             <div>
                 <label
-                    class="block text-[10px] font-semibold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Minecraft Username</label>
+                    class="block text-[10px] font-semibold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Minecraft
+                    Username</label>
                 <input type="text" id="login-username-input" placeholder="Ex: Notch" maxlength="16"
                     class="w-full bg-[var(--bg-main)] border border-[var(--border-color)] rounded-lg py-2.5 px-3 text-[var(--text-heading)] placeholder-gray-400 text-xs font-medium focus:outline-none focus:border-gold transition-colors"
                     onkeydown="if(event.key === 'Enter') submitLogin()">
-                <p id="login-error" class="text-blood text-[10px] mt-1 hidden">Please enter a valid username (max 16 chars).</p>
+                <p id="login-error" class="text-blood text-[10px] mt-1 hidden">Please enter a valid username (max 16
+                    chars).</p>
             </div>
             <button onclick="submitLogin()"
                 class="w-full py-2.5 bg-gold hover:bg-yellow-400 text-black font-bold uppercase tracking-wider text-xs rounded-lg transition-colors cursor-pointer">Connect</button>
@@ -369,7 +375,8 @@
                 <div>
                     <span id="drawer-badge"
                         class="text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-[var(--text-heading)] border border-[var(--border-color)]">RANK</span>
-                    <h3 id="drawer-title" class="text-base font-bold text-[var(--text-heading)] uppercase mt-1">VIP Rank</h3>
+                    <h3 id="drawer-title" class="text-base font-bold text-[var(--text-heading)] uppercase mt-1">VIP Rank
+                    </h3>
                 </div>
                 <button onclick="closeCheckout()"
                     class="w-7 h-7 rounded-lg bg-black/5 dark:bg-white/5 border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-[var(--text-heading)] transition-colors cursor-pointer"><i
@@ -379,7 +386,8 @@
             <div class="space-y-4">
                 <div
                     class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-4 text-center relative overflow-hidden">
-                    <div class="text-[9px] font-semibold text-[var(--text-main)] uppercase tracking-widest mb-1">In-Game Visual Preview</div>
+                    <div class="text-[9px] font-semibold text-[var(--text-main)] uppercase tracking-widest mb-1">In-Game
+                        Visual Preview</div>
                     <div class="relative h-40 flex flex-col items-center justify-center my-1">
                         <div class="absolute top-1 z-10">
                             <span id="drawer-nametag-username"
@@ -400,9 +408,14 @@
                 </div>
 
                 <div class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3 space-y-2 text-xs">
-                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Item :</span><span id="summary-rank-name" class="font-bold text-[var(--text-heading)]">VIP (1 Month)</span></div>
-                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Price :</span><span id="summary-price" class="font-bold">2.99€</span></div>
-                    <div class="border-t border-[var(--border-color)] pt-2 flex justify-between font-bold"><span class="text-[var(--text-heading)]">Total :</span><span id="summary-total" class="text-[var(--text-heading)]">2.99€</span></div>
+                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Item
+                            :</span><span id="summary-rank-name" class="font-bold text-[var(--text-heading)]">VIP (1
+                            Month)</span></div>
+                    <div class="flex justify-between"><span class="text-[var(--text-main)] font-medium">Price
+                            :</span><span id="summary-price" class="font-bold">2.99€</span></div>
+                    <div class="border-t border-[var(--border-color)] pt-2 flex justify-between font-bold"><span
+                            class="text-[var(--text-heading)]">Total :</span><span id="summary-total"
+                            class="text-[var(--text-heading)]">2.99€</span></div>
                 </div>
             </div>
         </div>
@@ -501,8 +514,10 @@
                         <span class="relative flex h-2 w-2">
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
-                        <span class="text-[10px] sm:text-xs font-bold text-[var(--text-main)] uppercase tracking-[0.15em]">
-                            <span id="player-count" class="text-[var(--text-heading)]">...</span> <span>Players Online</span>
+                        <span
+                            class="text-[10px] sm:text-xs font-bold text-[var(--text-main)] uppercase tracking-[0.15em]">
+                            <span id="player-count" class="text-[var(--text-heading)]">...</span> <span>Players
+                                Online</span>
                         </span>
                     </div>
 
@@ -513,7 +528,8 @@
 
                     <p
                         class="text-xs sm:text-lg text-[var(--text-main)] font-semibold mb-8 max-w-md sm:max-w-xl mx-auto uppercase tracking-widest px-2 drop-shadow-sm">
-                        <span>The ultimate</span> <span class="text-[var(--text-heading)] font-bold">PvP Soup 1.8.8</span>
+                        <span>The ultimate</span> <span class="text-[var(--text-heading)] font-bold">PvP Soup
+                            1.8.8</span>
                         <span>experience</span>.
                     </p>
 
@@ -562,8 +578,10 @@
                                     class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2 tracking-wide">
                                     Gold Economy</h3>
                             </div>
-                            <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Gold is king.
-                                Eliminate enemies, farm events, and purchase powerful gear directly with gold nuggets.</p>
+                            <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Gold is
+                                king.
+                                Eliminate enemies, farm events, and purchase powerful gear directly with gold nuggets.
+                            </p>
                         </div>
 
                         <div class="mj-card rounded-2xl p-6 reveal-on-scroll">
@@ -577,8 +595,10 @@
                                     Teams
                                 </h3>
                             </div>
-                            <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Create your
-                                team, claim territory, and climb the competitive monthly leaderboard for exclusive rewards.
+                            <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Create
+                                your
+                                team, claim territory, and climb the competitive monthly leaderboard for exclusive
+                                rewards.
                             </p>
                         </div>
 
@@ -592,8 +612,10 @@
                                     class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2 tracking-wide">
                                     Soup Mechanics</h3>
                             </div>
-                            <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Regenerate 3.5
-                                hearts per soup. Use classic recipes or craft soups directly with cactus and cocoa beans.
+                            <p class="text-[var(--text-main)] font-medium text-xs sm:text-sm leading-relaxed">Regenerate
+                                3.5
+                                hearts per soup. Use classic recipes or craft soups directly with cactus and cocoa
+                                beans.
                             </p>
                         </div>
                     </div>
@@ -601,7 +623,8 @@
             </section>
 
             <!-- COMMANDES -->
-            <section class="py-16 md:py-24 relative border-t border-[var(--border-color)] bg-black/5 dark:bg-black/20 px-4">
+            <section
+                class="py-16 md:py-24 relative border-t border-[var(--border-color)] bg-black/5 dark:bg-black/20 px-4">
                 <div class="max-w-6xl mx-auto">
                     <div class="text-center mb-12 md:mb-16 reveal-on-scroll">
                         <h2
@@ -649,7 +672,8 @@
                                     class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-base">
                                     <i class="fa-solid fa-location-dot"></i>
                                 </div>
-                                <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">Personal
+                                <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">
+                                    Personal
                                     Warps (/go)</h3>
                             </div>
                             <ul class="space-y-2.5 text-xs font-mono text-[var(--text-main)] font-medium mb-4">
@@ -665,10 +689,12 @@
                             <div
                                 class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3.5 text-xs text-[var(--text-main)] font-medium space-y-1">
                                 <p class="font-bold text-[var(--text-heading)]"><i
-                                        class="fa-solid fa-triangle-exclamation text-gold mr-1"></i> Teleportation Rules:
+                                        class="fa-solid fa-triangle-exclamation text-gold mr-1"></i> Teleportation
+                                    Rules:
                                 </p>
                                 <p>For <code class="text-[var(--text-heading)] font-bold">/t hq</code> & <code
-                                        class="text-[var(--text-heading)] font-bold">/go</code>: Takes ~5 seconds. No player
+                                        class="text-[var(--text-heading)] font-bold">/go</code>: Takes ~5 seconds. No
+                                    player
                                     within 30 blocks radius.</p>
                             </div>
                         </div>
@@ -679,16 +705,20 @@
                                     class="w-10 h-10 rounded-xl bg-blood/10 border border-blood/20 flex items-center justify-center text-blood text-base">
                                     <i class="fa-solid fa-chess-rook"></i>
                                 </div>
-                                <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">Spawn &
+                                <h3 class="text-lg font-black uppercase text-[var(--text-heading)] tracking-wide">Spawn
+                                    &
                                     Protection</h3>
                             </div>
                             <div class="space-y-3.5 text-xs text-[var(--text-main)] leading-relaxed font-medium">
-                                <p><code class="text-blood font-bold">/spawn</code> : Takes 15 seconds of teleportation (if
+                                <p><code class="text-blood font-bold">/spawn</code> : Takes 15 seconds of teleportation
+                                    (if
                                     not in combat and no movement) and restores spawn protection.</p>
                                 <p
                                     class="bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3.5 text-xs text-[var(--text-main)]">
-                                    <i class="fa-solid fa-shield text-blood mr-1"></i> <strong>Spawn Protection:</strong>
-                                    Active at spawn. If you leave spawn and re-enter, PvP will be enabled for you inside the
+                                    <i class="fa-solid fa-shield text-blood mr-1"></i> <strong>Spawn
+                                        Protection:</strong>
+                                    Active at spawn. If you leave spawn and re-enter, PvP will be enabled for you inside
+                                    the
                                     spawn area!
                                 </p>
                             </div>
@@ -715,7 +745,8 @@
                                 <li><code class="text-emerald-400 font-bold">/buy [id] [qty]</code> - <span
                                         class="font-sans text-[var(--text-main)]">Buy items</span></li>
                             </ul>
-                            <p class="text-xs text-[var(--text-main)] italic font-medium">You must mine and smelt gold to
+                            <p class="text-xs text-[var(--text-main)] italic font-medium">You must mine and smelt gold
+                                to
                                 increase your balance.</p>
                         </div>
                     </div>
@@ -728,13 +759,16 @@
                     <div
                         class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 md:mb-14 reveal-on-scroll gap-3">
                         <div>
-                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-2">Store</h2>
-                            <p class="text-[var(--text-main)] font-semibold uppercase tracking-widest text-[11px]">Support
+                            <h2 class="text-2xl md:text-3xl font-black uppercase text-[var(--text-heading)] mb-2">Store
+                            </h2>
+                            <p class="text-[var(--text-main)] font-semibold uppercase tracking-widest text-[11px]">
+                                Support
                                 the server. Unlock perks.</p>
                         </div>
                         <a href="https://soupteams.tebex.io" target="_blank"
                             class="px-4 py-2 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-[var(--text-heading)] font-bold uppercase tracking-widest text-[11px] rounded transition-colors border border-[var(--border-color)]">
-                            <span>Visit store</span> <i class="fa-solid fa-arrow-right ml-1.5 text-gold text-[10px]"></i>
+                            <span>Visit store</span> <i
+                                class="fa-solid fa-arrow-right ml-1.5 text-gold text-[10px]"></i>
                         </a>
                     </div>
 
@@ -742,9 +776,11 @@
                         <!-- DEFAULT CARD -->
                         <div class="mj-card rounded-2xl p-6 reveal-on-scroll flex flex-col justify-between">
                             <div>
-                                <div class="text-[var(--text-main)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
+                                <div
+                                    class="text-[var(--text-main)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
                                     Free Rank</div>
-                                <h3 class="text-xl sm:text-2xl font-black text-[var(--text-heading)] uppercase mb-2">DEFAULT
+                                <h3 class="text-xl sm:text-2xl font-black text-[var(--text-heading)] uppercase mb-2">
+                                    DEFAULT
                                 </h3>
                                 <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">0.00€ <span
                                         class="text-[11px] font-medium text-[var(--text-main)]">/ forever</span></div>
@@ -758,11 +794,15 @@
                                         <span>Standard queue access</span>
                                     </li>
                                     <li class="flex items-center"><i
-                                            class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i> <span>Gold
-                                            multiplier x1.0</span></li>
+                                            class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
+                                        <span>Gold
+                                            multiplier x1.0</span>
+                                    </li>
                                     <li class="flex items-center"><i
-                                            class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i> <span>/Go
-                                            x1</span></li>
+                                            class="fa-solid fa-check text-[var(--text-main)] mr-2.5 text-xs"></i>
+                                        <span>/Go
+                                            x1</span>
+                                    </li>
                                 </ul>
                             </div>
                             <button
@@ -771,23 +811,29 @@
                         </div>
 
                         <!-- VIP CARD -->
-                        <div class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll flex flex-col justify-between">
+                        <div
+                            class="mj-card rounded-2xl p-6 border-gold/30 reveal-on-scroll flex flex-col justify-between">
                             <div>
-                                <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">VIP Rank</div>
+                                <div class="text-gold text-[10px] font-bold uppercase tracking-[0.2em] mb-2">VIP Rank
+                                </div>
                                 <h3 class="text-xl sm:text-2xl font-black text-gold uppercase mb-2">VIP</h3>
                                 <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">2.99€ <span
                                         class="text-[11px] font-medium text-[var(--text-main)]">/ month</span></div>
                                 <ul class="space-y-3 mb-6 text-xs font-medium text-[var(--text-main)]">
-                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <li class="flex items-center"><i
+                                            class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                         <span>Gold colored nickname</span>
                                     </li>
-                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <li class="flex items-center"><i
+                                            class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                         <span>Priority queue access</span>
                                     </li>
-                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <li class="flex items-center"><i
+                                            class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                         <span>Gold multiplier x1.2</span>
                                     </li>
-                                    <li class="flex items-center"><i class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
+                                    <li class="flex items-center"><i
+                                            class="fa-solid fa-check text-gold mr-2.5 text-xs"></i>
                                         <span>/Go x2</span>
                                     </li>
                                 </ul>
@@ -801,7 +847,8 @@
                         <div
                             class="mj-card rounded-2xl p-6 border-mcblue/40 reveal-on-scroll flex flex-col justify-between">
                             <div>
-                                <div class="text-mcblue text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE Rank
+                                <div class="text-mcblue text-[10px] font-bold uppercase tracking-[0.2em] mb-2">ELITE
+                                    Rank
                                 </div>
                                 <h3 class="text-xl sm:text-2xl font-black text-mcblue uppercase mb-2">ELITE</h3>
                                 <div class="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-5">5.99€ <span
@@ -811,13 +858,16 @@
                                             class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i> <span>Aqua colored
                                             nickname</span></li>
                                     <li class="flex items-center"><i
-                                            class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i> <span>Priority queue
+                                            class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i> <span>Priority
+                                            queue
                                             access</span></li>
                                     <li class="flex items-center"><i
-                                            class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i> <span>Gold multiplier
+                                            class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i> <span>Gold
+                                            multiplier
                                             x1.5</span></li>
                                     <li class="flex items-center"><i
-                                            class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i> <span>/Go x3</span>
+                                            class="fa-solid fa-check text-mcblue mr-2.5 text-xs"></i> <span>/Go
+                                            x3</span>
                                     </li>
                                 </ul>
                             </div>
@@ -833,9 +883,11 @@
             <section class="py-12 px-4 border-t border-[var(--border-color)] bg-black/5 dark:bg-black/25">
                 <div
                     class="max-w-4xl mx-auto text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed space-y-4 reveal-on-scroll">
-                    <h3 class="text-[var(--text-heading)] font-bold text-sm uppercase tracking-wider">SoupTeams : Minecraft
+                    <h3 class="text-[var(--text-heading)] font-bold text-sm uppercase tracking-wider">SoupTeams :
+                        Minecraft
                         Soup PvP Server (1.8.8)</h3>
-                    <p>Welcome to <strong>SoupTeams</strong>, the ultimate platform designed for fans of classic <strong>PvP
+                    <p>Welcome to <strong>SoupTeams</strong>, the ultimate platform designed for fans of classic
+                        <strong>PvP
                             Soup</strong> and hardcore Minecraft mechanics. Built explicitly for version
                         <strong>1.8.8</strong>, our server delivers clean knockback, fast-paced combat, and intense
                         team-based competition.
@@ -902,11 +954,13 @@
 
         <!-- PAGE SEPAREE : TEAM DETAIL VIEW -->
         <div id="page-teamdetail" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-4xl mx-auto">
-            <div class="bg-[#0c1322]/90 border border-[#1e293b] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md relative overflow-hidden">
+            <div
+                class="bg-[#0c1322]/90 border border-[#1e293b] rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-md relative overflow-hidden">
                 <div class="mb-8">
                     <div class="text-xs font-mono text-gray-400 uppercase tracking-widest mb-1">TEAM</div>
                     <div class="flex items-baseline gap-3 flex-wrap">
-                        <h1 id="team-detail-title" class="text-4xl sm:text-5xl font-black text-white tracking-wider font-mono">
+                        <h1 id="team-detail-title"
+                            class="text-4xl sm:text-5xl font-black text-white tracking-wider font-mono">
                             Krim
                         </h1>
                         <span id="team-detail-count" class="text-sm font-mono text-gray-400 font-semibold">
@@ -916,7 +970,8 @@
                 </div>
 
                 <div class="mt-10">
-                    <h2 class="text-2xl font-black text-white uppercase tracking-wide font-mono mb-6 pb-2 border-b border-[#1e293b]">
+                    <h2
+                        class="text-2xl font-black text-white uppercase tracking-wide font-mono mb-6 pb-2 border-b border-[#1e293b]">
                         Roster
                     </h2>
                     <div id="team-detail-roster" class="flex flex-wrap gap-8 items-end">
@@ -936,9 +991,11 @@
         <!-- PAGE CANDIDATURE / TICKET -->
         <div id="page-apply" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-2xl mx-auto">
             <div class="text-center mb-10">
-                <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Staff Application &
+                <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Staff Application
+                    &
                     Ticket</h1>
-                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Fill out this
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Fill out
+                    this
                     form. Only admins can see and review your submission.</p>
                 <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
             </div>
@@ -969,7 +1026,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Your
+                    <label
+                        class="block text-[11px] font-bold uppercase tracking-wider text-[var(--text-main)] mb-1.5">Your
                         Message / Motivations</label>
                     <textarea id="app-message" rows="5" required
                         placeholder="Describe your request or application details in detail..."
@@ -980,7 +1038,8 @@
                     class="flex items-center gap-3 bg-[var(--bg-main)] border border-[var(--border-color)] rounded-xl p-3.5">
                     <input type="checkbox" id="app-not-robot" required
                         class="w-4 h-4 accent-gold bg-black border-[var(--border-color)] rounded cursor-pointer">
-                    <label for="app-not-robot" class="text-xs text-[var(--text-main)] font-bold cursor-pointer select-none">
+                    <label for="app-not-robot"
+                        class="text-xs text-[var(--text-main)] font-bold cursor-pointer select-none">
                         I am not a robot (Anti-Bot Verification)
                     </label>
                 </div>
@@ -1002,7 +1061,8 @@
         <div id="page-staff" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-5xl mx-auto">
             <div class="text-center mb-12">
                 <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Server Staff</h1>
-                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Meet the team
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Meet the
+                    team
                     dedicated to keeping SoupTeams safe and fair.</p>
                 <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
             </div>
@@ -1053,7 +1113,8 @@
                                 </div>
                                 <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Theblaye
                                 </h3>
-                                <p class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
+                                <p
+                                    class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
                                     Moderator</p>
                             </div>
                         </div>
@@ -1069,9 +1130,11 @@
                                         <i class="fa-solid fa-user-plus"></i>
                                     </div>
                                 </div>
-                                <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
+                                <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment
+                                    Open
                                 </h3>
-                                <p class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
+                                <p
+                                    class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
                                     Apply on Discord</p>
                             </div>
                         </div>
@@ -1087,9 +1150,11 @@
                                         <i class="fa-solid fa-user-plus"></i>
                                     </div>
                                 </div>
-                                <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment Open
+                                <h3 class="text-base font-black mt-3 tracking-wide" style="color: #FF55FF;">Recruitment
+                                    Open
                                 </h3>
-                                <p class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
+                                <p
+                                    class="text-[11px] text-[var(--text-main)] mt-1 uppercase tracking-wider font-semibold">
                                     Apply on Discord</p>
                             </div>
                         </div>
@@ -1108,16 +1173,19 @@
         <div id="page-rules" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
             <div class="text-center mb-10">
                 <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Server Rules</h1>
-                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Please follow
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Please
+                    follow
                     these guidelines to ensure a fair community for everyone.</p>
                 <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
             </div>
             <div class="space-y-4">
                 <div class="mj-card rounded-2xl p-5 sm:p-6 border-gold/30 reveal-on-scroll">
                     <h3 class="text-sm sm:text-base font-bold text-gold uppercase mb-2 flex items-center gap-2.5"><i
-                            class="fa-solid fa-shield-halved"></i> <span>1. No Cheating or Unfair Modifications</span></h3>
+                            class="fa-solid fa-shield-halved"></i> <span>1. No Cheating or Unfair Modifications</span>
+                    </h3>
                     <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed">Any client
-                        modifications, hacks, X-Ray texture packs, macros, or automated scripts giving an unfair advantage
+                        modifications, hacks, X-Ray texture packs, macros, or automated scripts giving an unfair
+                        advantage
                         over other players will result in a permanent, unappealable ban from SoupTeams.</p>
                 </div>
                 <div class="mj-card rounded-2xl p-5 sm:p-6 border-[var(--border-color)] reveal-on-scroll">
@@ -1158,8 +1226,10 @@
         <!-- PAGE SUPPORT -->
         <div id="page-support" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-3xl mx-auto">
             <div class="text-center mb-10">
-                <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Support Center</h1>
-                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Need help with
+                <h1 class="text-2xl sm:text-4xl font-black uppercase text-[var(--text-heading)] mb-3">Support Center
+                </h1>
+                <p class="text-[var(--text-main)] text-xs sm:text-sm font-semibold uppercase tracking-wider">Need help
+                    with
                     a purchase, bug report, or ban appeal? We are here for you.</p>
                 <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3"></div>
             </div>
@@ -1173,7 +1243,8 @@
                         <h3 class="text-base sm:text-lg font-bold uppercase text-[var(--text-heading)] mb-2">Discord
                             Community</h3>
                         <p class="text-[var(--text-main)] text-xs sm:text-sm font-medium leading-relaxed mb-5">Join our
-                            official Discord server to open a ticket, chat with players, and get instant assistance from our
+                            official Discord server to open a ticket, chat with players, and get instant assistance from
+                            our
                             staff team.</p>
                     </div>
                     <a href="https://dsc.gg/soupteams" target="_blank"
@@ -1469,7 +1540,7 @@
         // Fonction pour ouvrir les détails d'une équipe
         function openTeamDetail(teamName) {
             const team = teamsCache.find(t => t.name.toLowerCase() === teamName.toLowerCase());
-            
+
             if (!team) return;
 
             document.getElementById('team-detail-title').innerText = team.name;
