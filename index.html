@@ -874,7 +874,7 @@
     </div>
 
     <!-- PAGE SEPAREE : TEAMS -->
-    <div id="page-topteams" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-4xl mx-auto">
+    <div id="page-topteams" class="page-view pt-28 sm:pt-36 pb-16 px-4 max-w-6xl mx-auto">
         <div class="text-center mb-10 reveal-on-scroll">
             <h1 class="text-2xl md:text-4xl font-black uppercase text-[var(--text-heading)] mb-2">
                 <span>Active</span> <span class="text-gold">Teams</span>
@@ -884,23 +884,25 @@
             <div class="w-12 h-1 bg-gold mx-auto rounded-full mt-3 opacity-80"></div>
         </div>
 
-        <div class="mj-card rounded-2xl p-6 border-gold/30 shadow-2xl relative overflow-hidden reveal-on-scroll">
-            <div class="flex items-center justify-between mb-5 border-b border-[var(--border-color)] pb-3">
+        <div class="mj-card rounded-2xl p-6 sm:p-8 border-gold/30 shadow-2xl relative overflow-hidden reveal-on-scroll">
+            <div class="flex items-center justify-between mb-6 border-b border-[var(--border-color)] pb-4">
                 <div class="flex items-center gap-2.5">
                     <div
-                        class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-sm">
+                        class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold text-base">
                         <i class="fa-solid fa-users-line"></i>
                     </div>
-                    <h3 class="text-sm font-black text-[var(--text-heading)] uppercase tracking-wider">Teams Directory
-                    </h3>
+                    <div>
+                        <h3 class="text-base font-black text-[var(--text-heading)] uppercase tracking-wider">Teams Directory</h3>
+                        <p class="text-[10px] text-[var(--text-main)] uppercase tracking-widest">Browse all active clans & members</p>
+                    </div>
                 </div>
                 <button onclick="fetchTeams()" title="Refresh"
-                    class="text-xs text-[var(--text-main)] hover:text-gold transition-colors cursor-pointer p-1">
+                    class="text-xs text-[var(--text-main)] hover:text-gold transition-colors cursor-pointer p-2 rounded-lg bg-black/5 dark:bg-white/5 border border-[var(--border-color)]">
                     <i class="fa-solid fa-arrows-rotate"></i>
                 </button>
             </div>
 
-            <div id="teams-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div id="teams-list" class="grid grid-cols-1 lg:grid-cols-2 gap-5">
                 <div class="col-span-full text-center text-[var(--text-main)] text-xs font-semibold py-8">
                     <i class="fa-solid fa-spinner animate-spin text-gold mr-2"></i> Loading teams...
                 </div>
@@ -1359,7 +1361,7 @@
                     });
 
                     html += `
-                        <div class="flex items-center justify-between bg-[var(--bg-main)] p-2.5 rounded-xl border ${borderStyle} transition-all hover:scale-[1.01]">
+                        <div class="flex items-center justify-between bg-[var(--bg-main)] p-2.5 rounded-xl border ${borderStyle}">
                             <div class="flex items-center gap-3 min-w-0">
                                 <span class="w-6 text-center text-xs ${rankColor} shrink-0">${rankBadge}</span>
                                 <img src="https://mc-heads.net/avatar/${encodeURIComponent(playerData.player)}/28" 
@@ -1429,30 +1431,41 @@
                 let html = '';
                 data.forEach((team) => {
                     const membersList = team.members.map(m => `
-                        <span class="inline-flex items-center gap-1 bg-[var(--bg-card)] border border-[var(--border-color)] px-2 py-0.5 rounded text-[10px] text-[var(--text-main)] font-semibold">
-                            <img src="https://mc-heads.net/avatar/${encodeURIComponent(m)}/16" alt="${m}" class="w-3.5 h-3.5 rounded-sm">
+                        <span class="inline-flex items-center gap-1.5 bg-[var(--bg-card)] border border-[var(--border-color)] px-2.5 py-1 rounded-lg text-xs text-[var(--text-main)] font-semibold">
+                            <img src="https://mc-heads.net/avatar/${encodeURIComponent(m)}/20" alt="${m}" class="w-4 h-4 rounded-sm object-cover">
                             ${escapeHtml(m)}
                         </span>
                     `).join('');
 
                     html += `
-                        <div class="bg-[var(--bg-main)] p-4 rounded-xl border border-[var(--border-color)] flex flex-col justify-between space-y-3 transition-all hover:scale-[1.01]">
+                        <div class="bg-[var(--bg-main)] p-5 rounded-2xl border border-[var(--border-color)] flex flex-col justify-between space-y-4 shadow-md">
                             <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <h4 class="text-sm font-black text-gold uppercase tracking-wider flex items-center gap-1.5">
-                                        <i class="fa-solid fa-shield-halved text-xs"></i>
+                                <div class="flex items-center justify-between mb-3 pb-2 border-b border-[var(--border-color)]">
+                                    <h4 class="text-base font-black text-gold uppercase tracking-wider flex items-center gap-2">
+                                        <i class="fa-solid fa-shield-halved text-sm"></i>
                                         [${escapeHtml(team.name)}]
                                     </h4>
-                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded ${team.hqSet ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}">
+                                    <span class="text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full ${team.hqSet ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/10 text-red-400 border border-red-500/30'}">
                                         HQ: ${team.hqSet ? 'SET' : 'NONE'}
                                     </span>
                                 </div>
-                                <div class="text-[11px] text-[var(--text-main)] font-medium mb-2">
-                                    Leader: <span class="font-bold text-[var(--text-heading)]">${escapeHtml(team.creator)}</span> 
-                                    <span class="text-[10px] opacity-60">(${team.memberCount}/6 members)</span>
+                                <div class="flex items-center justify-between text-xs text-[var(--text-main)] font-medium mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="uppercase tracking-wider text-[10px] text-[var(--text-main)] opacity-70">Leader:</span>
+                                        <span class="font-bold text-[var(--text-heading)] bg-black/10 dark:bg-white/5 border border-[var(--border-color)] px-2 py-0.5 rounded-md flex items-center gap-1.5">
+                                            <img src="https://mc-heads.net/avatar/${encodeURIComponent(team.creator)}/16" alt="${team.creator}" class="w-3.5 h-3.5 rounded-sm">
+                                            ${escapeHtml(team.creator)}
+                                        </span>
+                                    </div>
+                                    <span class="text-[11px] font-bold text-gold px-2 py-0.5 rounded bg-gold/10 border border-gold/20">
+                                        ${team.memberCount}/6 Members
+                                    </span>
                                 </div>
-                                <div class="flex flex-wrap gap-1.5 pt-1">
-                                    ${membersList}
+                                <div class="pt-1">
+                                    <div class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-main)] opacity-60 mb-2">Roster</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${membersList}
+                                    </div>
                                 </div>
                             </div>
                         </div>
